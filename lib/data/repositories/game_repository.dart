@@ -15,7 +15,8 @@ class GameRepository implements IGameRepository {
   @override
   Future<List<GameModel>> getGames() async {
     try {
-      final response = await client.get(url: 'https://www.freetogame.com/api/games');
+      final response =
+          await client.get(url: 'https://www.freetogame.com/api/games');
 
       if (response.statusCode == 200) {
         final List<GameModel> games = [];
