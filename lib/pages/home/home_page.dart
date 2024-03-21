@@ -3,6 +3,7 @@ import 'package:f2p_games/data/repositories/game_repository.dart';
 import 'package:flutter/material.dart';
 
 import '../stores/games_store.dart';
+import 'game_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,7 +13,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final GameStore store = GameStore(repository: GameRepository(client: HttpClient()));
+  final GameStore store =
+      GameStore(repository: GameRepository(client: HttpClient()));
 
   @override
   void initState() {
@@ -52,10 +54,22 @@ class _HomePageState extends State<HomePage> {
               final item = store.state.value[index];
               return Column(
                 children: [
-                 Text(item.title ?? 'Not found'),
-                 Text(item.releaseDate ?? 'Not found'),
-                 ClipRRect(borderRadius: BorderRadius.circular(16),
-                 child: Image.network(item.thumbnail ?? 'Not found'),)
+                  TextButton(
+                    onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GameDetailPage(title: item.title),
+                      ),
+                    );
+                    },
+                    child: Text(item.title ?? 'Not found'),
+                  ),
+                  Text(item.releaseDate ?? 'Not found'),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.network(item.thumbnail ?? 'Not found'),
+                  ),
                 ],
               );
             },
