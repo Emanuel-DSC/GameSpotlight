@@ -1,53 +1,55 @@
 class GameModel {
-  // final String id;
-  final String title;
-  // final String shortDescription;
-  // final String description;
-  // final String thumbnail;
-  // final String url;
-  // final String genre;
-  // final String platform;
-  // final String publisher;
-  // final String developer;
-  // final String releaseDate;
-  // final String freetogameProfileUrl;
-  // final List<String> minimumSystemRequirements;
-  // final List<String> screenshots;
+  String? id;
+  String? title;
+  String? shortDescription;
+  String? description;
+  String? thumbnail;
+  String? url;
+  String? genre;
+  String? platform;
+  String? publisher;
+  String? developer;
+  String? releaseDate;
+  String? freetogameProfileUrl;
+  List<String>? minimumSystemRequirements;
+  List<String>? screenshots;
 
   GameModel({
-    // required this.id,
+    required this.id,
     required this.title,
-    // required this.thumbnail,
-    // required this.url,
-    // required this.genre,
-    // required this.platform,
-    // required this.publisher,
-    // required this.developer,
-    // required this.releaseDate,
-    // required this.freetogameProfileUrl,
-    // required this.shortDescription,
-    // required this.description,
-    // required this.minimumSystemRequirements,
-    // required this.screenshots,
+    required this.thumbnail,
+    required this.url,
+    required this.genre,
+    required this.platform,
+    required this.publisher,
+    required this.developer,
+    required this.releaseDate,
+    required this.freetogameProfileUrl,
+    required this.shortDescription,
+    required this.description,
+    required this.minimumSystemRequirements,
+    required this.screenshots,
   });
 
   factory GameModel.fromMap(Map<String, dynamic> map) {
     return GameModel(
-      // id: map['id'],
+      id: map['id'].toString(),
       title: map['title'],
-      // thumbnail: map['thumbnail'],
-      // url: map['url'],
-      // genre: map['genre'],
-      // platform: map['platform'],
-      // publisher: map['publisher'],
-      // developer: map['developer'],
-      // releaseDate: map['release_date'],
-      // freetogameProfileUrl: map['freetogame_profile_url'],
-      // shortDescription: map['short_description'],
-      // description: map['description'],
-      // minimumSystemRequirements:
-      //     List<String>.from((map['minimum_system_requirements'] as List)),
-      // screenshots: List<String>.from((map['screenshots']['image'] as List)),
+      thumbnail: map['thumbnail'],
+      url: map['url'],
+      genre: map['genre'],
+      platform: map['platform'],
+      publisher: map['publisher'],
+      developer: map['developer'],
+      releaseDate: map['release_date'],
+      freetogameProfileUrl: map['freetogame_profile_url'],
+      shortDescription: map['short_description'],
+      description: map['description'],
+      minimumSystemRequirements: List<String>.from(map['minimum_system_requirements'] ?? []),
+      // If 'screenshots' or 'image' is null, assign an empty list
+      screenshots: map['screenshots'] != null && map['screenshots']['image'] != null
+        ? List<String>.from(map['screenshots']['image'])
+        : [], 
     );
   }
 }

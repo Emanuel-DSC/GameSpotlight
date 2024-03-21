@@ -16,7 +16,6 @@ class GameRepository implements IGameRepository {
   Future<List<GameModel>> getGames() async {
     try {
       final response = await client.get(url: 'https://www.freetogame.com/api/games');
-      print('API Response: ${response.body}');
 
       if (response.statusCode == 200) {
         final List<GameModel> games = [];
@@ -26,8 +25,6 @@ class GameRepository implements IGameRepository {
           games.add(game);
         });
 
-        print('Parsed Games: $games');
-
         return games;
       } else if (response.statusCode == 404) {
         throw NotFoundException('Invalid URL');
@@ -35,7 +32,6 @@ class GameRepository implements IGameRepository {
         throw Exception('Impossible to load the games');
       }
     } catch (e) {
-      print('Error fetching games: $e');
       rethrow; // Rethrow the caught error
     }
   }

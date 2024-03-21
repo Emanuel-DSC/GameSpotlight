@@ -50,8 +50,13 @@ class _HomePageState extends State<HomePage> {
             itemCount: store.state.value.length,
             itemBuilder: (_, index) {
               final item = store.state.value[index];
-              return ListTile(
-                title: Text(item.title),
+              return Column(
+                children: [
+                 Text(item.title ?? 'Not found'),
+                 Text(item.releaseDate ?? 'Not found'),
+                 ClipRRect(borderRadius: BorderRadius.circular(16),
+                 child: Image.network(item.thumbnail ?? 'Not found'),)
+                ],
               );
             },
           );
