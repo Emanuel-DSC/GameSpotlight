@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.1.0
+  stacked_listview: ^1.0.4
 
 dev_dependencies:
   flutter_test:
