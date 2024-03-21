@@ -6,23 +6,23 @@ import 'package:flutter/material.dart';
 class GameStore {
   final IGameRepository repository;
 
-  //variável reativa para loading
+  // variável reativa para loading
   final ValueNotifier<bool> isLoading = ValueNotifier<bool>(false);
 
-  //variável reativa para o state
-  final ValueNotifier<List<GameModel>> state =
-      ValueNotifier<List<GameModel>>([]);
+  // variável reativa para o state
+  final ValueNotifier<List<GameModel>> state = ValueNotifier<List<GameModel>>([]);
 
-  //variavel reativa para o erro
+  // variavel reativa para o erro
   final ValueNotifier<String> erro = ValueNotifier<String>('');
 
   GameStore({required this.repository});
 
-  Future getGames() async {
+  Future<void> getGames() async {
     isLoading.value = true;
 
     try {
       final result = await repository.getGames();
+      print('Number of Games Fetched: ${result.length}');
       state.value = result;
     } on NotFoundException catch (e) {
       erro.value = e.message;
