@@ -63,12 +63,16 @@ class _HomePageState extends State<HomePage> {
             }
             if (store.erro.value.isNotEmpty) {
               return Center(
-                child: Text(store.erro.value),
+                child: Text(store.erro.value, style: const TextStyle(
+                  color: Colors.amber, fontSize: 28,
+                ),),
               );
             }
             if (store.state.value.isEmpty) {
               return const Center(
-                child: Text('Empty list'),
+                child: Text('Empty list', style: TextStyle(
+                  color: Colors.amber, fontSize: 28,
+                ),),
               );
             }
             // If none of the above conditions are met, it means there are games to display
@@ -90,9 +94,10 @@ class _HomePageState extends State<HomePage> {
                             MaterialPageRoute(
                               builder: (context) => GameDetailPage(
                                 title: item.title,
-                                description: item.description,
+                                shortDescription: item.shortDescription,
                                 thumbnail: item.thumbnail,
                                 releaseDate: item.releaseDate,
+                                id: item.id,
                               ),
                             ),
                           );
@@ -107,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                                     imageUrl: item.thumbnail ?? 'Not found',
                                     fit: BoxFit.cover,
                                     placeholder: (context, url) => Container(
-                                          color: Colors.grey.shade800.withOpacity(0.3),
+                                          color: Colors.white.withOpacity(0.2),
                                           alignment: Alignment.center,
                                           width: double.infinity,
                                           height: 210,

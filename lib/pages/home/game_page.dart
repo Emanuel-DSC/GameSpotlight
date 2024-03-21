@@ -1,20 +1,52 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:f2p_games/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
-class GameDetailPage extends StatelessWidget {
+class GameDetailPage extends StatefulWidget {
   final String? title;
   final String? thumbnail;
   final String? releaseDate;
-  final String? description;
+  final String? shortDescription;
+  final String? id;
 
   const GameDetailPage({
     Key? key,
     required this.title,
     required this.thumbnail,
     required this.releaseDate,
-    required this.description,
+    required this.shortDescription,
+    required this.id,
   }) : super(key: key);
+
+  @override
+  State<GameDetailPage> createState() => _GameDetailPageState();
+}
+
+class _GameDetailPageState extends State<GameDetailPage> {
+  List<String> screenshots = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchScreenshots();
+  }
+
+  Future<void> fetchScreenshots() async {
+    // Fetch screenshots data for the specific game using its ID
+    final response = await http.get(Uri.parse('https://www.freetogame.com/api/game?id=${widget.id}'));
+
+    if (response.statusCode == 200) {
+      final List<dynamic> screenshotsData = jsonDecode(response.body)['screenshots'];
+      setState(() {
+        screenshots = screenshotsData.map<String>((screenshot) => screenshot['image']).toList();
+      });
+    } else {
+      throw Exception('Impossible to load screenshots');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +85,7 @@ class GameDetailPage extends StatelessWidget {
             width: double.infinity,
             height: MediaQuery.of(context).size.height * 0.35,
             child: CachedNetworkImage(
-              imageUrl: thumbnail ?? 'Not found',
+              imageUrl: widget.thumbnail ?? 'Not found',
               fit: BoxFit.fill,
               placeholder: (context, url) => Container(
                 color: Colors.black,
@@ -66,6 +98,15 @@ class GameDetailPage extends StatelessWidget {
               ),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
+          ),
+          SizedBox(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.35,
+            child: Center(
+                child: Text(
+              widget.id ?? 'Not found',
+              style: const TextStyle(color: Colors.amber, fontSize: 34),
+            )),
           ),
           const Positioned.fill(
             child: DecoratedBox(
@@ -85,41 +126,89 @@ class GameDetailPage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title ?? 'Not found',
+                    widget.title ?? 'Not found',
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    releaseDate ?? 'Not found',
+                    widget.releaseDate ?? 'Not found',
                     style: const TextStyle(
                       fontSize: 12,
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
-                      description ?? 'Not found', // Corrected assignment here
-                      textAlign: TextAlign.center,
+                      widget.shortDescription ?? 'Not found',
+                      textAlign: TextAlign.justify,
                       maxLines: 10,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 16,
-                        color: Colors.black,
+                        color: Colors.white,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Screenshots',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  // Show screenshots using ListView
+                  Container(
+                    color: Colors.transparent,
+                    height: 300,
+                    width: 500,
+                    child: screenshots.isEmpty
+                        ? const Center(
+                            child: Text(
+                              'No screenshots available',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )
+                        : ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: screenshots.length,
+                            itemBuilder: (context, index) {
+                              final screenshotUrl = screenshots[index];
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: CachedNetworkImage(
+                                  imageUrl: screenshotUrl,
+                                  placeholder: (context, url) => Center(
+                                    child: CircularProgressIndicator(
+                                      color: Colors.red.shade900,
+                                      backgroundColor: Colors.orange.shade600,
+                                    ),
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                ),
+                              );
+                            },
+                          ),
+                  ),
                 ],
               ),
+    
+                
+              ),
             ),
-          ),
+        
         ],
       ),
     );
