@@ -22,7 +22,6 @@ class GameStore {
 
     try {
       final result = await repository.getGames();
-      print('Number of Games Fetched: ${result.length}');
       state.value = result;
     } on NotFoundException catch (e) {
       erro.value = e.message;

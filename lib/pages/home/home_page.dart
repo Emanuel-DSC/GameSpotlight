@@ -1,8 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:f2p_games/data/http/http_client.dart';
 import 'package:f2p_games/data/repositories/game_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_listview/stacked_listview.dart';
-
 import '../stores/games_store.dart';
 import 'game_page.dart';
 
@@ -49,8 +49,6 @@ class _HomePageState extends State<HomePage> {
             child: SizedBox(
               height: 470,
               child: StackedListView(
-                physics: const BouncingScrollPhysics(),
-                controller: ScrollController(),
                 itemCount: store.state.value.length,
                 itemExtent: 210,
                 builder: (context, index) {
@@ -68,30 +66,25 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                       child: SizedBox(
-                        height: 210, // Adjust height to match itemExtent
-                        width:
-                            double.infinity, // Adjust width to match parent width
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Image.network(
-                            item.thumbnail ?? 'Not found',
-                            fit: BoxFit
-                                .cover, // Ensure the image covers the entire area
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) {
-                                return child;
-                              } else {
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    color: Colors.red.shade900,
-                                    backgroundColor: Colors.grey.shade600,
+                          height: 210, // Adjust height to match itemExtent
+                          width: double
+                              .infinity, // Adjust width to match parent width
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: CachedNetworkImage(
+                                  imageUrl: item.thumbnail ?? 'Not found',
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => Container(
+                                    color: Colors.black,
+                                    child: Center(
+                                          child: CircularProgressIndicator(
+                                            color: Colors.red.shade900,
+                                            backgroundColor: Colors.orange.shade600,
+                                          ),
+                                        ),
                                   ),
-                                );
-                              }
-                            },
-                          ),
-                        ),
-                      ),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error)))),
                     ),
                   );
                 },
