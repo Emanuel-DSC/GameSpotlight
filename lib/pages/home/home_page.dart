@@ -16,7 +16,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GameStore store =
       GameStore(repository: GameRepository(client: HttpClient()));
-
   @override
   void initState() {
     super.initState();
@@ -26,54 +25,81 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: AnimatedBuilder(
-            animation:
-                Listenable.merge([store.isLoading, store.erro, store.state]),
-            builder: (context, child) {
-              if (store.isLoading.value) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (store.erro.value.isNotEmpty) {
-                return Center(
-                  child: Text(store.erro.value),
-                );
-              }
-              if (store.state.value.isEmpty) {
-                return const Center(
-                  child: Text('Nenhum item na lista'),
-                );
-              }
-              // If none of the above conditions are met, it means there are games to display
-              return StackedListView(
+      body: AnimatedBuilder(
+        animation: Listenable.merge([store.isLoading, store.erro, store.state]),
+        builder: (context, child) {
+          if (store.isLoading.value) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (store.erro.value.isNotEmpty) {
+            return Center(
+              child: Text(store.erro.value),
+            );
+          }
+          if (store.state.value.isEmpty) {
+            return const Center(
+              child: Text('Empty list'),
+            );
+          }
+          // If none of the above conditions are met, it means there are games to display
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              height: 470,
+              child: StackedListView(
+                physics: const BouncingScrollPhysics(),
+                controller: ScrollController(),
                 itemCount: store.state.value.length,
-                itemExtent: 300,
+                itemExtent: 210,
                 builder: (context, index) {
                   final item = store.state.value[index];
-                  return Column(
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  GameDetailPage(title: item.title),
-                            ),
-                          );
-                        },
-                        child: Text(item.title ?? 'Not found'),
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                GameDetailPage(title: item.title),
+                          ),
+                        );
+                      },
+                      child: SizedBox(
+                        height: 210, // Adjust height to match itemExtent
+                        width:
+                            double.infinity, // Adjust width to match parent width
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.network(
+                            item.thumbnail ?? 'Not found',
+                            fit: BoxFit
+                                .cover, // Ensure the image covers the entire area
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child;
+                              } else {
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.red.shade900,
+                                    backgroundColor: Colors.grey.shade600,
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        ),
                       ),
-                      Text(item.releaseDate ?? 'Not found'),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Image.network(item.thumbnail ?? 'Not found'),
-                      ),
-                    ],
+                    ),
                   );
                 },
-              );
-            }));
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }
