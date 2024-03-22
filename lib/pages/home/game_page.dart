@@ -4,6 +4,7 @@ import 'package:f2p_games/constants/colors.dart';
 import 'package:f2p_games/view/widgets/my_progress_indicador_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../view/widgets/game_cover_widget.dart';
 import '../../view/widgets/game_screenshots_widget.dart';
@@ -14,6 +15,7 @@ class GameDetailPage extends StatefulWidget {
   final String? releaseDate;
   final String? shortDescription;
   final String? id;
+  final String? gameUrl;
 
   const GameDetailPage({
     Key? key,
@@ -22,6 +24,7 @@ class GameDetailPage extends StatefulWidget {
     required this.releaseDate,
     required this.shortDescription,
     required this.id,
+    required this.gameUrl,
   }) : super(key: key);
 
   @override
@@ -39,13 +42,23 @@ class _GameDetailPageState extends State<GameDetailPage> {
 
   Future<List<String>> fetchScreenshots() async {
     // Fetch screenshots data for the specific game using its ID
-    final response = await http.get(Uri.parse('https://www.freetogame.com/api/game?id=${widget.id}'));
+    final response = await http
+        .get(Uri.parse('https://www.freetogame.com/api/game?id=${widget.id}'));
 
     if (response.statusCode == 200) {
-      final List<dynamic> screenshotsData = jsonDecode(response.body)['screenshots'];
-      return screenshotsData.map<String>((screenshot) => screenshot['image']).toList();
+      final List<dynamic> screenshotsData =
+          jsonDecode(response.body)['screenshots'];
+      return screenshotsData
+          .map<String>((screenshot) => screenshot['image'])
+          .toList();
     } else {
       throw Exception('Impossible to load screenshots');
+    }
+  }
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(Uri.parse(widget.gameUrl ?? 'No link found'))) {
+      throw Exception('Could not launch url');
     }
   }
 
@@ -133,6 +146,46 @@ class _GameDetailPageState extends State<GameDetailPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(35),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.greenAccent.withOpacity(0.5),
+                          spreadRadius: 0.05,
+                          blurRadius: 10,
+                          offset: const Offset(
+                              0, 3), // Offset (horizontal, vertical)
+                        ),
+                      ],
+                    ),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _launchUrl();
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.green.shade400),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20))),
+                          padding: MaterialStateProperty.all(
+                            const EdgeInsets.symmetric(vertical: 10.0),
+                          )),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Play now'),
+                          Icon(Icons.arrow_forward_outlined),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   const Text(
                     'Screenshots',
                     style: TextStyle(
@@ -149,8 +202,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         // While data is loading, display a circular progress indicator
                         return const Center(
-                          child: MyCircularProgressIndicator()
-                        );
+                            child: MyCircularProgressIndicator());
                       } else if (snapshot.hasError) {
                         // If an error occurs, display an error message
                         return const Center(
@@ -175,6 +227,3 @@ class _GameDetailPageState extends State<GameDetailPage> {
     );
   }
 }
-
-
-

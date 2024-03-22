@@ -36,7 +36,7 @@ class GameModel {
     id: map['id'].toString(),
     title: map['title'],
     thumbnail: map['thumbnail'],
-    url: map['url'],
+    url: map['game_url'],
     genre: map['genre'],
     platform: map['platform'],
     publisher: map['publisher'],

@@ -96,6 +96,7 @@ class _HomePageState extends State<HomePage> {
                                 thumbnail: item.thumbnail,
                                 releaseDate: item.releaseDate,
                                 id: item.id,
+                                gameUrl: item.url,
                               ),
                             ),
                           );
