@@ -6,6 +6,7 @@ import 'package:f2p_games/data/http/http_client.dart';
 import 'package:f2p_games/data/repositories/game_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_listview/stacked_listview.dart';
+import '../../view/widgets/my_progress_indicador_widget.dart';
 import '../stores/games_store.dart';
 import 'game_page.dart';
 
@@ -53,10 +54,7 @@ class _HomePageState extends State<HomePage> {
                     alignment: Alignment.center,
                     width: double.infinity,
                     height: double.infinity,
-                    child: CircularProgressIndicator(
-                      color: Colors.cyan,
-                      backgroundColor: kBgColor1,
-                    ),
+                    child: const MyCircularProgressIndicator(),
                   ),
                 ),
               );
@@ -116,11 +114,8 @@ class _HomePageState extends State<HomePage> {
                                           alignment: Alignment.center,
                                           width: double.infinity,
                                           height: 210,
-                                          child: Center(
-                                            child: CircularProgressIndicator(
-                                              color: Colors.cyan,
-                                              backgroundColor: kBgColor1,
-                                            ),
+                                          child: const Center(
+                                            child: MyCircularProgressIndicator(),
                                           ),
                                         ),
                                     errorWidget: (context, url, error) =>
@@ -137,3 +132,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+

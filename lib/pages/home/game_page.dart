@@ -1,9 +1,12 @@
 import 'dart:convert';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:f2p_games/constants/colors.dart';
+import 'package:f2p_games/view/widgets/my_progress_indicador_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import '../../view/widgets/game_cover_widget.dart';
+import '../../view/widgets/game_screenshots_widget.dart';
 
 class GameDetailPage extends StatefulWidget {
   final String? title;
@@ -26,23 +29,21 @@ class GameDetailPage extends StatefulWidget {
 }
 
 class _GameDetailPageState extends State<GameDetailPage> {
-  List<String> screenshots = [];
+  late Future<List<String>> _screenshotsFuture;
 
   @override
   void initState() {
     super.initState();
-    fetchScreenshots();
+    _screenshotsFuture = fetchScreenshots();
   }
 
-  Future<void> fetchScreenshots() async {
+  Future<List<String>> fetchScreenshots() async {
     // Fetch screenshots data for the specific game using its ID
     final response = await http.get(Uri.parse('https://www.freetogame.com/api/game?id=${widget.id}'));
 
     if (response.statusCode == 200) {
       final List<dynamic> screenshotsData = jsonDecode(response.body)['screenshots'];
-      setState(() {
-        screenshots = screenshotsData.map<String>((screenshot) => screenshot['image']).toList();
-      });
+      return screenshotsData.map<String>((screenshot) => screenshot['image']).toList();
     } else {
       throw Exception('Impossible to load screenshots');
     }
@@ -64,9 +65,8 @@ class _GameDetailPageState extends State<GameDetailPage> {
               borderRadius: BorderRadius.circular(20),
             ),
             child: IconButton(
-              padding: EdgeInsets.zero, // Remove padding around the icon
-              alignment:
-                  Alignment.center, // Center the icon within the container
+              padding: EdgeInsets.zero,
+              alignment: Alignment.center,
               icon: const Icon(Icons.arrow_back_ios_new_rounded),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -79,35 +79,9 @@ class _GameDetailPageState extends State<GameDetailPage> {
         children: [
           Container(
             height: double.infinity,
-            color: Colors.red,
+            color: Colors.black,
           ),
-          SizedBox(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.35,
-            child: CachedNetworkImage(
-              imageUrl: widget.thumbnail ?? 'Not found',
-              fit: BoxFit.fill,
-              placeholder: (context, url) => Container(
-                color: Colors.black,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.red.shade900,
-                    backgroundColor: Colors.orange.shade600,
-                  ),
-                ),
-              ),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            ),
-          ),
-          SizedBox(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.35,
-            child: Center(
-                child: Text(
-              widget.id ?? 'Not found',
-              style: const TextStyle(color: Colors.amber, fontSize: 34),
-            )),
-          ),
+          GameCover(widget: widget),
           const Positioned.fill(
             child: DecoratedBox(
               decoration: BoxDecoration(
@@ -121,7 +95,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
             ),
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.49,
+            top: MediaQuery.of(context).size.height * 0.29,
             width: MediaQuery.of(context).size.width,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -169,48 +143,38 @@ class _GameDetailPageState extends State<GameDetailPage> {
                   ),
                   const SizedBox(height: 10),
                   // Show screenshots using ListView
-                  Container(
-                    color: Colors.transparent,
-                    height: 300,
-                    width: 500,
-                    child: screenshots.isEmpty
-                        ? const Center(
-                            child: Text(
-                              'No screenshots available',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          )
-                        : ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: screenshots.length,
-                            itemBuilder: (context, index) {
-                              final screenshotUrl = screenshots[index];
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
-                                child: CachedNetworkImage(
-                                  imageUrl: screenshotUrl,
-                                  placeholder: (context, url) => Center(
-                                    child: CircularProgressIndicator(
-                                      color: Colors.red.shade900,
-                                      backgroundColor: Colors.orange.shade600,
-                                    ),
-                                  ),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                ),
-                              );
-                            },
+                  FutureBuilder<List<String>>(
+                    future: _screenshotsFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        // While data is loading, display a circular progress indicator
+                        return const Center(
+                          child: MyCircularProgressIndicator()
+                        );
+                      } else if (snapshot.hasError) {
+                        // If an error occurs, display an error message
+                        return const Center(
+                          child: Text(
+                            'Error loading screenshots',
+                            style: TextStyle(color: Colors.white),
                           ),
+                        );
+                      } else {
+                        // If data is loaded successfully, display the screenshots
+                        final screenshots = snapshot.data!;
+                        return GameScreenshots(screenshots: screenshots);
+                      }
+                    },
                   ),
                 ],
               ),
-    
-                
-              ),
             ),
-        
+          ),
         ],
       ),
     );
   }
 }
+
+
+
