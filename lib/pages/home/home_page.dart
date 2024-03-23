@@ -61,16 +61,24 @@ class _HomePageState extends State<HomePage> {
             }
             if (store.erro.value.isNotEmpty) {
               return Center(
-                child: Text(store.erro.value, style: const TextStyle(
-                  color: Colors.amber, fontSize: 28,
-                ),),
+                child: Text(
+                  store.erro.value,
+                  style: const TextStyle(
+                    color: Colors.amber,
+                    fontSize: 28,
+                  ),
+                ),
               );
             }
             if (store.state.value.isEmpty) {
               return const Center(
-                child: Text('Empty list', style: TextStyle(
-                  color: Colors.amber, fontSize: 28,
-                ),),
+                child: Text(
+                  'Empty list',
+                  style: TextStyle(
+                    color: Colors.amber,
+                    fontSize: 28,
+                  ),
+                ),
               );
             }
             // If none of the above conditions are met, it means there are games to display
@@ -102,25 +110,31 @@ class _HomePageState extends State<HomePage> {
                           );
                         },
                         child: SizedBox(
-                            height: 210, // Adjust height to match itemExtent
+                            height:
+                                210, // Adjust height to match itemExtent
                             width: double
                                 .infinity, // Adjust width to match parent width
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(16),
                                 child: CachedNetworkImage(
-                                    imageUrl: item.thumbnail ?? 'Not found',
+                                    imageUrl:
+                                        item.thumbnail ?? 'Not found',
                                     fit: BoxFit.cover,
-                                    placeholder: (context, url) => Container(
-                                          color: Colors.white.withOpacity(0.2),
+                                    placeholder: (context, url) =>
+                                        Container(
+                                          color: Colors.white
+                                              .withOpacity(0.2),
                                           alignment: Alignment.center,
                                           width: double.infinity,
                                           height: 210,
                                           child: const Center(
-                                            child: MyCircularProgressIndicator(),
+                                            child:
+                                                MyCircularProgressIndicator(),
                                           ),
                                         ),
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error)))),
+                                    errorWidget:
+                                        (context, url, error) =>
+                                            const Icon(Icons.error)))),
                       ),
                     );
                   },
@@ -133,5 +147,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-

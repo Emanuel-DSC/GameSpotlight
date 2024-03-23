@@ -1,11 +1,10 @@
-import 'dart:convert';
-
 import 'package:f2p_games/constants/colors.dart';
 import 'package:f2p_games/view/widgets/my_progress_indicador_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../data/http/http_client.dart';
+import '../../data/repositories/game_repository.dart';
 import '../../view/widgets/game_cover_widget.dart';
 import '../../view/widgets/game_screenshots_widget.dart';
 
@@ -32,28 +31,15 @@ class GameDetailPage extends StatefulWidget {
 }
 
 class _GameDetailPageState extends State<GameDetailPage> {
+  final repository = GameRepository(client: HttpClient());
+  late Future<Map<String, String>> _minimumSysRequirementsFuture;
   late Future<List<String>> _screenshotsFuture;
 
   @override
   void initState() {
     super.initState();
-    _screenshotsFuture = fetchScreenshots();
-  }
-
-  Future<List<String>> fetchScreenshots() async {
-    // Fetch screenshots data for the specific game using its ID
-    final response = await http
-        .get(Uri.parse('https://www.freetogame.com/api/game?id=${widget.id}'));
-
-    if (response.statusCode == 200) {
-      final List<dynamic> screenshotsData =
-          jsonDecode(response.body)['screenshots'];
-      return screenshotsData
-          .map<String>((screenshot) => screenshot['image'])
-          .toList();
-    } else {
-      throw Exception('Impossible to load screenshots');
-    }
+    _screenshotsFuture = repository.fetchScreenshots(widget.id ?? 'none');
+    _minimumSysRequirementsFuture = repository.fetchMinSysRequirements(widget.id ?? 'none');
   }
 
   Future<void> _launchUrl() async {
@@ -131,6 +117,13 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       color: Colors.white,
                     ),
                   ),
+                  Text(
+                    widget.releaseDate ?? 'Not found',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.white,
+                    ),
+                  ),
                   const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -151,7 +144,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       borderRadius: BorderRadius.circular(35),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.greenAccent.withOpacity(0.5),
+                          color: Colors.cyanAccent.withOpacity(0.5),
                           spreadRadius: 0.05,
                           blurRadius: 10,
                           offset: const Offset(
@@ -164,8 +157,8 @@ class _GameDetailPageState extends State<GameDetailPage> {
                         _launchUrl();
                       },
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Colors.green.shade400),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.cyan),
                           foregroundColor:
                               MaterialStateProperty.all<Color>(Colors.white),
                           shape: MaterialStateProperty.all(
@@ -195,6 +188,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                     ),
                   ),
                   const SizedBox(height: 10),
+                  
                   // Show screenshots using ListView
                   FutureBuilder<List<String>>(
                     future: _screenshotsFuture,
@@ -215,6 +209,50 @@ class _GameDetailPageState extends State<GameDetailPage> {
                         // If data is loaded successfully, display the screenshots
                         final screenshots = snapshot.data!;
                         return GameScreenshots(screenshots: screenshots);
+                      }
+                    },
+                  ),
+                  // Show minimum system requirements
+                  FutureBuilder<Map<String, String>>(
+                    future: _minimumSysRequirementsFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        // While data is loading, display a circular progress indicator
+                        return const Center(
+                            child: MyCircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        // If an error occurs, display an error message
+                        return const Center(
+                          child: Text(
+                            'Error loading system requirements',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        );
+                      } else {
+                        // If data is loaded successfully, display the system requirements
+                        final minSysRequirements = snapshot.data!;
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Minimum System Requirements',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              'Processor: ${minSysRequirements['Processor'] ?? 'Not found'}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                              ),
+                            ),
+                            // Add more Text widgets to display other system requirements if needed
+                          ],
+                        );
                       }
                     },
                   ),
