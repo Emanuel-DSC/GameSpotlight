@@ -105,6 +105,8 @@ class _HomePageState extends State<HomePage> {
                                 releaseDate: item.releaseDate,
                                 id: item.id,
                                 gameUrl: item.url,
+                                genre: item.genre,
+                                publisher: item.publisher,
                               ),
                             ),
                           );

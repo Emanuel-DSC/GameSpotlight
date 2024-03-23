@@ -6,7 +6,6 @@ class GameModel {
   String? thumbnail;
   String? url;
   String? genre;
-  String? platform;
   String? publisher;
   String? developer;
   String? releaseDate;
@@ -17,7 +16,6 @@ class GameModel {
     required this.thumbnail,
     required this.url,
     required this.genre,
-    required this.platform,
     required this.publisher,
     required this.developer,
     required this.releaseDate,
@@ -32,7 +30,6 @@ class GameModel {
       thumbnail: map['thumbnail'],
       url: map['game_url'],
       genre: map['genre'],
-      platform: map['platform'],
       publisher: map['publisher'],
       developer: map['developer'],
       releaseDate: map['release_date'],

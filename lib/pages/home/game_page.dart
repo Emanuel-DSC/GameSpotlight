@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:f2p_games/constants/colors.dart';
 import 'package:f2p_games/view/widgets/my_progress_indicador_widget.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,8 @@ class GameDetailPage extends StatefulWidget {
   final String? shortDescription;
   final String? id;
   final String? gameUrl;
+  final String? genre;
+  final String? publisher;
 
   const GameDetailPage({
     Key? key,
@@ -24,6 +28,8 @@ class GameDetailPage extends StatefulWidget {
     required this.shortDescription,
     required this.id,
     required this.gameUrl,
+    required this.genre,
+    required this.publisher,
   }) : super(key: key);
 
   @override
@@ -39,7 +45,8 @@ class _GameDetailPageState extends State<GameDetailPage> {
   void initState() {
     super.initState();
     _screenshotsFuture = repository.fetchScreenshots(widget.id ?? 'none');
-    _minimumSysRequirementsFuture = repository.fetchMinSysRequirements(widget.id ?? 'none');
+    _minimumSysRequirementsFuture =
+        repository.fetchMinSysRequirements(widget.id ?? 'none');
   }
 
   Future<void> _launchUrl() async {
@@ -57,19 +64,28 @@ class _GameDetailPageState extends State<GameDetailPage> {
         backgroundColor: Colors.transparent,
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: kBgColor1),
-              color: Colors.black.withOpacity(0.8),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: IconButton(
-              padding: EdgeInsets.zero,
-              alignment: Alignment.center,
-              icon: const Icon(Icons.arrow_back_ios_new_rounded),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 100.0,
+                sigmaY: 100.0,
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.1),
+                  border: Border.all(color: Colors.grey.withOpacity(0.1)),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  alignment: Alignment.center,
+                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
             ),
           ),
         ),
@@ -81,11 +97,11 @@ class _GameDetailPageState extends State<GameDetailPage> {
             color: Colors.black,
           ),
           GameCover(widget: widget),
-          const Positioned.fill(
+          Positioned.fill(
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.transparent, Colors.black, Colors.black],
+                  colors: [Colors.transparent, kBgColor1, kBgColor1],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   stops: [0.25, 0.35, 3],
@@ -118,7 +134,14 @@ class _GameDetailPageState extends State<GameDetailPage> {
                     ),
                   ),
                   Text(
-                    widget.releaseDate ?? 'Not found',
+                    widget.genre ?? 'Not found',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    widget.publisher ?? 'Not found',
                     style: const TextStyle(
                       fontSize: 12,
                       color: Colors.white,
@@ -141,10 +164,16 @@ class _GameDetailPageState extends State<GameDetailPage> {
                   const SizedBox(height: 20),
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(35),
+                      gradient: LinearGradient(
+                        colors: [kButtonColor1, kButtonColor2],
+                        begin: Alignment.bottomLeft,
+                        end: Alignment.topRight,
+                        stops: const [0.3, 0.7],
+                      ),
+                      borderRadius: BorderRadius.circular(12),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.cyanAccent.withOpacity(0.5),
+                          color: kButtonColor1.withOpacity(0.5),
                           spreadRadius: 0.05,
                           blurRadius: 10,
                           offset: const Offset(
@@ -157,15 +186,15 @@ class _GameDetailPageState extends State<GameDetailPage> {
                         _launchUrl();
                       },
                       style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.cyan),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.transparent),
                           foregroundColor:
                               MaterialStateProperty.all<Color>(Colors.white),
                           shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20))),
+                                  borderRadius: BorderRadius.circular(12))),
                           padding: MaterialStateProperty.all(
-                            const EdgeInsets.symmetric(vertical: 10.0),
+                            const EdgeInsets.symmetric(vertical: 12.0),
                           )),
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -179,16 +208,8 @@ class _GameDetailPageState extends State<GameDetailPage> {
                   SizedBox(
                     height: 20,
                   ),
-                  const Text(
-                    'Screenshots',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
                   const SizedBox(height: 10),
-                  
+
                   // Show screenshots using ListView
                   FutureBuilder<List<String>>(
                     future: _screenshotsFuture,
@@ -213,18 +234,27 @@ class _GameDetailPageState extends State<GameDetailPage> {
                     },
                   ),
                   // Show minimum system requirements
+                  
                   FutureBuilder<Map<String, String>>(
                     future: _minimumSysRequirementsFuture,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         // While data is loading, display a circular progress indicator
-                        return const Center(
-                            child: MyCircularProgressIndicator());
+                        return Center(child: MyCircularProgressIndicator());
                       } else if (snapshot.hasError) {
                         // If an error occurs, display an error message
-                        return const Center(
+                        return Center(
                           child: Text(
                             'Error loading system requirements',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        );
+                      } else if (snapshot.data == null ||
+                          snapshot.data!.isEmpty) {
+                        // If no data or empty data is returned, display a message indicating that system requirements are not available
+                        return Center(
+                          child: Text(
+                            'System requirements not available',
                             style: TextStyle(color: Colors.white),
                           ),
                         );

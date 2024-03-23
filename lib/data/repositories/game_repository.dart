@@ -59,7 +59,7 @@ class GameRepository implements IGameRepository {
     }
   }
 
-  // fetch JSON 
+  // fetch system required JSON
   Future<Map<String, String>> fetchMinSysRequirements(String gameId) async {
   try {
     final response = await client.get(
@@ -67,14 +67,22 @@ class GameRepository implements IGameRepository {
         
     if (response.statusCode == 200) {
       final Map<String, dynamic> gameData = jsonDecode(response.body);
-      final Map<String, String> minSysRequirements = {
-        'OS': gameData['minimum_system_requirements']['os'],
-        'Processor': gameData['minimum_system_requirements']['processor'],
-        'Memory': gameData['minimum_system_requirements']['memory'],
-        'Graphics': gameData['minimum_system_requirements']['graphics'],
-        'Storage': gameData['minimum_system_requirements']['storage'],
-      };
-      return minSysRequirements;
+      
+      // Check if 'minimum_system_requirements' key exists and is not null
+      if (gameData.containsKey('minimum_system_requirements') &&
+          gameData['minimum_system_requirements'] != null) {
+        final Map<String, String> minSysRequirements = {
+          'OS': gameData['minimum_system_requirements']['os'] ?? 'Not found',
+          'Processor': gameData['minimum_system_requirements']['processor'] ?? 'Not found',
+          'Memory': gameData['minimum_system_requirements']['memory'] ?? 'Not found',
+          'Graphics': gameData['minimum_system_requirements']['graphics'] ?? 'Not found',
+          'Storage': gameData['minimum_system_requirements']['storage'] ?? 'Not found',
+        };
+        return minSysRequirements;
+      } else {
+        // If minimum system requirements data is not available, return empty map
+        return {};
+      }
     } else {
       throw Exception('Impossible to load minimum system requirements');
     }
