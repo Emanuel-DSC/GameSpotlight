@@ -61,25 +61,26 @@ class GameRepository implements IGameRepository {
 
   // fetch JSON 
   Future<Map<String, String>> fetchMinSysRequirements(String gameId) async {
-    try {
-      final response = await client.get(
-          url: 'https://www.freetogame.com/api/game?id=$gameId');
-
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> gameData = jsonDecode(response.body);
-        final Map<String, String> minimumSysRequirements = {
-          'os': gameData['minimum_system_requirements']['os'],
-          'processor': gameData['minimum_system_requirements']['processor'],
-          'memory': gameData['minimum_system_requirements']['memory'],
-          'graphics': gameData['minimum_system_requirements']['graphics'],
-          'storage': gameData['minimum_system_requirements']['storage'],
-        };
-        return minimumSysRequirements;
-      } else {
-        throw Exception('Impossible to load minimum system requirements');
-      }
-    } catch (e) {
-      rethrow; // Rethrow the caught error
+  try {
+    final response = await client.get(
+        url: 'https://www.freetogame.com/api/game?id=$gameId');
+        
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> gameData = jsonDecode(response.body);
+      final Map<String, String> minSysRequirements = {
+        'OS': gameData['minimum_system_requirements']['os'],
+        'Processor': gameData['minimum_system_requirements']['processor'],
+        'Memory': gameData['minimum_system_requirements']['memory'],
+        'Graphics': gameData['minimum_system_requirements']['graphics'],
+        'Storage': gameData['minimum_system_requirements']['storage'],
+      };
+      return minSysRequirements;
+    } else {
+      throw Exception('Impossible to load minimum system requirements');
     }
+  } catch (e) {
+    rethrow; // Rethrow the caught error
   }
+}
+
 }
