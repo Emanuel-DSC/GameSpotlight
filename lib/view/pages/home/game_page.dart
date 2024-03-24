@@ -11,7 +11,6 @@ import '../../widgets/my_appbar_widget.dart';
 import '../../widgets/my_button_widget.dart';
 import '../../widgets/screenshots_widget.dart';
 
-
 class GameDetailPage extends StatefulWidget {
   final String? title;
   final String? thumbnail;
@@ -141,17 +140,46 @@ class _GameDetailPageState extends State<GameDetailPage> {
                     // Show screenshots using ListView
                     // ScreenshotsList(screenshotsFuture: _screenshotsFuture),
                     // Show minimum system requirements
-                    MinSysReqList(minimumSysRequirementsFuture: _minimumSysRequirementsFuture),
+                    // MinSysReqList(minimumSysRequirementsFuture: _minimumSysRequirementsFuture),
                     TabBar(
-                      isScrollable: false,
-                      indicatorColor: Colors.red,
-                      labelColor: Colors.amber,
-                      unselectedLabelColor: Colors.green,
-                      
-                      tabs: [
-                        Tab(child: Text('Teste')),
-                        Tab(child: Text('Teste2')),
-                    ]),
+                        isScrollable: false,
+                        indicatorColor: Colors.red,
+                        labelColor: Colors.amber,
+                        unselectedLabelColor: Colors.green,
+                        tabs: [
+                          Tab(child: Text('Teste')),
+                          Tab(child: Text('Teste2')),
+                        ]),
+                    SizedBox(
+                      height: 100,
+                      width: double.infinity,
+                      child: TabBarView(children: [
+                        Center(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Text(
+                                  'Abddddddddddddddd',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: Text(
+                            'asidhasiudh Tab Content',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ]),
+                    ),
                   ],
                 ),
               ),
@@ -162,7 +190,3 @@ class _GameDetailPageState extends State<GameDetailPage> {
     );
   }
 }
-
-
-
-
