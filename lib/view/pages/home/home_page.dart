@@ -100,13 +100,12 @@ class _HomePageState extends State<HomePage> {
                             MaterialPageRoute(
                               builder: (context) => GameDetailPage(
                                 title: item.title,
-                                shortDescription: item.shortDescription,
                                 thumbnail: item.thumbnail,
                                 releaseDate: item.releaseDate,
                                 id: item.id,
                                 gameUrl: item.url,
                                 genre: item.genre,
-                                publisher: item.publisher,
+                                publisher: item.publisher, description: '',
                               ),
                             ),
                           );

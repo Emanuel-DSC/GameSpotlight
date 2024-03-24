@@ -14,27 +14,29 @@ class ScreenshotsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Show screenshots using ListView
-    return FutureBuilder<List<String>>(
-      future: _screenshotsFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          // While data is loading, display a circular progress indicator
-          return const Center(
-              child: MyCircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          // If an error occurs, display an error message
-          return const Center(
-            child: Text(
-              'Error loading screenshots',
-              style: TextStyle(color: Colors.white),
-            ),
-          );
-        } else {
-          // If data is loaded successfully, display the screenshots
-          final screenshots = snapshot.data!;
-          return GameScreenshots(screenshots: screenshots);
-        }
-      },
+    return SizedBox(
+      child: FutureBuilder<List<String>>(
+        future: _screenshotsFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // While data is loading, display a circular progress indicator
+            return const Center(
+                child: MyCircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            // If an error occurs, display an error message
+            return const Center(
+              child: Text(
+                'Error loading screenshots',
+                style: TextStyle(color: Colors.white),
+              ),
+            );
+          } else {
+            // If data is loaded successfully, display the screenshots
+            final screenshots = snapshot.data!;
+            return GameScreenshots(screenshots: screenshots);
+          }
+        },
+      ),
     );
   }
 }

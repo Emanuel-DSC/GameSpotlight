@@ -1,29 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class GamePageTab extends StatelessWidget {
-  const GamePageTab({Key? key});
+import 'min_sys_req_widget.dart';
+import 'my_text.widget.dart';
+
+class GamePageTabView extends StatelessWidget {
+  final Future<Map<String, String>> minSysReq;
+  final Future<String> description;
+
+  const GamePageTabView({
+    super.key,
+    required this.minSysReq,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          bottom: const TabBar(
-            tabs: [
-              Tab(icon: Icon(Icons.directions_car)),
-              Tab(icon: Icon(Icons.directions_transit)),
-            ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TabBarView(children: [
+        Center(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: FutureBuilder<String>(
+              future: description,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  return MyText(
+                    title: snapshot.data ?? 'Description not available',
+                    fontSize: 14.0,
+                    googleFont: GoogleFonts.michroma,
+                    color: Colors.grey.shade300,
+                    weight: FontWeight.bold,
+                  );
+                }
+              },
+            ),
           ),
-          title: const Text('Tabs Demo'),
         ),
-        body: const TabBarView(
-          children: [
-            Icon(Icons.directions_car),
-            Icon(Icons.directions_transit),
-          ],
+        Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                // Show minimum system requirements
+                MinSysReqList(minimumSysRequirementsFuture: minSysReq),
+              ],
+            ),
+          ),
         ),
-      ),
+      ]),
     );
   }
 }

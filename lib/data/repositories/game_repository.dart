@@ -61,34 +61,62 @@ class GameRepository implements IGameRepository {
 
   // fetch system required JSON
   Future<Map<String, String>> fetchMinSysRequirements(String gameId) async {
-  try {
-    final response = await client.get(
-        url: 'https://www.freetogame.com/api/game?id=$gameId');
-        
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> gameData = jsonDecode(response.body);
-      
-      // Check if 'minimum_system_requirements' key exists and is not null
-      if (gameData.containsKey('minimum_system_requirements') &&
-          gameData['minimum_system_requirements'] != null) {
-        final Map<String, String> minSysRequirements = {
-          'OS': gameData['minimum_system_requirements']['os'] ?? 'Not found',
-          'Processor': gameData['minimum_system_requirements']['processor'] ?? 'Not found',
-          'Memory': gameData['minimum_system_requirements']['memory'] ?? 'Not found',
-          'Graphics': gameData['minimum_system_requirements']['graphics'] ?? 'Not found',
-          'Storage': gameData['minimum_system_requirements']['storage'] ?? 'Not found',
-        };
-        return minSysRequirements;
+    try {
+      final response = await client.get(
+          url: 'https://www.freetogame.com/api/game?id=$gameId');
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> gameData = jsonDecode(response.body);
+
+        // Check if 'minimum_system_requirements' key exists and is not null
+        if (gameData.containsKey('minimum_system_requirements') &&
+            gameData['minimum_system_requirements'] != null) {
+          final Map<String, String> minSysRequirements = {
+            'OS': gameData['minimum_system_requirements']['os'] ?? 'Not found',
+            'Processor': gameData['minimum_system_requirements']['processor'] ??
+                'Not found',
+            'Memory': gameData['minimum_system_requirements']['memory'] ??
+                'Not found',
+            'Graphics': gameData['minimum_system_requirements']['graphics'] ??
+                'Not found',
+            'Storage': gameData['minimum_system_requirements']['storage'] ??
+                'Not found',
+          };
+          return minSysRequirements;
+        } else {
+          // If minimum system requirements data is not available, return empty map
+          return {};
+        }
       } else {
-        // If minimum system requirements data is not available, return empty map
-        return {};
+        throw Exception('Impossible to load minimum system requirements');
       }
-    } else {
-      throw Exception('Impossible to load minimum system requirements');
+    } catch (e) {
+      rethrow; // Rethrow the caught error
     }
-  } catch (e) {
-    rethrow; // Rethrow the caught error
+  } 
+  
+    // fetch description
+   Future<String> fetchDescription(String gameId) async {
+    try {
+      final response = await client.get(
+          url: 'https://www.freetogame.com/api/game?id=$gameId');
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> gameData = jsonDecode(response.body);
+
+        // Check if 'description' key exists and is not null
+        if (gameData.containsKey('description') && gameData['description'] != null) {
+          return gameData['description'];
+        } else {
+          // If description is not available, return a default value
+          return 'Description not available';
+        }
+      } else {
+        throw Exception('Impossible to load game description');
+      }
+    } catch (e) {
+      rethrow; // Rethrow the caught error
+    }
   }
 }
 
-}

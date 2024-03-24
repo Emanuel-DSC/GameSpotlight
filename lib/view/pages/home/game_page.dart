@@ -1,21 +1,23 @@
 import 'package:f2p_games/constants/colors.dart';
 import 'package:f2p_games/view/widgets/game_page_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../data/http/http_client.dart';
 import '../../../data/repositories/game_repository.dart';
 import '../../widgets/game_cover_widget.dart';
-import '../../widgets/min_sys_req_widget.dart';
 import '../../widgets/my_appbar_widget.dart';
 import '../../widgets/my_button_widget.dart';
+import '../../widgets/my_tab_bar_widget.dart';
+import '../../widgets/my_text.widget.dart';
 import '../../widgets/screenshots_widget.dart';
 
 class GameDetailPage extends StatefulWidget {
   final String? title;
   final String? thumbnail;
   final String? releaseDate;
-  final String? shortDescription;
+  final String? description;
   final String? id;
   final String? gameUrl;
   final String? genre;
@@ -26,7 +28,7 @@ class GameDetailPage extends StatefulWidget {
     required this.title,
     required this.thumbnail,
     required this.releaseDate,
-    required this.shortDescription,
+    required this.description,
     required this.id,
     required this.gameUrl,
     required this.genre,
@@ -39,15 +41,16 @@ class GameDetailPage extends StatefulWidget {
 
 class _GameDetailPageState extends State<GameDetailPage> {
   final repository = GameRepository(client: HttpClient());
-  late Future<Map<String, String>> _minimumSysRequirementsFuture;
+  late Future<Map<String, String>> _minSysReqFuture;
   late Future<List<String>> _screenshotsFuture;
+  late Future<String> _description;
 
   @override
   void initState() {
     super.initState();
     _screenshotsFuture = repository.fetchScreenshots(widget.id ?? 'none');
-    _minimumSysRequirementsFuture =
-        repository.fetchMinSysRequirements(widget.id ?? 'none');
+    _minSysReqFuture = repository.fetchMinSysRequirements(widget.id ?? 'none');
+    _description = repository.fetchDescription(widget.id ?? 'none');
   }
 
   Future<void> _launchUrl() async {
@@ -74,7 +77,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.transparent, kBgColor1, kBgColor1],
+                    colors: [Colors.transparent, Colors.black, kBgColor1],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     stops: const [0.25, 0.35, 3],
@@ -88,97 +91,69 @@ class _GameDetailPageState extends State<GameDetailPage> {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      widget.title ?? 'Not found',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Center(
+                      child: MyText(
+                        title: widget.title ?? 'Not found',
+                        fontSize: 24.0,
+                        googleFont: GoogleFonts.zenDots,
                         color: Colors.white,
+                        weight: FontWeight.normal,
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Text(
-                      widget.releaseDate ?? 'Not found',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      widget.genre ?? 'Not found',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      widget.publisher ?? 'Not found',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        widget.shortDescription ?? 'Not found',
-                        textAlign: TextAlign.justify,
-                        maxLines: 10,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        MyText(
+                          title: // get only year from release
+                              (widget.releaseDate != null &&
+                                      widget.releaseDate!.isNotEmpty)
+                                  ? DateTime.parse(widget.releaseDate!)
+                                      .year
+                                      .toString()
+                                  : 'XXXX',
+                          fontSize: 14.0,
+                          googleFont: GoogleFonts.michroma,
+                          color: Colors.grey,
+                          weight: FontWeight.bold,
                         ),
-                      ),
+                        MyText(
+                          title: widget.genre ?? 'Not found',
+                          fontSize: 14.0,
+                          googleFont: GoogleFonts.michroma,
+                          color: Colors.grey,
+                          weight: FontWeight.bold,
+                        ),
+                        MyText(
+                          title: widget.publisher ?? 'Not found',
+                          fontSize: 14.0,
+                          googleFont: GoogleFonts.michroma,
+                          color: Colors.grey,
+                          weight: FontWeight.bold,
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 20),
                     MyButton(launchUrl: _launchUrl),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     // Show screenshots using ListView
-                    // ScreenshotsList(screenshotsFuture: _screenshotsFuture),
-                    // Show minimum system requirements
-                    // MinSysReqList(minimumSysRequirementsFuture: _minimumSysRequirementsFuture),
-                    TabBar(
-                        isScrollable: false,
-                        indicatorColor: Colors.red,
-                        labelColor: Colors.amber,
-                        unselectedLabelColor: Colors.green,
-                        tabs: [
-                          Tab(child: Text('Teste')),
-                          Tab(child: Text('Teste2')),
-                        ]),
+                    ScreenshotsList(screenshotsFuture: _screenshotsFuture),
+                    const MyTabBar(
+                        firstTitle: 'About',
+                        secondTitle: 'Minimum System Requirements',
+                        isScrollable: true,
+                        offColor: Colors.grey,
+                        onColor: Colors.white),
+                    // show tab bar content
                     SizedBox(
-                      height: 100,
-                      width: double.infinity,
-                      child: TabBarView(children: [
-                        Center(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Abddddddddddddddd',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Text(
-                            'asidhasiudh Tab Content',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ]),
+                      height: 160,
+                      child: GamePageTabView(
+                          minSysReq: _minSysReqFuture,
+                          description: _description),
                     ),
                   ],
                 ),

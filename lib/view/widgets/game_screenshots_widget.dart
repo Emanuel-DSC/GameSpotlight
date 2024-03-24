@@ -15,7 +15,7 @@ class GameScreenshots extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.transparent,
-      height: 200,
+      height: 170,
       width: double.infinity,
       child: screenshots.isEmpty
           ? const Center(

@@ -1,5 +1,8 @@
 import 'package:f2p_games/view/widgets/my_progress_indicador_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'my_text.widget.dart';
 
 class MinSysReqList extends StatelessWidget {
   const MinSysReqList({
@@ -26,8 +29,7 @@ class MinSysReqList extends StatelessWidget {
               style: TextStyle(color: Colors.white),
             ),
           );
-        } else if (snapshot.data == null ||
-            snapshot.data!.isEmpty) {
+        } else if (snapshot.data == null || snapshot.data!.isEmpty) {
           // If no data or empty data is returned, display a message indicating that system requirements are not available
           return const Center(
             child: Text(
@@ -41,51 +43,45 @@ class MinSysReqList extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Minimum System Requirements',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
               const SizedBox(height: 5),
-              Text(
-                'Processor: ${minSysRequirements['Processor'] ?? 'Not found'}',
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.white,
-                ),
+              MyText(
+                title:
+                    'Processor: ${minSysRequirements['Processor'] ?? 'Not found'}',
+                fontSize: 12.0,
+                googleFont: GoogleFonts.michroma,
+                color: Colors.grey,
+                weight: FontWeight.bold,
               ),
-              Text(
-                'Os: ${minSysRequirements['Os'] ?? 'Not found'}',
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.white,
-                ),
+              MyText(
+                title: 'Os: ${minSysRequirements['Os'] ?? 'Not found'}',
+                fontSize: 12.0,
+                googleFont: GoogleFonts.michroma,
+                color: Colors.grey,
+                weight: FontWeight.bold,
               ),
-              Text(
-                'Memory: ${minSysRequirements['Memory'] ?? 'Not found'}',
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.white,
-                ),
+              MyText(
+                title: 'Memory: ${minSysRequirements['Memory'] ?? 'Not found'}',
+                fontSize: 12.0,
+                googleFont: GoogleFonts.michroma,
+                color: Colors.grey,
+                weight: FontWeight.bold,
               ),
-              Text(
-                'Graphics: ${minSysRequirements['Graphics'] ?? 'Not found'}',
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.white,
-                ),
+              MyText(
+                title:
+                    'Graphics: ${minSysRequirements['Graphics'] ?? 'Not found'}',
+                fontSize: 12.0,
+                googleFont: GoogleFonts.michroma,
+                color: Colors.grey,
+                weight: FontWeight.bold,
               ),
-              Text(
-                'Storage: ${minSysRequirements['Storage'] ?? 'Not found'}',
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.white,
-                ),
+              MyText(
+                title:
+                    'Storage: ${minSysRequirements['Storage'] ?? 'Not found'}',
+                fontSize: 12.0,
+                googleFont: GoogleFonts.michroma,
+                color: Colors.grey,
+                weight: FontWeight.bold,
               ),
-              // Add more Text widgets to display other system requirements if needed
             ],
           );
         }
