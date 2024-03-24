@@ -1,12 +1,12 @@
 import 'dart:ui';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:f2p_games/constants/colors.dart';
 import 'package:f2p_games/data/http/http_client.dart';
 import 'package:f2p_games/data/repositories/game_repository.dart';
+import 'package:f2p_games/view/widgets/game_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_listview/stacked_listview.dart';
-import '../../view/widgets/my_progress_indicador_widget.dart';
+import '../../widgets/my_progress_indicador_widget.dart';
 import '../stores/games_store.dart';
 import 'game_page.dart';
 
@@ -85,10 +85,10 @@ class _HomePageState extends State<HomePage> {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
-                height: 470,
+                height: 540,
                 child: StackedListView(
                   itemCount: store.state.value.length,
-                  itemExtent: 210,
+                  itemExtent: 300,
                   builder: (context, index) {
                     final item = store.state.value[index];
                     return Padding(
@@ -111,32 +111,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           );
                         },
-                        child: SizedBox(
-                            height:
-                                210, // Adjust height to match itemExtent
-                            width: double
-                                .infinity, // Adjust width to match parent width
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: CachedNetworkImage(
-                                    imageUrl:
-                                        item.thumbnail ?? 'Not found',
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) =>
-                                        Container(
-                                          color: Colors.white
-                                              .withOpacity(0.2),
-                                          alignment: Alignment.center,
-                                          width: double.infinity,
-                                          height: 210,
-                                          child: const Center(
-                                            child:
-                                                MyCircularProgressIndicator(),
-                                          ),
-                                        ),
-                                    errorWidget:
-                                        (context, url, error) =>
-                                            const Icon(Icons.error)))),
+                        child: GameCard(item: item),
                       ),
                     );
                   },

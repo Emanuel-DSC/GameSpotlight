@@ -1,4 +1,4 @@
-import 'package:f2p_games/pages/home/home_page.dart';
+import 'package:f2p_games/view/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
