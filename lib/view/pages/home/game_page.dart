@@ -105,8 +105,10 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Wrap(
+                      alignment: WrapAlignment.spaceEvenly,
+                      runAlignment: WrapAlignment.spaceEvenly,
+                      spacing: 12,
                       children: [
                         MyText(
                           title: // get only year from release
