@@ -66,7 +66,7 @@ class _GamesListPageState extends State<GamesListPage> {
                           onTap: () {
                             showSearch(
                                 context: context,
-                                delegate: CustomSearchDelegate());
+                                delegate: CustomSearchDelegate(store));
                           },
                           child: Container(
                             width: double.infinity,

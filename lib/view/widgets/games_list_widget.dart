@@ -17,7 +17,7 @@ class GamesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //updates titles to search bar
-    CustomSearchDelegate().updateSearchTerms(store.state.value);
+    CustomSearchDelegate(store).updateSearchTerms(store.state.value);
 
     return SizedBox(
       height: 300,

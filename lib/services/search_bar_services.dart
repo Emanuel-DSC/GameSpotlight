@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../view/pages/game/game_detail_page.dart';
+import '../view/pages/stores/games_store.dart';
+
 class CustomSearchDelegate extends SearchDelegate {
+  final GameStore store;
+
   static List<String> searchTerms = [];
+
+  CustomSearchDelegate(this.store);
 
   // get every title from api and add to search bar
   void updateSearchTerms(List items) {
@@ -52,22 +59,40 @@ class CustomSearchDelegate extends SearchDelegate {
     );
   }
 
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var games in searchTerms) {
-      if (games.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(games);
-      }
+@override
+Widget buildSuggestions(BuildContext context) {
+  List<String> matchQuery = [];
+  for (var games in searchTerms) {
+    if (games.toLowerCase().contains(query.toLowerCase())) {
+      matchQuery.add(games);
     }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        var result = matchQuery[index];
-        return ListTile(
-          title: Text(result),
-        );
-      },
-    );
   }
+  return ListView.builder(
+    itemCount: matchQuery.length,
+    itemBuilder: (context, index) {
+      var result = matchQuery[index];
+      final item = store.state.value[index];
+      return ListTile(
+        title: Text(result),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => GameDetailPage(
+                title: result, 
+                description: item.description, 
+                gameUrl: item.url, 
+                genre: item.genre, 
+                id: item.id, 
+                publisher: item.publisher, 
+                releaseDate: item.releaseDate, 
+                thumbnail:item.thumbnail),
+            ),
+          );
+        },
+      );
+    },
+  );
+}
+
 }
