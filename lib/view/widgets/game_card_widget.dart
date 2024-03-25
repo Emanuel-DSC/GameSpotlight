@@ -8,12 +8,13 @@ import '../../data/models/games_models.dart';
 import 'my_progress_indicador_widget.dart';
 
 class GameCard extends StatelessWidget {
+  final GameModel item;
+  final VoidCallback onTap;
   const GameCard({
     Key? key,
     required this.item,
+    required this.onTap,
   }) : super(key: key);
-
-  final GameModel item;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class GameCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              flex: 4,
+              flex: 5,
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(16),
@@ -49,7 +50,7 @@ class GameCard extends StatelessWidget {
             ),
             // Container with description
             Expanded(
-              flex: 2,
+              flex: 3,
               child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
@@ -59,24 +60,41 @@ class GameCard extends StatelessWidget {
                     bottomRight: Radius.circular(16),
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MyText(
-                        googleFont: GoogleFonts.zenDots,
-                        color: Colors.white,
-                        fontSize: 14.0,
-                        title: item.title ?? 'Title not available',
-                        weight: FontWeight.normal),
-                    const SizedBox(height: 8),
-                    MyText(
-                        googleFont: GoogleFonts.zenDots,
-                        color: Colors.grey,
-                        fontSize: 10.0,
-                        title: item.genre ?? 'Genre not available',
-                        weight: FontWeight.normal),
-                  ],
+                child: SingleChildScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MyText(
+                            googleFont: GoogleFonts.zenDots,
+                            color: Colors.white,
+                            fontSize: 14.0,
+                            title: item.title ?? 'Title not available',
+                            weight: FontWeight.normal),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            MyText(
+                                googleFont: GoogleFonts.michroma,
+                                color: Colors.grey,
+                                fontSize: 10.0,
+                                title: item.genre ?? 'Genre not available',
+                                weight: FontWeight.bold),
+                            TextButton(
+                                onPressed: onTap,
+                                child: MyText(
+                                    googleFont: GoogleFonts.roboto,
+                                    color: kButtonColor1,
+                                    fontSize: 14,
+                                    title: 'Learn more',
+                                    weight: FontWeight.normal)),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),

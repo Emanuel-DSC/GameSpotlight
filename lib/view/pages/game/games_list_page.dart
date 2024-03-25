@@ -58,9 +58,7 @@ class _GamesListPageState extends State<GamesListPage> {
                         final item = store.state.value[index];
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
+                          child: GameCard(item: item, onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => GameDetailPage(
@@ -73,10 +71,7 @@ class _GamesListPageState extends State<GamesListPage> {
                                     publisher: item.publisher,
                                     description: '',
                                   ),
-                                ),
-                              );
-                            },
-                            child: GameCard(item: item),
+                                ),),
                           ),
                         );
                       },
