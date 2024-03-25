@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:f2p_games/constants/colors.dart';
+import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../data/models/games_models.dart';
 import 'my_progress_indicador_widget.dart';
@@ -16,7 +18,7 @@ class GameCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 210,
+      height: 200,
       width: double.infinity,
       child: Card(
         elevation: 4,
@@ -61,26 +63,19 @@ class GameCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      item.title ?? 'Title not available',
-                      style: const TextStyle(
+                    MyText(
+                        googleFont: GoogleFonts.zenDots,
                         color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                        fontSize: 14.0,
+                        title: item.title ?? 'Title not available',
+                        weight: FontWeight.normal),
                     const SizedBox(height: 8),
-                    Text(
-                      item.shortDescription ?? 'Description not available',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                      ),
-                      maxLines: 4,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    MyText(
+                        googleFont: GoogleFonts.zenDots,
+                        color: Colors.grey,
+                        fontSize: 10.0,
+                        title: item.genre ?? 'Genre not available',
+                        weight: FontWeight.normal),
                   ],
                 ),
               ),

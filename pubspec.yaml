@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
   google_fonts: 6.1.0
   http: ^1.1.0
-  stacked_listview: ^1.0.4
   url_launcher: ^6.1.14
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

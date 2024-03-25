@@ -43,28 +43,42 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       bottomNavigationBar: ClipRRect(
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
         child: BackdropFilter(
           filter: ImageFilter.blur(
-              sigmaX: 300.0,
-              sigmaY: 300.0,
-            ),
+            sigmaX: 20.0,
+            sigmaY: 20.0,
+          ),
           child: BottomAppBar(
-            color: Colors.transparent, 
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            color: Colors.transparent,
             elevation: 0,
-            child: BottomNavigationBar(
-              currentIndex: paginaAtual,
-              items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'Home'),
-                BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'Wishlist'),
-                BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'Profile'),
-              ],
-              onTap: (pagina) {
-                pc.animateToPage(pagina,
+            child: Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+              ),
+              child: BottomNavigationBar(
+                currentIndex: paginaAtual,
+                selectedItemColor: Colors.greenAccent,
+                unselectedItemColor: Colors.grey,
+                items: const [
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.home_outlined), label: 'Home'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.bookmark_outline), label: 'Wishlist'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.person_2_outlined), label: 'Profile'),
+                ],
+                onTap: (pagina) {
+                  pc.animateToPage(
+                    pagina,
                     duration: const Duration(milliseconds: 400),
-                    curve: Curves.ease);
-              },
-              backgroundColor: Colors.transparent, 
-              elevation: 0,
+                    curve: Curves.ease,
+                  );
+                },
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+              ),
             ),
           ),
         ),
