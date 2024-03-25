@@ -6,8 +6,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../data/http/http_client.dart';
 import '../../../data/repositories/game_repository.dart';
+import '../../widgets/app_bar_widgets/my_appbar_widget.dart';
 import '../../widgets/game_cover_widget.dart';
-import '../../widgets/my_appbar_widget.dart';
 import '../../widgets/my_button_widget.dart';
 import '../../widgets/my_text.widget.dart';
 import '../../widgets/screenshots_widget.dart';
