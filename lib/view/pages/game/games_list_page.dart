@@ -6,6 +6,7 @@ import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../services/search_bar_services.dart';
 import '../../widgets/games_list_widget.dart';
 import '../stores/games_store.dart';
 
@@ -47,49 +48,55 @@ class _GamesListPageState extends State<GamesListPage> {
             physics: const NeverScrollableScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                    const MyText(
-                        googleFont: GoogleFonts.michroma,
-                        color: Colors.white,
-                        fontSize: 24,
-                        title: 'Game Spotlight',
-                        weight: FontWeight.bold),
-                    const SizedBox(height: 20),
-                    Container(
-                      width: double.infinity,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: kSearchBarColor,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: kCardColor)),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.search_outlined,
-                              color: Colors.grey,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const MyText(
+                            googleFont: GoogleFonts.michroma,
+                            color: Colors.white,
+                            fontSize: 24,
+                            title: 'Game Spotlight',
+                            weight: FontWeight.bold),
+                        const SizedBox(height: 20),
+                        GestureDetector(
+                          onTap: () {
+                            showSearch(
+                                context: context,
+                                delegate: CustomSearchDelegate());
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                color: kSearchBarColor,
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(color: kCardColor)),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.search_outlined,
+                                    color: Colors.grey,
+                                  ),
+                                  SizedBox(width: 10),
+                                  MyText(
+                                      googleFont: GoogleFonts.roboto,
+                                      color: Colors.grey,
+                                      fontSize: 14,
+                                      title: 'Search free game',
+                                      weight: FontWeight.normal)
+                                ],
+                              ),
                             ),
-                            SizedBox(width: 10),
-                            MyText(
-                                googleFont: GoogleFonts.roboto,
-                                color: Colors.grey,
-                                fontSize: 14,
-                                title: 'Search free game',
-                                weight: FontWeight.normal)
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ]),
+                      ]),
                 ),
                 const SizedBox(height: 20),
                 GamesList(store: store),
@@ -101,3 +108,4 @@ class _GamesListPageState extends State<GamesListPage> {
     );
   }
 }
+
