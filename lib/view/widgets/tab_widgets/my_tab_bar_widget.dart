@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'tab_bar_indicator_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyTabBar extends StatelessWidget {
   final bool isScrollable;
@@ -24,10 +23,14 @@ class MyTabBar extends StatelessWidget {
         isScrollable: isScrollable,
         labelColor: onColor,
         unselectedLabelColor: offColor,
-        indicator: CircleTabIndicator(color: Colors.white, radius: 4),
+        indicatorWeight: 0,
+        indicator: const UnderlineTabIndicator(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+          insets: EdgeInsets.symmetric(horizontal: 10.0),
+        ),
         tabs: [
-          Tab(child: Text(firstTitle)),
-          Tab(child: Text(secondTitle)),
+          Tab(child: Text(firstTitle, style: GoogleFonts.roboto(fontSize: 14), )),
+          Tab(child: Text(secondTitle, style: GoogleFonts.roboto(fontSize: 14), )),
         ]);
   }
 }

@@ -9,9 +9,9 @@ import '../../../data/repositories/game_repository.dart';
 import '../../widgets/game_cover_widget.dart';
 import '../../widgets/my_appbar_widget.dart';
 import '../../widgets/my_button_widget.dart';
-import '../../widgets/my_tab_bar_widget.dart';
 import '../../widgets/my_text.widget.dart';
 import '../../widgets/screenshots_widget.dart';
+import '../../widgets/tab_widgets/my_tab_bar_widget.dart';
 
 class GameDetailPage extends StatefulWidget {
   final String? title;
@@ -118,21 +118,21 @@ class _GameDetailPageState extends State<GameDetailPage> {
                                       .year
                                       .toString()
                                   : 'XXXX',
-                          fontSize: 14.0,
+                          fontSize: 12.0,
                           googleFont: GoogleFonts.michroma,
                           color: Colors.grey,
                           weight: FontWeight.bold,
                         ),
                         MyText(
                           title: widget.genre ?? 'Not found',
-                          fontSize: 14.0,
+                          fontSize: 12.0,
                           googleFont: GoogleFonts.michroma,
                           color: Colors.grey,
                           weight: FontWeight.bold,
                         ),
                         MyText(
                           title: widget.publisher ?? 'Not found',
-                          fontSize: 14.0,
+                          fontSize: 12.0,
                           googleFont: GoogleFonts.michroma,
                           color: Colors.grey,
                           weight: FontWeight.bold,
@@ -144,6 +144,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                     const SizedBox(height: 20),
                     // Show screenshots using ListView
                     ScreenshotsList(screenshotsFuture: _screenshotsFuture),
+                    const SizedBox(height: 10),
                     const MyTabBar(
                         firstTitle: 'About',
                         secondTitle: 'Minimum System Requirements',

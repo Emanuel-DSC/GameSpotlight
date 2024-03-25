@@ -2,7 +2,7 @@ import 'package:f2p_games/view/widgets/my_progress_indicador_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'my_text.widget.dart';
+import '../my_text.widget.dart';
 
 class MinSysReqList extends StatelessWidget {
   const MinSysReqList({
@@ -41,45 +41,50 @@ class MinSysReqList extends StatelessWidget {
           // If data is loaded successfully, display the system requirements
           final minSysRequirements = snapshot.data!;
           return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 5),
               MyText(
                 title:
                     'Processor: ${minSysRequirements['Processor'] ?? 'Not found'}',
-                fontSize: 12.0,
-                googleFont: GoogleFonts.michroma,
-                color: Colors.grey,
+                fontSize: 14.0,
+                googleFont: GoogleFonts.roboto,
+                color: Colors.white,
                 weight: FontWeight.bold,
               ),
+              const SizedBox(height: 5),
               MyText(
                 title: 'Os: ${minSysRequirements['Os'] ?? 'Not found'}',
-                fontSize: 12.0,
-                googleFont: GoogleFonts.michroma,
-                color: Colors.grey,
+                fontSize: 14.0,
+                googleFont: GoogleFonts.roboto,
+                color: Colors.white,
                 weight: FontWeight.bold,
               ),
+              const SizedBox(height: 5),
               MyText(
                 title: 'Memory: ${minSysRequirements['Memory'] ?? 'Not found'}',
-                fontSize: 12.0,
-                googleFont: GoogleFonts.michroma,
-                color: Colors.grey,
+                fontSize: 14.0,
+                googleFont: GoogleFonts.roboto,
+                color: Colors.white,
                 weight: FontWeight.bold,
               ),
+              const SizedBox(height: 5),
               MyText(
                 title:
                     'Graphics: ${minSysRequirements['Graphics'] ?? 'Not found'}',
-                fontSize: 12.0,
-                googleFont: GoogleFonts.michroma,
-                color: Colors.grey,
+                fontSize: 14.0,
+                googleFont: GoogleFonts.roboto,
+                color: Colors.white,
                 weight: FontWeight.bold,
               ),
+              const SizedBox(height: 5),
               MyText(
                 title:
                     'Storage: ${minSysRequirements['Storage'] ?? 'Not found'}',
-                fontSize: 12.0,
-                googleFont: GoogleFonts.michroma,
-                color: Colors.grey,
+                fontSize: 14.0,
+                googleFont: GoogleFonts.roboto,
+                color: Colors.white,
                 weight: FontWeight.bold,
               ),
             ],
