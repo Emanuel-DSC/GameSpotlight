@@ -1,5 +1,4 @@
 import 'package:f2p_games/constants/colors.dart';
-import 'package:f2p_games/view/widgets/game_page_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -11,6 +10,7 @@ import '../../widgets/game_cover_widget.dart';
 import '../../widgets/my_button_widget.dart';
 import '../../widgets/my_text.widget.dart';
 import '../../widgets/screenshots_widget.dart';
+import '../../widgets/tab_widgets/game_page_tab.dart';
 import '../../widgets/tab_widgets/my_tab_bar_widget.dart';
 
 class GameDetailPage extends StatefulWidget {

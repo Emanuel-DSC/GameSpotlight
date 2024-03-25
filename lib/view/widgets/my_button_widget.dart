@@ -1,4 +1,6 @@
+import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/colors.dart';
 
@@ -25,7 +27,7 @@ class MyButton extends StatelessWidget {
             color: kButtonColor1.withOpacity(0.5),
             spreadRadius: 0.05,
             blurRadius: 10,
-            offset: const Offset(0, 3), // Offset (horizontal, vertical)
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -45,8 +47,11 @@ class MyButton extends StatelessWidget {
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Play now'),
-            Icon(Icons.arrow_forward_outlined),
+            MyText(googleFont: GoogleFonts.roboto, 
+            color: Colors.white, fontSize: 14.0, 
+            title: 'Play Now', weight: FontWeight.bold),
+            SizedBox(width: 8.0),
+            Icon(Icons.download),
           ],
         ),
       ),

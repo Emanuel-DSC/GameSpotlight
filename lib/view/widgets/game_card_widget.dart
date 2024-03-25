@@ -84,12 +84,12 @@ class GameCard extends StatelessWidget {
                                 weight: FontWeight.bold),
                             TextButton(
                                 onPressed: onTap,
-                                child: MyText(
+                                child: const MyText(
                                     googleFont: GoogleFonts.roboto,
-                                    color: kButtonColor1,
-                                    fontSize: 14,
-                                    title: 'Learn more',
-                                    weight: FontWeight.normal)),
+                                    color: Colors.grey,
+                                    fontSize: 14.0,
+                                    title: 'Learn More',
+                                    weight: FontWeight.bold)),
                           ],
                         ),
                       ],

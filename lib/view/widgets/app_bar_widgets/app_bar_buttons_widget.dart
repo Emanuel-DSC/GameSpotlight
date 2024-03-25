@@ -19,12 +19,12 @@ class AppBarButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: BackdropFilter(
           filter: ImageFilter.blur(
-            sigmaX: 100.0,
-            sigmaY: 100.0,
+            sigmaX: 20.0,
+            sigmaY: 2.0,
           ),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.2),
+              color: Colors.transparent,
               border: Border.all(color: Colors.grey.withOpacity(0.1)),
               borderRadius: BorderRadius.circular(12),
             ),
