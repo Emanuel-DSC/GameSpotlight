@@ -4,8 +4,8 @@ import '../view/pages/game/game_detail_page.dart';
 import '../view/pages/stores/games_store.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
-  final GameStore store;
 
+  final GameStore store;
   static List<String> searchTerms = [];
 
   CustomSearchDelegate(this.store);
@@ -17,7 +17,7 @@ class CustomSearchDelegate extends SearchDelegate {
       searchTerms.add(item.title.toString());
     }
   }
-  
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -42,36 +42,16 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var games in searchTerms) {
-      if (games.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(games);
-      }
-    }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        var result = matchQuery[index];
-        return ListTile(
-          title: Text(result),
-        );
-      },
-    );
-  }
+    final List<String> matchQuery = searchTerms.where((term) =>
+      term.toLowerCase().contains(query.toLowerCase())).toList();
 
-@override
-Widget buildSuggestions(BuildContext context) {
-  List<String> matchQuery = [];
-  for (var games in searchTerms) {
-    if (games.toLowerCase().contains(query.toLowerCase())) {
-      matchQuery.add(games);
-    }
-  }
   return ListView.builder(
     itemCount: matchQuery.length,
     itemBuilder: (context, index) {
-      var result = matchQuery[index];
-      final item = store.state.value[index];
+      final String result = matchQuery[index];
+      final item = store.state.value.firstWhere((item) =>
+          item.title.toString().toLowerCase() == result.toLowerCase());
+
       return ListTile(
         title: Text(result),
         onTap: () {
@@ -79,14 +59,51 @@ Widget buildSuggestions(BuildContext context) {
             context,
             MaterialPageRoute(
               builder: (context) => GameDetailPage(
-                title: result, 
-                description: item.description, 
-                gameUrl: item.url, 
-                genre: item.genre, 
-                id: item.id, 
-                publisher: item.publisher, 
-                releaseDate: item.releaseDate, 
-                thumbnail:item.thumbnail),
+                title: result,
+                description: item.description,
+                gameUrl: item.url,
+                genre: item.genre,
+                id: item.id,
+                publisher: item.publisher,
+                releaseDate: item.releaseDate,
+                thumbnail: item.thumbnail,
+              ),
+            ),
+          );
+        },
+      );
+    },
+  );
+  }
+
+  @override
+Widget buildSuggestions(BuildContext context) {
+  final List<String> matchQuery = searchTerms.where((term) =>
+      term.toLowerCase().contains(query.toLowerCase())).toList();
+
+  return ListView.builder(
+    itemCount: matchQuery.length,
+    itemBuilder: (context, index) {
+      final String result = matchQuery[index];
+      final item = store.state.value.firstWhere((item) =>
+          item.title.toString().toLowerCase() == result.toLowerCase());
+
+      return ListTile(
+        title: Text(result),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => GameDetailPage(
+                title: result,
+                description: item.description,
+                gameUrl: item.url,
+                genre: item.genre,
+                id: item.id,
+                publisher: item.publisher,
+                releaseDate: item.releaseDate,
+                thumbnail: item.thumbnail,
+              ),
             ),
           );
         },
@@ -94,5 +111,4 @@ Widget buildSuggestions(BuildContext context) {
     },
   );
 }
-
 }

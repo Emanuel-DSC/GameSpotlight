@@ -90,7 +90,7 @@ class _GamesListPageState extends State<GamesListPage> {
                                       color: Colors.grey,
                                       fontSize: 14,
                                       title: 'Search free game',
-                                      weight: FontWeight.normal)
+                                      weight: FontWeight.normal),
                                 ],
                               ),
                             ),
