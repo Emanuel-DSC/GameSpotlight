@@ -44,7 +44,7 @@ class GamesList extends StatelessWidget {
                     description: '',
                   ),
                 ),
-              ),
+              ), fit: BoxFit.cover,
             ),
           );
         },

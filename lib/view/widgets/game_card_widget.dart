@@ -10,10 +10,12 @@ import 'my_progress_indicador_widget.dart';
 class GameCard extends StatelessWidget {
   final GameModel item;
   final VoidCallback onTap;
+  final BoxFit fit;
   const GameCard({
     Key? key,
     required this.item,
-    required this.onTap,
+    required this.onTap, 
+    required this.fit,
   }) : super(key: key);
 
   @override
@@ -38,7 +40,7 @@ class GameCard extends StatelessWidget {
                 ),
                 child: CachedNetworkImage(
                   imageUrl: item.thumbnail ?? 'Not found',
-                  fit: BoxFit.cover,
+                  fit: fit,
                   placeholder: (context, url) => Container(
                     color: Colors.white.withOpacity(0.2),
                     alignment: Alignment.center,
