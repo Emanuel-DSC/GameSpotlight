@@ -12,6 +12,37 @@ class CustomSearchDelegate extends SearchDelegate {
 
   CustomSearchDelegate(this.store);
 
+  // create a list view of game cards to search bar suggestions and results
+  Widget _buildGameCardList(List<String> matchQuery) {
+  return ListView.builder(
+    itemCount: matchQuery.length,
+    itemBuilder: (context, index) {
+      final String result = matchQuery[index];
+      final item = store.state.value.firstWhere((item) =>
+          item.title.toString().toLowerCase() == result.toLowerCase());
+      return GameCard(
+        item: item,
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => GameDetailPage(
+              title: item.title,
+              thumbnail: item.thumbnail,
+              releaseDate: item.releaseDate,
+              id: item.id,
+              gameUrl: item.url,
+              genre: item.genre,
+              publisher: item.publisher,
+              description: '',
+            ),
+          ),
+        ),
+        fit: BoxFit.fill,
+      );
+    },
+  );
+}
+
   // get every title from api and add to search bar
   void updateSearchTerms(List items) {
     searchTerms.clear();
@@ -50,33 +81,7 @@ class CustomSearchDelegate extends SearchDelegate {
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ListView.builder(
-        itemCount: matchQuery.length,
-        itemBuilder: (context, index) {
-          final String result = matchQuery[index];
-          final item = store.state.value.firstWhere((item) =>
-              item.title.toString().toLowerCase() == result.toLowerCase());
-          return GameCard(
-            item: item,
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => GameDetailPage(
-                  title: item.title,
-                  thumbnail: item.thumbnail,
-                  releaseDate: item.releaseDate,
-                  id: item.id,
-                  gameUrl: item.url,
-                  genre: item.genre,
-                  publisher: item.publisher,
-                  description: '',
-                ),
-              ),
-            ),
-            fit: BoxFit.fill,
-          );
-        },
-      ),
+      child: _buildGameCardList(matchQuery),
     );
   }
 
@@ -88,37 +93,11 @@ class CustomSearchDelegate extends SearchDelegate {
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ListView.builder(
-        itemCount: matchQuery.length,
-        itemBuilder: (context, index) {
-          final String result = matchQuery[index];
-          final item = store.state.value.firstWhere((item) =>
-              item.title.toString().toLowerCase() == result.toLowerCase());
-          return GameCard(
-            item: item,
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => GameDetailPage(
-                  title: item.title,
-                  thumbnail: item.thumbnail,
-                  releaseDate: item.releaseDate,
-                  id: item.id,
-                  gameUrl: item.url,
-                  genre: item.genre,
-                  publisher: item.publisher,
-                  description: '',
-                ),
-              ),
-            ),
-            fit: BoxFit.fill,
-          );
-        },
-      ),
+      child: _buildGameCardList(matchQuery),
     );
   }
 
-//style
+  //style
   @override
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
