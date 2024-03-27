@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         controller: pc,
         onPageChanged: setPaginaAtual,
-        children: const [
+        children: [
           GamesListPage(),
           SavedPage(),
           ProfilePage(),

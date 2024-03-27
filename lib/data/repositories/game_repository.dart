@@ -4,7 +4,7 @@ import 'package:f2p_games/data/http/http_client.dart';
 import 'package:f2p_games/data/models/games_models.dart';
 
 abstract class IGameRepository {
-  Future<List<GameModel>> getGames();
+  Future<List<GameModel>> getGames(String sorting);
   Future<List<String>> fetchScreenshots(String gameId);
 }
 
@@ -14,10 +14,10 @@ class GameRepository implements IGameRepository {
   GameRepository({required this.client});
 
   @override
-  Future<List<GameModel>> getGames() async {
+  Future<List<GameModel>> getGames(String sorting) async {
     try {
       final response =
-          await client.get(url: 'https://www.freetogame.com/api/games');
+          await client.get(url: 'https://www.freetogame.com/api/games?sort-by=$sorting');
 
       if (response.statusCode == 200) {
         final List<GameModel> games = [];
@@ -37,6 +37,7 @@ class GameRepository implements IGameRepository {
       rethrow; // Rethrow the caught error
     }
   }
+
 
   // fetch LIST of images
   @override

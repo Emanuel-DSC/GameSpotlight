@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MyTabBar extends StatelessWidget {
+class GameDetailsTabBar extends StatelessWidget {
   final bool isScrollable;
   final Color onColor;
   final Color offColor;
   final String firstTitle;
   final String secondTitle;
 
-  const MyTabBar({
+  const GameDetailsTabBar({
     super.key,
     required this.isScrollable,
     required this.onColor,
@@ -29,8 +29,16 @@ class MyTabBar extends StatelessWidget {
           insets: EdgeInsets.symmetric(horizontal: 10.0),
         ),
         tabs: [
-          Tab(child: Text(firstTitle, style: GoogleFonts.roboto(fontSize: 14), )),
-          Tab(child: Text(secondTitle, style: GoogleFonts.roboto(fontSize: 14), )),
+          Tab(
+              child: Text(
+            firstTitle,
+            style: GoogleFonts.roboto(fontSize: 14),
+          )),
+          Tab(
+              child: Text(
+            secondTitle,
+            style: GoogleFonts.roboto(fontSize: 14),
+          )),
         ]);
   }
 }

@@ -10,8 +10,8 @@ import '../../widgets/game_details_widgets/game_cover_widget.dart';
 import '../../widgets/game_details_widgets/screenshots_widget.dart';
 import '../../widgets/my_button_widget.dart';
 import '../../widgets/my_text.widget.dart';
-import '../../widgets/tab_widgets/game_page_tab.dart';
-import '../../widgets/tab_widgets/my_tab_bar_widget.dart';
+import '../../widgets/tab_widgets/GameDetailsTab/game_details_tab_bar.dart';
+import '../../widgets/tab_widgets/GameDetailsTab/game_page_tab.dart';
 
 class GameDetailPage extends StatefulWidget {
   final String? title;
@@ -61,7 +61,6 @@ class _GameDetailPageState extends State<GameDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -146,7 +145,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                     // Show screenshots using ListView
                     ScreenshotsList(screenshotsFuture: _screenshotsFuture),
                     const SizedBox(height: 10),
-                    const MyTabBar(
+                    const GameDetailsTabBar(
                         firstTitle: 'About',
                         secondTitle: 'Minimum System Requirements',
                         isScrollable: true,
@@ -155,7 +154,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                     // show tab bar content
                     SizedBox(
                       height: 160,
-                      child: GamePageTabView(
+                      child: DetailGamePageTabView(
                           minSysReq: _minSysReqFuture,
                           description: _description),
                     ),

@@ -1,13 +1,14 @@
-import 'package:f2p_games/view/widgets/tab_widgets/description_widget.dart';
-import 'package:f2p_games/view/widgets/tab_widgets/min_sys_req_widget.dart';
+
 import 'package:flutter/material.dart';
 
+import 'description_widget.dart';
+import 'min_sys_req_widget.dart';
 
-class GamePageTabView extends StatelessWidget {
+class DetailGamePageTabView extends StatelessWidget {
   final Future<Map<String, String>> minSysReq;
   final Future<String> description;
 
-  const GamePageTabView({
+  const DetailGamePageTabView({
     super.key,
     required this.minSysReq,
     required this.description,
@@ -39,4 +40,3 @@ class GamePageTabView extends StatelessWidget {
     );
   }
 }
-

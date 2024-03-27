@@ -1,7 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:f2p_games/services/search_bar_services.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/models/games_models.dart';
+import '../../services/search_bar_services.dart';
 import '../pages/game/game_detail_page.dart';
 import '../pages/stores/games_store.dart';
 import 'cards/game_card_widget.dart';
@@ -10,22 +11,24 @@ class GamesList extends StatelessWidget {
   const GamesList({
     Key? key,
     required this.store,
+    required this.state, 
   }) : super(key: key);
 
   final GameStore store;
+  final List<GameModel> state; 
 
   @override
   Widget build(BuildContext context) {
-    //updates titles to search bar
-    CustomSearchDelegate(store).updateSearchTerms(store.state.value);
+    // Updates titles to search bar
+    CustomSearchDelegate(store).updateSearchTerms(state);
 
     return SizedBox(
       height: 300,
       child: CarouselSlider.builder(
         options: CarouselOptions(height: 300),
-        itemCount: store.state.value.length,
+        itemCount: state.length, 
         itemBuilder: (context, index, realIndex) {
-          final item = store.state.value[index];
+          final item = state[index];
           return Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: GameCard(
@@ -44,7 +47,8 @@ class GamesList extends StatelessWidget {
                     description: '',
                   ),
                 ),
-              ), fit: BoxFit.cover,
+              ),
+              fit: BoxFit.cover,
             ),
           );
         },
