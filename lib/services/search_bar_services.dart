@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/colors.dart';
+import '../data/repositories/games_store.dart';
 import '../view/pages/game/game_detail_page.dart';
-import '../view/pages/stores/games_store.dart';
 import '../view/widgets/cards/game_card_search_widget.dart';
 
 class CustomSearchDelegate extends SearchDelegate {

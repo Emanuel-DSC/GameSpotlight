@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../pages/stores/games_store.dart';
+import '../../../../data/repositories/games_store.dart';
 import '../../games_list_widget.dart';
 
 class GamesTabView extends StatelessWidget {

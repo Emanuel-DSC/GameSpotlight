@@ -2,9 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/models/games_models.dart';
+import '../../data/repositories/games_store.dart';
 import '../../services/search_bar_services.dart';
 import '../pages/game/game_detail_page.dart';
-import '../pages/stores/games_store.dart';
 import 'cards/game_card_widget.dart';
 
 class GamesList extends StatelessWidget {

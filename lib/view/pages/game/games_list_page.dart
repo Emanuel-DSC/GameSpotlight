@@ -5,11 +5,12 @@ import 'package:f2p_games/services/home_page_services.dart';
 import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../data/repositories/games_store.dart';
 import '../../../services/search_bar_services.dart';
+import '../../widgets/games_list_widget.dart';
 import '../../widgets/my_search_bar.widget.dart';
 import '../../widgets/tab_widgets/GamesListTab/game_list_tab_bar_widget.dart';
 import '../../widgets/tab_widgets/GamesListTab/games_tab_view.dart';
-import '../stores/games_store.dart';
 
 class GamesListPage extends StatefulWidget {
   const GamesListPage({Key? key}) : super(key: key);
@@ -19,6 +20,8 @@ class GamesListPage extends StatefulWidget {
 }
 
 class _GamesListPageState extends State<GamesListPage> {
+  bool _isSelected = false;
+  String genre = 'pvp';
   HomePageServices homePageServices = HomePageServices();
   final GameStore store =
       GameStore(repository: GameRepository(client: HttpClient()));
@@ -30,6 +33,7 @@ class _GamesListPageState extends State<GamesListPage> {
     store.getPopular('popularity');
     store.getAlphabetical('alphabetical');
     store.getReleaseData('release-date');
+    store.getGenres(genre);
   }
 
   @override
@@ -44,7 +48,8 @@ class _GamesListPageState extends State<GamesListPage> {
             store.erro,
             store.state,
             store.state2,
-            store.state3
+            store.state3,
+            store.state4,
           ]),
           builder: (context, child) {
             if (store.isLoading.value) {
@@ -55,7 +60,8 @@ class _GamesListPageState extends State<GamesListPage> {
             }
             if (store.state.value.isEmpty ||
                 store.state2.value.isEmpty ||
-                store.state3.value.isEmpty) {
+                store.state3.value.isEmpty ||
+                store.state4.value.isEmpty) {
               return homePageServices.buildEmptyListText();
             }
             return Column(
@@ -90,6 +96,30 @@ class _GamesListPageState extends State<GamesListPage> {
                 const GamesListTabBar(),
                 const SizedBox(height: 20),
                 GamesTabView(store: store),
+                ChoiceChip(
+                  label: Text(
+                    'TESTE',
+                    style: TextStyle(fontSize: 20, color: _isSelected ? Colors.white : Colors.black),
+                  ),
+                  selected: _isSelected,
+                  selectedColor: Colors.purple,
+                  onSelected: (newBoolValue) {
+                    setState(() {
+                      _isSelected = newBoolValue;
+                      genre = 'racing';
+                      print(genre);
+                      store.getGenres(genre);
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: 150,
+                  width: 200,
+                  child: GamesList(
+                    store: store,
+                    state: store.state4.value,
+                  ),
+                ),
               ],
             );
           },
@@ -98,4 +128,3 @@ class _GamesListPageState extends State<GamesListPage> {
     );
   }
 }
-
