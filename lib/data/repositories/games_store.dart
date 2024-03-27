@@ -58,7 +58,7 @@ class GameStore {
     isLoading.value = false;
   }
 
-  Future<void> getGenres(String genre) async {
+  Future getGenres(String genre) async {
     isLoading.value = true;
 
     try {

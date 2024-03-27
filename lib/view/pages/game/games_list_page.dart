@@ -1,11 +1,11 @@
 import 'package:f2p_games/constants/colors.dart';
 import 'package:f2p_games/data/http/http_client.dart';
 import 'package:f2p_games/data/repositories/game_repository.dart';
-import 'package:f2p_games/services/home_page_services.dart';
 import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../data/repositories/games_store.dart';
+import '../../../services/game__list_page_services.dart';
 import '../../../services/search_bar_services.dart';
 import '../../widgets/games_list_widget.dart';
 import '../../widgets/my_search_bar.widget.dart';
@@ -20,9 +20,9 @@ class GamesListPage extends StatefulWidget {
 }
 
 class _GamesListPageState extends State<GamesListPage> {
-  bool _isSelected = false;
+  List<bool> _isSelectedList = List.filled(39, false); // Initialize with false for each chip
   String genre = 'pvp';
-  HomePageServices homePageServices = HomePageServices();
+  GameListPageServices homePageServices = GameListPageServices();
   final GameStore store =
       GameStore(repository: GameRepository(client: HttpClient()));
 
@@ -92,25 +92,37 @@ class _GamesListPageState extends State<GamesListPage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
-                const GamesListTabBar(),
-                const SizedBox(height: 20),
-                GamesTabView(store: store),
-                ChoiceChip(
-                  label: Text(
-                    'TESTE',
-                    style: TextStyle(fontSize: 20, color: _isSelected ? Colors.white : Colors.black),
-                  ),
-                  selected: _isSelected,
-                  selectedColor: Colors.purple,
-                  onSelected: (newBoolValue) {
-                    setState(() {
-                      _isSelected = newBoolValue;
-                      genre = 'racing';
-                      print(genre);
-                      store.getGenres(genre);
-                    });
-                  },
+                // const SizedBox(height: 10),
+                // const GamesListTabBar(),
+                // const SizedBox(height: 20),
+                // GamesTabView(store: store),
+                Wrap(
+                  children: [
+                    // Repeat for each genre
+                    for (int index = 0; index < 39; index++)
+                      ChoiceChip(
+                        label: Text(
+                          _getGenreFromIndex(index),
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: _isSelectedList[index]
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                        ),
+                        selected: _isSelectedList[index],
+                        selectedColor: Colors.purple,
+                        onSelected: (newBoolValue) {
+                          setState(() {
+                            _isSelectedList =
+                                List.filled(39, false); // Deselect all chips
+                            _isSelectedList[index] = newBoolValue;
+                            genre = _getGenreFromIndex(index); // Convert index to genre
+                            store.getGenres(genre);
+                          });
+                        },
+                      ),
+                  ],
                 ),
                 SizedBox(
                   height: 150,
@@ -128,3 +140,20 @@ class _GamesListPageState extends State<GamesListPage> {
     );
   }
 }
+
+
+// Function to convert chip index to genre
+  String _getGenreFromIndex(int index) {
+    // List of all genres
+    List<String> genres = [
+      'mmorpg', 'shooter', 'strategy', 'moba', 'racing', 'sports', 'social',
+      'sandbox', 'open-world', 'survival', 'pvp', 'pve', 'pixel', 'voxel',
+      'zombie', 'turn-based', 'first-person', 'third-Person', 'top-down',
+      'tank', 'space', 'sailing', 'side-scroller', 'superhero', 'permadeath',
+      'card', 'battle-royale', 'mmo', 'mmofps', 'mmotps', '3d', '2d', 'anime',
+      'fantasy', 'sci-fi', 'fighting', 'action-rpg', 'action', 'military',
+      'martial-arts', 'flight', 'low-spec', 'tower-defense', 'horror', 'mmorts'
+    ];
+    // Return the genre corresponding to the index
+    return genres[index];
+  }
