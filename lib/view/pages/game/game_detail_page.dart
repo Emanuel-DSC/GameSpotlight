@@ -6,10 +6,10 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../data/http/http_client.dart';
 import '../../../data/repositories/game_repository.dart';
 import '../../widgets/app_bar_widgets/my_appbar_widget.dart';
-import '../../widgets/game_cover_widget.dart';
+import '../../widgets/game_details_widgets/game_cover_widget.dart';
+import '../../widgets/game_details_widgets/screenshots_widget.dart';
 import '../../widgets/my_button_widget.dart';
 import '../../widgets/my_text.widget.dart';
-import '../../widgets/screenshots_widget.dart';
 import '../../widgets/tab_widgets/game_page_tab.dart';
 import '../../widgets/tab_widgets/my_tab_bar_widget.dart';
 
@@ -61,6 +61,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return DefaultTabController(
       length: 2,
       child: Scaffold(

@@ -1,7 +1,8 @@
-import 'package:f2p_games/view/widgets/game_screenshots_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'my_progress_indicador_widget.dart';
+import '../my_progress_indicador_widget.dart';
+import 'game_screenshots_widget.dart';
+
 
 class ScreenshotsList extends StatelessWidget {
   const ScreenshotsList({

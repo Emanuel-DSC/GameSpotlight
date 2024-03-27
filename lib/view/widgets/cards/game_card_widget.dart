@@ -4,8 +4,8 @@ import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../data/models/games_models.dart';
-import 'my_progress_indicador_widget.dart';
+import '../../../data/models/games_models.dart';
+import '../my_progress_indicador_widget.dart';
 
 class GameCard extends StatelessWidget {
   final GameModel item;

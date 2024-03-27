@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import 'my_progress_indicador_widget.dart';
+import '../my_progress_indicador_widget.dart';
+
 
 class GameScreenshots extends StatelessWidget {
   const GameScreenshots({

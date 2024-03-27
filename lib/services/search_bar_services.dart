@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../constants/colors.dart';
 import '../view/pages/game/game_detail_page.dart';
 import '../view/pages/stores/games_store.dart';
-import '../view/widgets/game_card_widget.dart';
+import '../view/widgets/cards/game_card_search_widget.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   final GameStore store;
@@ -15,12 +15,13 @@ class CustomSearchDelegate extends SearchDelegate {
   // create a list view of game cards to search bar suggestions and results
   Widget _buildGameCardList(List<String> matchQuery) {
   return ListView.builder(
+    physics: const BouncingScrollPhysics(),
     itemCount: matchQuery.length,
     itemBuilder: (context, index) {
       final String result = matchQuery[index];
       final item = store.state.value.firstWhere((item) =>
           item.title.toString().toLowerCase() == result.toLowerCase());
-      return GameCard(
+      return GameCardList(
         item: item,
         onTap: () => Navigator.push(
           context,
@@ -37,7 +38,7 @@ class CustomSearchDelegate extends SearchDelegate {
             ),
           ),
         ),
-        fit: BoxFit.fill,
+        fit: BoxFit.cover,
       );
     },
   );

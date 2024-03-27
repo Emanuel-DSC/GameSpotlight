@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:f2p_games/view/widgets/my_progress_indicador_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../pages/game/game_detail_page.dart';
+import '../../pages/game/game_detail_page.dart';
 
 
 

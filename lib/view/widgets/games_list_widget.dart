@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../pages/game/game_detail_page.dart';
 import '../pages/stores/games_store.dart';
-import 'game_card_widget.dart';
+import 'cards/game_card_widget.dart';
 
 class GamesList extends StatelessWidget {
   const GamesList({
