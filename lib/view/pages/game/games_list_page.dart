@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:f2p_games/constants/colors.dart';
 import 'package:f2p_games/data/http/http_client.dart';
 import 'package:f2p_games/data/repositories/game_repository.dart';
@@ -18,7 +20,8 @@ class GamesListPage extends StatefulWidget {
 }
 
 class _GamesListPageState extends State<GamesListPage> {
-  
+  List<bool> _isSelectedList =
+      List.filled(39, false); // Initialize with false for each chip
   String genre = 'pvp';
   GameListPageServices homePageServices = GameListPageServices();
   final GameStore store =
@@ -83,7 +86,35 @@ class _GamesListPageState extends State<GamesListPage> {
                           Expanded(flex: 4, child: MySearchBar(store: store)),
                           Expanded(
                             flex: 1,
-                            child: genreFilter(context, setState, genre, homePageServices, store),
+                            child: IconButton(
+                              icon: const Icon(
+                                Icons.abc,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  showModalBottomSheet(
+                                    backgroundColor: Colors.transparent,
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return ClipRRect(
+                                        borderRadius:
+                                            const BorderRadius.vertical(
+                                                top: Radius.circular(12)),
+                                        child: BackdropFilter(
+                                          filter: ImageFilter.blur(
+                                            sigmaX: 120.0,
+                                            sigmaY: 20.0,
+                                          ),
+                                          child: teste(context, _isSelectedList, setState, genre, homePageServices, store),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                });
+                              },
+                            ),
                           ),
                         ],
                       ),
