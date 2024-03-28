@@ -6,11 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../data/repositories/games_store.dart';
 import '../../../services/game__list_page_services.dart';
-import '../../../services/search_bar_services.dart';
 import '../../widgets/games_list_widget.dart';
 import '../../widgets/my_search_bar.widget.dart';
-import '../../widgets/tab_widgets/GamesListTab/game_list_tab_bar_widget.dart';
-import '../../widgets/tab_widgets/GamesListTab/games_tab_view.dart';
+import '../../widgets/tab_widgets/Genres/genres_selection_widget.dart';
 
 class GamesListPage extends StatefulWidget {
   const GamesListPage({Key? key}) : super(key: key);
@@ -20,7 +18,8 @@ class GamesListPage extends StatefulWidget {
 }
 
 class _GamesListPageState extends State<GamesListPage> {
-  List<bool> _isSelectedList = List.filled(39, false); // Initialize with false for each chip
+  List<bool> _isSelectedList =
+      List.filled(39, false); // Initialize with false for each chip
   String genre = 'pvp';
   GameListPageServices homePageServices = GameListPageServices();
   final GameStore store =
@@ -80,14 +79,44 @@ class _GamesListPageState extends State<GamesListPage> {
                         weight: FontWeight.bold,
                       ),
                       const SizedBox(height: 20),
-                      GestureDetector(
-                        onTap: () {
-                          showSearch(
-                            context: context,
-                            delegate: CustomSearchDelegate(store),
-                          );
-                        },
-                        child: const MySearchBar(),
+                      Row(
+                        children: [
+                          Expanded(flex: 4, child: MySearchBar(store: store)),
+                          Expanded(
+                            flex: 1,
+                            child: IconButton(
+                              icon: const Icon(
+                                Icons.abc,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return GenreSelectionModal(
+                                        isSelectedList: _isSelectedList,
+                                        onSelected: (index, newBoolValue) {
+                                          setState(() {
+                                            _isSelectedList = List.filled(39,
+                                                false); // Deselect all chips
+                                            _isSelectedList[index] =
+                                                newBoolValue;
+                                            genre = homePageServices
+                                                .getGenreFromIndex(
+                                                    index); // Convert index to genre
+                                            store.getGenres(genre);
+                                            Navigator.pop(context);
+                                          });
+                                        },
+                                      );
+                                    },
+                                  );
+                                });
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -96,34 +125,6 @@ class _GamesListPageState extends State<GamesListPage> {
                 // const GamesListTabBar(),
                 // const SizedBox(height: 20),
                 // GamesTabView(store: store),
-                Wrap(
-                  children: [
-                    // Repeat for each genre
-                    for (int index = 0; index < 39; index++)
-                      ChoiceChip(
-                        label: Text(
-                          _getGenreFromIndex(index),
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: _isSelectedList[index]
-                                ? Colors.white
-                                : Colors.black,
-                          ),
-                        ),
-                        selected: _isSelectedList[index],
-                        selectedColor: Colors.purple,
-                        onSelected: (newBoolValue) {
-                          setState(() {
-                            _isSelectedList =
-                                List.filled(39, false); // Deselect all chips
-                            _isSelectedList[index] = newBoolValue;
-                            genre = _getGenreFromIndex(index); // Convert index to genre
-                            store.getGenres(genre);
-                          });
-                        },
-                      ),
-                  ],
-                ),
                 SizedBox(
                   height: 150,
                   width: 200,
@@ -140,20 +141,3 @@ class _GamesListPageState extends State<GamesListPage> {
     );
   }
 }
-
-
-// Function to convert chip index to genre
-  String _getGenreFromIndex(int index) {
-    // List of all genres
-    List<String> genres = [
-      'mmorpg', 'shooter', 'strategy', 'moba', 'racing', 'sports', 'social',
-      'sandbox', 'open-world', 'survival', 'pvp', 'pve', 'pixel', 'voxel',
-      'zombie', 'turn-based', 'first-person', 'third-Person', 'top-down',
-      'tank', 'space', 'sailing', 'side-scroller', 'superhero', 'permadeath',
-      'card', 'battle-royale', 'mmo', 'mmofps', 'mmotps', '3d', '2d', 'anime',
-      'fantasy', 'sci-fi', 'fighting', 'action-rpg', 'action', 'military',
-      'martial-arts', 'flight', 'low-spec', 'tower-defense', 'horror', 'mmorts'
-    ];
-    // Return the genre corresponding to the index
-    return genres[index];
-  }
