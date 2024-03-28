@@ -10,7 +10,8 @@ import '../../../data/repositories/games_store.dart';
 import '../../../services/game__list_page_services.dart';
 import '../../widgets/games_list_widget.dart';
 import '../../widgets/my_search_bar.widget.dart';
-import '../../widgets/tab_widgets/Genres/genre_style_widget.dart';
+import '../../widgets/tab_widgets/GamesListTab/game_list_tab_bar_widget.dart';
+import '../../widgets/tab_widgets/GamesListTab/games_tab_view.dart';
 import '../../widgets/tab_widgets/Genres/my_bottom_modal_widget.dart';
 
 class GamesListPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class GamesListPage extends StatefulWidget {
 }
 
 class _GamesListPageState extends State<GamesListPage> {
-  List<bool> _isSelectedList =
+  final List<bool> _isSelectedList =
       List.filled(39, false); // Initialize with false for each chip
   String genre = 'pvp';
   GameListPageServices homePageServices = GameListPageServices();
@@ -36,6 +37,7 @@ class _GamesListPageState extends State<GamesListPage> {
     store.getAlphabetical('alphabetical');
     store.getReleaseData('release-date');
     store.getGenres(genre);
+    store.getEveryGame();
   }
 
   @override
@@ -94,7 +96,13 @@ class _GamesListPageState extends State<GamesListPage> {
                               ),
                               onPressed: () {
                                 setState(() {
-                                  myShowModalBottomSheet(context, _isSelectedList, setState, genre, homePageServices, store);
+                                  myShowModalBottomSheet(
+                                      context,
+                                      _isSelectedList,
+                                      setState,
+                                      genre,
+                                      homePageServices,
+                                      store);
                                 });
                               },
                             ),
@@ -104,13 +112,13 @@ class _GamesListPageState extends State<GamesListPage> {
                     ],
                   ),
                 ),
-                // const SizedBox(height: 10),
-                // const GamesListTabBar(),
-                // const SizedBox(height: 20),
-                // GamesTabView(store: store),
+                const SizedBox(height: 10),
+                const GamesListTabBar(),
+                const SizedBox(height: 20),
+                GamesTabView(store: store),
                 SizedBox(
                   height: 150,
-                  width: 200,
+                  width: double.infinity,
                   child: GamesList(
                     store: store,
                     state: store.state4.value,
@@ -123,5 +131,4 @@ class _GamesListPageState extends State<GamesListPage> {
       ),
     );
   }
-
 }

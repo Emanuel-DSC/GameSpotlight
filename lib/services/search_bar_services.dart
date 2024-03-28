@@ -19,7 +19,7 @@ class CustomSearchDelegate extends SearchDelegate {
     itemCount: matchQuery.length,
     itemBuilder: (context, index) {
       final String result = matchQuery[index];
-      final item = store.state.value.firstWhere((item) =>
+      final item = store.state5.value.firstWhere((item) =>
           item.title.toString().toLowerCase() == result.toLowerCase());
       return GameCardList(
         item: item,
