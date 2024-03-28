@@ -8,7 +8,7 @@ import '../../../data/repositories/games_store.dart';
 import '../../../services/game__list_page_services.dart';
 import '../../widgets/games_list_widget.dart';
 import '../../widgets/my_search_bar.widget.dart';
-import '../../widgets/tab_widgets/Genres/genres_selection_widget.dart';
+import '../../widgets/tab_widgets/Genres/genre_style_widget.dart';
 
 class GamesListPage extends StatefulWidget {
   const GamesListPage({Key? key}) : super(key: key);
@@ -18,8 +18,7 @@ class GamesListPage extends StatefulWidget {
 }
 
 class _GamesListPageState extends State<GamesListPage> {
-  List<bool> _isSelectedList =
-      List.filled(39, false); // Initialize with false for each chip
+  
   String genre = 'pvp';
   GameListPageServices homePageServices = GameListPageServices();
   final GameStore store =
@@ -84,37 +83,7 @@ class _GamesListPageState extends State<GamesListPage> {
                           Expanded(flex: 4, child: MySearchBar(store: store)),
                           Expanded(
                             flex: 1,
-                            child: IconButton(
-                              icon: const Icon(
-                                Icons.abc,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return GenreSelectionModal(
-                                        isSelectedList: _isSelectedList,
-                                        onSelected: (index, newBoolValue) {
-                                          setState(() {
-                                            _isSelectedList = List.filled(39,
-                                                false); // Deselect all chips
-                                            _isSelectedList[index] =
-                                                newBoolValue;
-                                            genre = homePageServices
-                                                .getGenreFromIndex(
-                                                    index); // Convert index to genre
-                                            store.getGenres(genre);
-                                            Navigator.pop(context);
-                                          });
-                                        },
-                                      );
-                                    },
-                                  );
-                                });
-                              },
-                            ),
+                            child: genreFilter(context, setState, genre, homePageServices, store),
                           ),
                         ],
                       ),
@@ -140,4 +109,6 @@ class _GamesListPageState extends State<GamesListPage> {
       ),
     );
   }
+
+  
 }
