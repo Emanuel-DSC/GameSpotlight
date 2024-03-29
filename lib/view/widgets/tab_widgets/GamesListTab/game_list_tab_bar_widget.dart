@@ -18,29 +18,29 @@ class GamesListTabBar extends StatelessWidget {
         labelPadding: const EdgeInsets.only(right: 20),
         indicatorColor: kButtonColor1,
         labelColor: Colors.white,
-        unselectedLabelColor: Colors.grey,
+        unselectedLabelColor: Colors.grey.shade600,
         tabs: [
           Tab(
             child: Text(
               'Popular',
-              style: GoogleFonts.roboto(
-                textStyle: const TextStyle(fontSize: 14),
+              style: GoogleFonts.michroma(
+                textStyle: const TextStyle(fontSize: 12),
               ),
             ),
           ),
           Tab(
             child: Text(
               'Newest',
-              style: GoogleFonts.roboto(
-                textStyle: const TextStyle(fontSize: 14),
+              style: GoogleFonts.michroma(
+                textStyle: const TextStyle(fontSize: 12),
               ),
             ),
           ),
           Tab(
             child: Text(
               'Alphabetical',
-              style: GoogleFonts.roboto(
-                textStyle: const TextStyle(fontSize: 14),
+              style: GoogleFonts.michroma(
+                textStyle: const TextStyle(fontSize: 12),
               ),
             ),
           )

@@ -24,7 +24,7 @@ class MySearchBar extends StatelessWidget {
         );
       },
       child: Container(
-        width: 300,
+        width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
           color: kSearchBarColor,

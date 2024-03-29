@@ -1,18 +1,19 @@
-import 'dart:ui';
-
 import 'package:f2p_games/constants/colors.dart';
+import 'package:f2p_games/constants/lists.dart';
 import 'package:f2p_games/data/http/http_client.dart';
 import 'package:f2p_games/data/repositories/game_repository.dart';
 import 'package:f2p_games/view/widgets/my_text.widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../data/repositories/games_store.dart';
 import '../../../services/game__list_page_services.dart';
-import '../../widgets/games_list_widget.dart';
+import '../../widgets/cards/categories_cards_widgets.dart';
 import '../../widgets/my_search_bar.widget.dart';
 import '../../widgets/tab_widgets/GamesListTab/game_list_tab_bar_widget.dart';
 import '../../widgets/tab_widgets/GamesListTab/games_tab_view.dart';
 import '../../widgets/tab_widgets/Genres/my_bottom_modal_widget.dart';
+import 'category_page.dart';
 
 class GamesListPage extends StatefulWidget {
   const GamesListPage({Key? key}) : super(key: key);
@@ -22,10 +23,8 @@ class GamesListPage extends StatefulWidget {
 }
 
 class _GamesListPageState extends State<GamesListPage> {
-  final List<bool> _isSelectedList =
-      List.filled(39, false); // Initialize with false for each chip
-  String genre = 'pvp';
   GameListPageServices homePageServices = GameListPageServices();
+  String genre = 'pvp';
   final GameStore store =
       GameStore(repository: GameRepository(client: HttpClient()));
 
@@ -67,74 +66,83 @@ class _GamesListPageState extends State<GamesListPage> {
                 store.state4.value.isEmpty) {
               return homePageServices.buildEmptyListText();
             }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.07),
-                const Padding(
-                  padding: EdgeInsets.only(left: 20.0),
-                  child: MyText(
-                    googleFont: GoogleFonts.michroma,
-                    color: Colors.white,
-                    fontSize: 24,
-                    title: 'Game Spotlight',
-                    weight: FontWeight.bold,
+            return SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20.0),
+                    child: MyText(
+                      googleFont: GoogleFonts.michroma,
+                      color: Colors.white,
+                      fontSize: 24,
+                      title: 'Game Spotlight',
+                      weight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    children: [
-                      Expanded(flex: 4, child: MySearchBar(store: store)),
-                      Expanded(
-                        flex: 1,
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.abc,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              myShowModalBottomSheet(context, _isSelectedList,
-                                  setState, genre, homePageServices, store);
-                            });
-                          },
-                        ),
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: MySearchBar(store: store),
+                  ),
+                  const SizedBox(height: 10),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20.0),
+                    child: GamesListTabBar(),
+                  ),
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15.0),
+                    child: GamesTabView(store: store),
+                  ),
+                  const SizedBox(height: 20),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20.0),
+                    child: MyText(
+                      googleFont: GoogleFonts.michroma,
+                      color: Colors.white,
+                      fontSize: 14,
+                      title: 'Categories',
+                      weight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 150,
+                    width: double.infinity,
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 8.0,
+                        crossAxisSpacing: 8.0,
                       ),
-                    ],
+                      padding: const EdgeInsets.all(8.0),
+                      itemCount: genresList.length,
+                      itemBuilder: (context, index) {
+                        String item = genresList[index];
+                        return CategoriesCards(
+                          item: item,
+                          onTap: ()  {
+                            // pass genre name to getGenres
+                            store.getGenres(item);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CategoryPage(
+                                  title: item,
+                                  store: store,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                const Padding(
-                  padding: EdgeInsets.only(left: 20.0),
-                  child: GamesListTabBar(),
-                ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: GamesTabView(store: store),
-                ),
-                const SizedBox(height: 20),
-                const Padding(
-                  padding: EdgeInsets.only(left: 20.0),
-                  child: MyText(
-                    googleFont: GoogleFonts.michroma,
-                    color: Colors.white,
-                    fontSize: 20,
-                    title: 'Categories',
-                    weight: FontWeight.bold,
-                  ),
-                ),
-                // SizedBox(
-                //   height: 150,
-                //   width: double.infinity,
-                //   child: GamesList(
-                //     store: store,
-                //     state: store.state4.value,
-                //   ),
-                // ),
-              ],
+                ],
+              ),
             );
           },
         ),
