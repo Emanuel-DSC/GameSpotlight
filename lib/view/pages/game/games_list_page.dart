@@ -32,7 +32,6 @@ class _GamesListPageState extends State<GamesListPage> {
   @override
   void initState() {
     super.initState();
-    // Initially load games sorted by popularity
     store.getPopular('popularity');
     store.getAlphabetical('alphabetical');
     store.getReleaseData('release-date');
@@ -69,61 +68,72 @@ class _GamesListPageState extends State<GamesListPage> {
               return homePageServices.buildEmptyListText();
             }
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20.0),
+                  child: MyText(
+                    googleFont: GoogleFonts.michroma,
+                    color: Colors.white,
+                    fontSize: 24,
+                    title: 'Game Spotlight',
+                    weight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
                     children: [
-                      const MyText(
-                        googleFont: GoogleFonts.michroma,
-                        color: Colors.white,
-                        fontSize: 24,
-                        title: 'Game Spotlight',
-                        weight: FontWeight.bold,
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        children: [
-                          Expanded(flex: 4, child: MySearchBar(store: store)),
-                          Expanded(
-                            flex: 1,
-                            child: IconButton(
-                              icon: const Icon(
-                                Icons.abc,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  myShowModalBottomSheet(
-                                      context,
-                                      _isSelectedList,
-                                      setState,
-                                      genre,
-                                      homePageServices,
-                                      store);
-                                });
-                              },
-                            ),
+                      Expanded(flex: 4, child: MySearchBar(store: store)),
+                      Expanded(
+                        flex: 1,
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.abc,
+                            color: Colors.white,
                           ),
-                        ],
+                          onPressed: () {
+                            setState(() {
+                              myShowModalBottomSheet(context, _isSelectedList,
+                                  setState, genre, homePageServices, store);
+                            });
+                          },
+                        ),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 10),
-                const GamesListTabBar(),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20.0),
+                  child: GamesListTabBar(),
+                ),
                 const SizedBox(height: 20),
-                GamesTabView(store: store),
-                SizedBox(
-                  height: 150,
-                  width: double.infinity,
-                  child: GamesList(
-                    store: store,
-                    state: store.state4.value,
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: GamesTabView(store: store),
+                ),
+                const SizedBox(height: 20),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20.0),
+                  child: MyText(
+                    googleFont: GoogleFonts.michroma,
+                    color: Colors.white,
+                    fontSize: 20,
+                    title: 'Categories',
+                    weight: FontWeight.bold,
                   ),
                 ),
+                // SizedBox(
+                //   height: 150,
+                //   width: double.infinity,
+                //   child: GamesList(
+                //     store: store,
+                //     state: store.state4.value,
+                //   ),
+                // ),
               ],
             );
           },

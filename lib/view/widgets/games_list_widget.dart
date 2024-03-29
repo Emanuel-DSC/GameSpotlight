@@ -25,7 +25,10 @@ class GamesList extends StatelessWidget {
     return SizedBox(
       height: 300,
       child: CarouselSlider.builder(
-        options: CarouselOptions(height: 300),
+        options: CarouselOptions(
+          padEnds: false,
+          enableInfiniteScroll: false,
+          height: 300),
         itemCount: state.length, 
         itemBuilder: (context, index, realIndex) {
           final item = state[index];
