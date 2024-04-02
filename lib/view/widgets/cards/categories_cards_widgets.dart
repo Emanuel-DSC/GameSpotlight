@@ -35,8 +35,8 @@ class CategoriesCards extends StatelessWidget {
                 BorderRadius.circular(16), // Apply the same border radius
             child: BackdropFilter(
               filter: ImageFilter.blur(
-                sigmaX: 2,
-                sigmaY: 2,
+                sigmaX: 1.5,
+                sigmaY: 1.5,
               ),
               child: Container(
                 color: Colors.transparent,
