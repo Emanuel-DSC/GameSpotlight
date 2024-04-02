@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../data/models/games_models.dart';
 import '../../../data/repositories/games_store.dart';
 import '../../widgets/games_list_widget.dart';
 import '../../widgets/my_progress_indicador_widget.dart';
