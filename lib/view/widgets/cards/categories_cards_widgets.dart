@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../my_progress_indicador_widget.dart';
+
 class CategoriesCards extends StatelessWidget {
   final VoidCallback onTap;
   final String imageUrl;
@@ -23,16 +25,22 @@ class CategoriesCards extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius:
-                BorderRadius.circular(16), // Apply border radius to the image
+                BorderRadius.circular(16), 
             child: CachedNetworkImage(
               imageUrl: imageUrl,
               fit: BoxFit.cover,
+              placeholder: (context, url) => Container(
+                    color: Colors.white.withOpacity(0.2),
+                    alignment: Alignment.center,
+                    child: const MyCircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
           // Apply blur effect
           ClipRRect(
             borderRadius:
-                BorderRadius.circular(16), // Apply the same border radius
+                BorderRadius.circular(16), 
             child: BackdropFilter(
               filter: ImageFilter.blur(
                 sigmaX: 1.5,

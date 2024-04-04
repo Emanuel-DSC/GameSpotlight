@@ -1,7 +1,8 @@
+import 'package:f2p_games/view/widgets/tab_widgets/GamesListTab/categories_games_list_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../data/repositories/games_store.dart';
-import '../../widgets/games_list_widget.dart';
 import '../../widgets/my_progress_indicador_widget.dart';
+import '../../widgets/tab_widgets/GamesListTab/games_list_widget.dart';
 
 class CategoryPage extends StatelessWidget {
   final String title;
@@ -39,10 +40,7 @@ class CategoryPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(title),
-                  GamesList(
-                    store: store,
-                    state: store.state4.value, 
-                  ),
+                  CategoriesGamesList(store: store, state: store.state4.value),
                 ],
               ),
             ),
