@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../constants/colors.dart';
+import 'package:lottie/lottie.dart';
 
 class MyCircularProgressIndicator extends StatelessWidget {
   const MyCircularProgressIndicator({
@@ -9,9 +8,7 @@ class MyCircularProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircularProgressIndicator(
-      color: Colors.cyan,
-      backgroundColor: kBgColor1,
-    );
+    return Lottie.asset('lib/src/assets/animation/loading.json',
+        height: 50, width: 50, fit: BoxFit.cover);
   }
 }

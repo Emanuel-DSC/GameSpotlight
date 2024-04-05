@@ -2,7 +2,6 @@ import 'package:f2p_games/view/widgets/tab_widgets/GamesListTab/categories_games
 import 'package:flutter/material.dart';
 import '../../../data/repositories/games_store.dart';
 import '../../widgets/my_progress_indicador_widget.dart';
-import '../../widgets/tab_widgets/GamesListTab/games_list_widget.dart';
 
 class CategoryPage extends StatelessWidget {
   final String title;
