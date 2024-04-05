@@ -19,8 +19,8 @@ class TextBlurredBg extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         child: BackdropFilter(
           filter: ImageFilter.blur(
-            sigmaX: 15,
-            sigmaY: 15,
+            sigmaX: 10,
+            sigmaY: 10,
           ),
           child: IntrinsicWidth(
             child: Container(
@@ -29,7 +29,7 @@ class TextBlurredBg extends StatelessWidget {
               decoration: const BoxDecoration(
                 color: Colors.transparent,
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
               alignment: Alignment.center,
               child: MyText(
                 color: Colors.white,

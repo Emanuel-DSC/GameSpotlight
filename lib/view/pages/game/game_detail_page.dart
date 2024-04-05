@@ -1,4 +1,3 @@
-import 'package:f2p_games/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -6,7 +5,9 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../data/http/http_client.dart';
 import '../../../data/repositories/game_repository.dart';
 import '../../widgets/app_bar_widgets/my_appbar_widget.dart';
+import '../../widgets/game_details_widgets/background_collor_effect_widget.dart';
 import '../../widgets/game_details_widgets/game_cover_widget.dart';
+import '../../widgets/game_details_widgets/game_header_widget.dart';
 import '../../widgets/game_details_widgets/screenshots_widget.dart';
 import '../../widgets/my_button_widget.dart';
 import '../../widgets/my_text.widget.dart';
@@ -73,18 +74,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
               color: Colors.black,
             ),
             GameCover(widget: widget),
-            Positioned.fill(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.transparent, Colors.black, kBgColor1],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: const [0.25, 0.35, 3],
-                  ),
-                ),
-              ),
-            ),
+            const BgCollorEffect(),
             Positioned(
               top: MediaQuery.of(context).size.height * 0.29,
               width: MediaQuery.of(context).size.width,
@@ -105,40 +95,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Wrap(
-                      alignment: WrapAlignment.spaceEvenly,
-                      runAlignment: WrapAlignment.spaceEvenly,
-                      spacing: 12,
-                      children: [
-                        MyText(
-                          title: // get only year from release
-                              (widget.releaseDate != null &&
-                                      widget.releaseDate!.isNotEmpty)
-                                  ? DateTime.parse(widget.releaseDate!)
-                                      .year
-                                      .toString()
-                                  : 'XXXX',
-                          fontSize: 12.0,
-                          googleFont: GoogleFonts.michroma,
-                          color: Colors.grey,
-                          weight: FontWeight.bold,
-                        ),
-                        MyText(
-                          title: widget.genre ?? 'Not found',
-                          fontSize: 12.0,
-                          googleFont: GoogleFonts.michroma,
-                          color: Colors.grey,
-                          weight: FontWeight.bold,
-                        ),
-                        MyText(
-                          title: widget.publisher ?? 'Not found',
-                          fontSize: 12.0,
-                          googleFont: GoogleFonts.michroma,
-                          color: Colors.grey,
-                          weight: FontWeight.bold,
-                        ),
-                      ],
-                    ),
+                    GameHeader(widget: widget),
                     const SizedBox(height: 20),
                     MyButton(launchUrl: _launchUrl),
                     const SizedBox(height: 20),
@@ -168,3 +125,6 @@ class _GameDetailPageState extends State<GameDetailPage> {
     );
   }
 }
+
+
+

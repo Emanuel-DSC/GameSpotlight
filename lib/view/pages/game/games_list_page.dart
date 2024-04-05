@@ -5,6 +5,7 @@ import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:f2p_games/view/widgets/tab_widgets/GamesListTab/categories_grid_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import '../../../data/repositories/games_store.dart';
 import '../../../services/game__list_page_services.dart';
 import '../../widgets/my_search_bar.widget.dart';
@@ -93,14 +94,21 @@ class _GamesListPageState extends State<GamesListPage> {
                     child: GamesTabView(store: store),
                   ),
                   const SizedBox(height: 20),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 20.0),
-                    child: MyText(
-                      googleFont: GoogleFonts.michroma,
-                      color: Colors.white,
-                      fontSize: 14,
-                      title: 'Categories',
-                      weight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const MyText(
+                          googleFont: GoogleFonts.michroma,
+                          color: Colors.white,
+                          fontSize: 14,
+                          title: 'Categories',
+                          weight: FontWeight.bold,
+                        ),
+                        LottieBuilder.asset('lib/src/assets/animation/swipe.json', 
+                        height: 30, width: 30,),
+                      ],
                     ),
                   ),
                   CategoriesGridView(store: store),
