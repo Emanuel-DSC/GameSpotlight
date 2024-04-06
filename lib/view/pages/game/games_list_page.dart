@@ -41,6 +41,11 @@ class _GamesListPageState extends State<GamesListPage> {
       length: 3,
       child: Scaffold(
         backgroundColor: kBgColor1,
+        appBar: AppBar(
+          toolbarHeight: 5,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
         body: AnimatedBuilder(
           animation: Listenable.merge([
             store.isLoading,
@@ -68,7 +73,6 @@ class _GamesListPageState extends State<GamesListPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.07),
                   const Padding(
                     padding: EdgeInsets.only(left: 20.0),
                     child: MyText(
@@ -94,7 +98,7 @@ class _GamesListPageState extends State<GamesListPage> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: GamesTabView(store: store),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   const CategoriesTextAndAnimation(),
                   CategoriesGridView(store: store),
                   const SizedBox(height: 70),
@@ -107,6 +111,3 @@ class _GamesListPageState extends State<GamesListPage> {
     );
   }
 }
-
-
-
