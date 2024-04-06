@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:vertical_card_pager/vertical_card_pager.dart';
 
 import '../../../../data/models/games_models.dart';
 import '../../../../data/repositories/games_store.dart';
@@ -23,51 +23,53 @@ class CategoriesGamesList extends StatelessWidget {
     // Updates titles to search bar
     CustomSearchDelegate(store).updateSearchTerms(state);
 
-    return Expanded(
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.5,
+      width: double.infinity,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: VerticalCardPager(
-          titles: state.map((item) => item.title ?? '').toList(),
-          images: state
-              .map((item) => item.thumbnail != null
-                  ? ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: CachedNetworkImage(
-                        imageUrl: item.thumbnail!,
-                        fit: BoxFit.cover,
-                        placeholder: (context, url) => Container(
-                          color: Colors.white.withOpacity(0.2),
-                          alignment: Alignment.center,
-                          child: const MyCircularProgressIndicator(),
-                        ),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      ))
-                  : const Placeholder())
-              .toList(),
-          textStyle: const TextStyle(color: Colors.transparent),
-          onSelectedItem: (index) {
+        padding: const EdgeInsets.all(8.0),
+        child: Swiper(
+          scrollDirection: Axis.vertical,
+          itemHeight: 220,
+          itemWidth: MediaQuery.of(context).size.width,
+          layout: SwiperLayout.STACK,
+          itemCount: state.length,
+          itemBuilder: (BuildContext context, int index) {
             final item = state[index];
-            // Navigate to game detail page
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => GameDetailPage(
-                  title: item.title ?? '',
-                  thumbnail: item.thumbnail ?? '',
-                  releaseDate: item.releaseDate,
-                  id: item.id,
-                  gameUrl: item.url,
-                  genre: item.genre,
-                  publisher: item.publisher,
-                  description: '',
+            return GestureDetector(
+              onTap: () {
+                // Navigate to game detail page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GameDetailPage(
+                      title: item.title ?? '',
+                      thumbnail: item.thumbnail ?? '',
+                      releaseDate: item.releaseDate,
+                      id: item.id,
+                      gameUrl: item.url,
+                      genre: item.genre,
+                      publisher: item.publisher,
+                      description: '',
+                    ),
+                  ),
+                );
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: CachedNetworkImage(
+                  imageUrl: item.thumbnail!,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => Container(
+                    color: Colors.white.withOpacity(0.2),
+                    alignment: Alignment.center,
+                    child: const MyCircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             );
           },
-          initialPage: 0,
-          align: ALIGN.CENTER,
-          physics: const ClampingScrollPhysics(),
         ),
       ),
     );

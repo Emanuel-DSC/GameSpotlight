@@ -14,7 +14,7 @@ dependencies:
   http: ^1.1.0
   url_launcher: ^6.1.14
   carousel_slider: ^4.2.1
-  vertical_card_pager: ^1.6.2
+  card_swiper: ^3.0.1
   lottie: ^2.6.0
   gradient_borders: ^1.0.0
 

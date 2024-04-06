@@ -95,23 +95,7 @@ class _GamesListPageState extends State<GamesListPage> {
                     child: GamesTabView(store: store),
                   ),
                   const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const MyText(
-                          googleFont: GoogleFonts.michroma,
-                          color: Colors.white,
-                          fontSize: 14,
-                          title: 'Categories',
-                          weight: FontWeight.bold,
-                        ),
-                        LottieBuilder.asset('lib/src/assets/animation/swipe.json', 
-                        height: 30, width: 30,),
-                      ],
-                    ),
-                  ),
+                  const CategoriesTextAndAnimation(),
                   CategoriesGridView(store: store),
                   const SizedBox(height: 70),
                 ],
@@ -119,6 +103,33 @@ class _GamesListPageState extends State<GamesListPage> {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class CategoriesTextAndAnimation extends StatelessWidget {
+  const CategoriesTextAndAnimation({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const MyText(
+            googleFont: GoogleFonts.michroma,
+            color: Colors.white,
+            fontSize: 14,
+            title: 'Categories',
+            weight: FontWeight.bold,
+          ),
+          LottieBuilder.asset('lib/src/assets/animation/swipe.json', 
+          height: 30, width: 30,),
+        ],
       ),
     );
   }
