@@ -102,15 +102,11 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       MyButton(launchUrl: _launchUrl),
                       const SizedBox(height: 20),
                       // Show screenshots using ListView
-                      ScreenshotsList(
-                          screenshotsFuture: _screenshotsFuture),
+                      ScreenshotsList(screenshotsFuture: _screenshotsFuture),
                       const SizedBox(height: 10),
                       const GameDetailsTabBar(
                           firstTitle: 'About',
-                          secondTitle: 'Minimum System Requirements',
-                          isScrollable: true,
-                          offColor: Colors.grey,
-                          onColor: Colors.white),
+                          secondTitle: 'Minimum System Requirements'),
                       // show tab bar content
                       SizedBox(
                         height: 160,

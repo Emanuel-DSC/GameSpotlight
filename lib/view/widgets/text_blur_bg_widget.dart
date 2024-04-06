@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
 class TextBlurredBg extends StatelessWidget {
   const TextBlurredBg({
@@ -26,8 +27,13 @@ class TextBlurredBg extends StatelessWidget {
             child: Container(
               constraints: const BoxConstraints(minWidth: 60),
               height: 60,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.transparent,
+                borderRadius: BorderRadius.circular(16),
+                border: GradientBoxBorder(
+                  gradient: LinearGradient(colors: [Colors.grey.shade100.withOpacity(0.10), Colors.white.withOpacity(0.25)]),
+                  width: 1,
+                ),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               alignment: Alignment.center,

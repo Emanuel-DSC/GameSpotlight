@@ -64,6 +64,7 @@ class _GamesListPageState extends State<GamesListPage> {
               return homePageServices.buildEmptyListText();
             }
             return SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

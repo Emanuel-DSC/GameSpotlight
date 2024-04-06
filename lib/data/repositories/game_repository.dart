@@ -151,27 +151,30 @@ class GameRepository implements IGameRepository {
   } 
   
     // fetch description
-   Future<String> fetchDescription(String gameId) async {
-    try {
-      final response = await client.get(
-          url: 'https://www.freetogame.com/api/game?id=$gameId');
+   // fetch description
+Future<String> fetchDescription(String gameId) async {
+  try {
+    final response = await client.get(
+        url: 'https://www.freetogame.com/api/game?id=$gameId');
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> gameData = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> gameData = jsonDecode(response.body);
 
-        // Check if 'description' key exists and is not null
-        if (gameData.containsKey('description') && gameData['description'] != null) {
-          return gameData['description'];
-        } else {
-          // If description is not available, return a default value
-          return 'Description not available';
-        }
+      // Check if 'description' key exists and is not null
+      if (gameData.containsKey('description') && gameData['description'] != null) {
+        return gameData['description'];
       } else {
-        throw Exception('Impossible to load game description');
+        // If description is not available, return a default value or placeholder message
+        return 'Description not available';
       }
-    } catch (e) {
-      rethrow; // Rethrow the caught error
+    } else {
+      throw Exception('Impossible to load game description');
     }
+  } catch (e) {
+    // Handle error gracefully and return a default value or placeholder message
+    return 'Description not available';
   }
+}
+
 }
 

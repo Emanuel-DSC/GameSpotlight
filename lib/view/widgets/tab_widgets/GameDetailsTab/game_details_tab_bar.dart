@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../constants/colors.dart';
+
 class GameDetailsTabBar extends StatelessWidget {
-  final bool isScrollable;
-  final Color onColor;
-  final Color offColor;
   final String firstTitle;
   final String secondTitle;
 
   const GameDetailsTabBar({
     super.key,
-    required this.isScrollable,
-    required this.onColor,
-    required this.offColor,
     required this.firstTitle,
     required this.secondTitle,
   });
@@ -20,14 +16,11 @@ class GameDetailsTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TabBar(
-        isScrollable: isScrollable,
-        labelColor: onColor,
-        unselectedLabelColor: offColor,
-        indicatorWeight: 0,
-        indicator: const UnderlineTabIndicator(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
-          insets: EdgeInsets.symmetric(horizontal: 10.0),
-        ),
+        isScrollable: true,
+        labelColor: Colors.white,
+        indicatorPadding: EdgeInsets.zero,
+        unselectedLabelColor: Colors.grey.shade600,
+        indicatorColor: kButtonColor1,
         tabs: [
           Tab(
               child: Text(
