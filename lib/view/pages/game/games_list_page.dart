@@ -5,9 +5,9 @@ import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:f2p_games/view/widgets/tab_widgets/GamesListTab/categories_grid_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 import '../../../data/repositories/games_store.dart';
 import '../../../services/game__list_page_services.dart';
+import '../../widgets/categories_text_animation_widget.dart';
 import '../../widgets/my_search_bar.widget.dart';
 import '../../widgets/tab_widgets/GamesListTab/game_list_tab_bar_widget.dart';
 import '../../widgets/tab_widgets/GamesListTab/games_tab_view.dart';
@@ -108,31 +108,5 @@ class _GamesListPageState extends State<GamesListPage> {
   }
 }
 
-class CategoriesTextAndAnimation extends StatelessWidget {
-  const CategoriesTextAndAnimation({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const MyText(
-            googleFont: GoogleFonts.michroma,
-            color: Colors.white,
-            fontSize: 14,
-            title: 'Categories',
-            weight: FontWeight.bold,
-          ),
-          LottieBuilder.asset('lib/src/assets/animation/swipe.json', 
-          height: 30, width: 30,),
-        ],
-      ),
-    );
-  }
-}
 
 

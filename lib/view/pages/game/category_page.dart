@@ -2,6 +2,7 @@ import 'package:f2p_games/constants/colors.dart';
 import 'package:f2p_games/view/widgets/tab_widgets/GamesListTab/categories_games_list_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../data/repositories/games_store.dart';
+import '../../widgets/categories_text_animation_widget.dart';
 import '../../widgets/my_progress_indicador_widget.dart';
 import '../../widgets/tab_widgets/GamesListTab/categories_grid_widget.dart';
 
@@ -37,18 +38,26 @@ class CategoryPage extends StatelessWidget {
           // If data is successfully fetched, display the games list
           return Scaffold(
             backgroundColor: kBgColor1,
-            appBar: AppBar(),
-            body: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  CategoriesGamesList(store: store, state: store.state4.value),
-                  const SizedBox(height: 20),
-                  CategoriesGridView(store: store),
-                  const SizedBox(height: 70,),
-                ],
+            appBar: AppBar(
+              backgroundColor: kBgColor1,
+              leading: GestureDetector(
+                child: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                },
               ),
+              title: Text(title.toUpperCase()),
+            ),
+            body: Column(
+              children: [
+                const SizedBox(height: 10),
+                CategoriesGamesList(store: store, state: store.state4.value),
+                const CategoriesTextAndAnimation(),
+                CategoriesGridView(store: store),
+              ],
             ),
           );
         }

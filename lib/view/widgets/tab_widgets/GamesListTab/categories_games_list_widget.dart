@@ -1,12 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:f2p_games/view/widgets/cards/game_card_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/games_models.dart';
 import '../../../../data/repositories/games_store.dart';
 import '../../../../services/search_bar_services.dart';
 import '../../../pages/game/game_detail_page.dart';
-import '../../my_progress_indicador_widget.dart';
 
 class CategoriesGamesList extends StatelessWidget {
   const CategoriesGamesList({
@@ -24,19 +23,21 @@ class CategoriesGamesList extends StatelessWidget {
     CustomSearchDelegate(store).updateSearchTerms(state);
 
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.5,
+      height: MediaQuery.of(context).size.height * 0.45,
       width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Swiper(
           scrollDirection: Axis.vertical,
-          itemHeight: 220,
+          itemHeight: 320,
           itemWidth: MediaQuery.of(context).size.width,
           layout: SwiperLayout.STACK,
           itemCount: state.length,
           itemBuilder: (BuildContext context, int index) {
             final item = state[index];
-            return GestureDetector(
+            return GameCard(
+              fit: BoxFit.cover,
+              item: item,
               onTap: () {
                 // Navigate to game detail page
                 Navigator.push(
@@ -55,19 +56,6 @@ class CategoriesGamesList extends StatelessWidget {
                   ),
                 );
               },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: CachedNetworkImage(
-                  imageUrl: item.thumbnail!,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => Container(
-                    color: Colors.white.withOpacity(0.2),
-                    alignment: Alignment.center,
-                    child: const MyCircularProgressIndicator(),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              ),
             );
           },
         ),

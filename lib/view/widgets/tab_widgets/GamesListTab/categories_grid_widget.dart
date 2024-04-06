@@ -21,13 +21,12 @@ class CategoriesGridView extends StatelessWidget {
       child: GridView.builder(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(
-                mainAxisExtent: 220,
-                crossAxisCount: 2,
-                mainAxisSpacing: 10.0,
-                crossAxisSpacing: 8.0,
-                ),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisExtent: 220,
+          crossAxisCount: 2,
+          mainAxisSpacing: 10.0,
+          crossAxisSpacing: 8.0,
+        ),
         padding: const EdgeInsets.all(20.0),
         itemCount: categoriesList.length,
         itemBuilder: (context, index) {

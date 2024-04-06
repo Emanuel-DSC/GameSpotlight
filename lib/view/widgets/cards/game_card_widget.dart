@@ -14,7 +14,7 @@ class GameCard extends StatelessWidget {
   const GameCard({
     Key? key,
     required this.item,
-    required this.onTap, 
+    required this.onTap,
     required this.fit,
   }) : super(key: key);
 
@@ -52,7 +52,7 @@ class GameCard extends StatelessWidget {
             ),
             // Container with description
             Expanded(
-              flex: 3,
+              flex: 2,
               child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
