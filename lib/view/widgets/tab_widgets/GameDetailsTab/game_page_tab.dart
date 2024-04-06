@@ -18,7 +18,9 @@ class DetailGamePageTabView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: TabBarView(children: [
+      child: TabBarView(
+        physics: const BouncingScrollPhysics(),
+        children: [
         Center(
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),

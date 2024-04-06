@@ -67,64 +67,65 @@ class _GameDetailPageState extends State<GameDetailPage> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: const MyAppBar(),
-        body: Stack(
-          children: [
-            Container(
-              height: double.infinity,
-              color: Colors.black,
-            ),
-            GameCover(widget: widget),
-            const BgCollorEffect(),
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.29,
-              width: MediaQuery.of(context).size.width,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Center(
-                      child: MyText(
-                        title: widget.title ?? 'Not found',
-                        fontSize: 24.0,
-                        googleFont: GoogleFonts.zenDots,
-                        color: Colors.white,
-                        weight: FontWeight.normal,
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Stack(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height,
+                color: Colors.black,
+              ),
+              GameCover(widget: widget),
+              const BgCollorEffect(),
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.29,
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 24,
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    GameHeader(widget: widget),
-                    const SizedBox(height: 20),
-                    MyButton(launchUrl: _launchUrl),
-                    const SizedBox(height: 20),
-                    // Show screenshots using ListView
-                    ScreenshotsList(screenshotsFuture: _screenshotsFuture),
-                    const SizedBox(height: 10),
-                    const GameDetailsTabBar(
-                        firstTitle: 'About',
-                        secondTitle: 'Minimum System Requirements',
-                        isScrollable: true,
-                        offColor: Colors.grey,
-                        onColor: Colors.white),
-                    // show tab bar content
-                    SizedBox(
-                      height: 160,
-                      child: DetailGamePageTabView(
-                          minSysReq: _minSysReqFuture,
-                          description: _description),
-                    ),
-                  ],
+                      Center(
+                        child: MyText(
+                          title: widget.title ?? 'Not found',
+                          fontSize: 24.0,
+                          googleFont: GoogleFonts.zenDots,
+                          color: Colors.white,
+                          weight: FontWeight.normal,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      GameHeader(widget: widget),
+                      const SizedBox(height: 20),
+                      MyButton(launchUrl: _launchUrl),
+                      const SizedBox(height: 20),
+                      // Show screenshots using ListView
+                      ScreenshotsList(
+                          screenshotsFuture: _screenshotsFuture),
+                      const SizedBox(height: 10),
+                      const GameDetailsTabBar(
+                          firstTitle: 'About',
+                          secondTitle: 'Minimum System Requirements',
+                          isScrollable: true,
+                          offColor: Colors.grey,
+                          onColor: Colors.white),
+                      // show tab bar content
+                      SizedBox(
+                        height: 160,
+                        child: DetailGamePageTabView(
+                            minSysReq: _minSysReqFuture,
+                            description: _description),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
-
-

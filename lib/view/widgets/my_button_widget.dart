@@ -1,6 +1,7 @@
 import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../constants/colors.dart';
 
@@ -36,22 +37,25 @@ class MyButton extends StatelessWidget {
           launchUrl();
         },
         style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all<Color>(Colors.transparent),
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12))),
-            padding: MaterialStateProperty.all(
-              const EdgeInsets.symmetric(vertical: 12.0),
-            )),
-        child: const Row(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+        ),
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            MyText(googleFont: GoogleFonts.roboto, 
-            color: Colors.white, fontSize: 14.0, 
-            title: 'Play Now', weight: FontWeight.bold),
-            SizedBox(width: 8.0),
-            Icon(Icons.download),
+            const MyText(
+                googleFont: GoogleFonts.roboto,
+                color: Colors.white,
+                fontSize: 16.0,
+                title: 'Play Now',
+                weight: FontWeight.bold),
+            LottieBuilder.asset(
+              'lib/src/assets/animation/download.json',
+              height: 50,
+              width: 50,
+            ),
           ],
         ),
       ),
