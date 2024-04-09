@@ -1,8 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:f2p_games/view/widgets/my_progress_indicador_widget.dart';
 import 'package:flutter/material.dart';
-
-import '../my_progress_indicador_widget.dart';
-
 
 class GameScreenshots extends StatelessWidget {
   const GameScreenshots({
@@ -35,19 +32,34 @@ class GameScreenshots extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 8.0),
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(12)),
-                    child: CachedNetworkImage(
-                      height: 60, 
-                      width: 300, 
-                      fit: BoxFit.cover, 
-                      imageUrl: screenshotUrl,
-                      placeholder: (context, url) => const Center(
-                        child: SizedBox(
-                          height: 25,
-                          width: 25,
-                          child: MyCircularProgressIndicator()),
-                      ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
+                    child: Image.network(
+                      screenshotUrl,
+                      height: 60,
+                      width: 300,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child;
+                        } else {
+                          return const Center(
+                            child: SizedBox(
+                                height: 50,
+                                width: 50,
+                                child: MyCircularProgressIndicator()),
+                          );
+                        }
+                      },
+                      errorBuilder: (BuildContext context, Object error,
+                          StackTrace? stackTrace) {
+                        return Container(
+                            color: Colors.red,
+                            height: 60,
+                            width: 300,
+                            child: const Center(
+                                child: Icon(Icons.error_outline,
+                                    color: Colors.white)));
+                      },
                     ),
                   ),
                 );

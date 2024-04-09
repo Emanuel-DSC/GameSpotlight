@@ -1,4 +1,5 @@
 import 'package:f2p_games/constants/colors.dart';
+import 'package:f2p_games/view/pages/home/home_page.dart';
 import 'package:f2p_games/view/widgets/tab_widgets/GamesListTab/categories_games_list_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../data/repositories/games_store.dart';
@@ -50,6 +51,21 @@ class CategoryPage extends StatelessWidget {
                 },
               ),
               title: Text(title.toUpperCase()),
+              actions: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.home,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const HomePage(),
+                      ),
+                    );
+                  },
+                )
+              ],
             ),
             body: Column(
               children: [
