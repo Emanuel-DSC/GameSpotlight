@@ -1,5 +1,11 @@
+import 'dart:ui';
+
 import 'package:f2p_games/view/widgets/my_progress_indicador_widget.dart';
+import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:lottie/lottie.dart';
 
 class GameScreenshots extends StatelessWidget {
   const GameScreenshots({
@@ -52,13 +58,44 @@ class GameScreenshots extends StatelessWidget {
                       },
                       errorBuilder: (BuildContext context, Object error,
                           StackTrace? stackTrace) {
-                        return Container(
-                            color: Colors.red,
-                            height: 60,
-                            width: 300,
-                            child: const Center(
-                                child: Icon(Icons.error_outline,
-                                    color: Colors.white)));
+                        return ClipRRect(
+                            borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(12)),
+                            child: BackdropFilter(
+                                filter: ImageFilter.blur(
+                                  sigmaX: 300,
+                                  sigmaY: 300,
+                                ),
+                                child: Container(
+                                    height: 60,
+                                    width: 300,
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(16),
+                                      border: GradientBoxBorder(
+                                        gradient: LinearGradient(colors: [
+                                          Colors.grey.shade100
+                                              .withOpacity(0.10),
+                                          Colors.white.withOpacity(0.25)
+                                        ]),
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child: const Center(
+                                        child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.error_outline_rounded, color: Colors.grey, size: 30),
+                                        SizedBox(height: 10),
+                                        MyText(
+                                            googleFont: GoogleFonts.roboto,
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            title: 'Impossible to load image',
+                                            weight: FontWeight.normal)
+                                      ],
+                                    )))));
                       },
                     ),
                   ),
