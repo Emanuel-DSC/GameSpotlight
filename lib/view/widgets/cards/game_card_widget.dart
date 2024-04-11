@@ -11,11 +11,15 @@ class GameCard extends StatelessWidget {
   final GameModel item;
   final VoidCallback onTap;
   final BoxFit fit;
+  final int imageFlexValue;
+  final int containerFlexValue;
   const GameCard({
     Key? key,
     required this.item,
     required this.onTap,
     required this.fit,
+    required this.imageFlexValue,
+    required this.containerFlexValue,
   }) : super(key: key);
 
   @override
@@ -32,7 +36,7 @@ class GameCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              flex: 5,
+              flex: imageFlexValue,
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(16),
@@ -52,7 +56,7 @@ class GameCard extends StatelessWidget {
             ),
             // Container with description
             Expanded(
-              flex: 2,
+              flex: containerFlexValue,
               child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(

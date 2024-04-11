@@ -17,7 +17,13 @@ dependencies:
   card_swiper: ^3.0.1
   lottie: ^2.6.0
   gradient_borders: ^1.0.0
-
+  firebase_core: ^2.24.2
+  provider: ^6.1.2
+  firebase_auth: ^4.16.0
+  cloud_firestore: ^4.14.0
+  google_sign_in: ^6.1.6
+  eva_icons_flutter: ^3.1.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,8 +1,21 @@
 import 'package:f2p_games/view/pages/home/home_page.dart';
+import 'package:f2p_games/view/pages/signUp/sign_up_page.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'data/auth/auth_service.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const MainApp());
+void main() async {
+  // Ensure that WidgetsFlutterBinding is initialized
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  runApp(
+    const MainApp(),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -10,9 +23,12 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+    return ChangeNotifierProvider(
+      create: (_) => AuthenticationRepository(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SignUpScreen(),
+      ),
     );
   }
 }

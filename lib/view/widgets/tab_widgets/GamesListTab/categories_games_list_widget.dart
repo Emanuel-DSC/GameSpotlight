@@ -38,6 +38,8 @@ class CategoriesGamesList extends StatelessWidget {
             return GameCard(
               fit: BoxFit.cover,
               item: item,
+              containerFlexValue: 2,
+              imageFlexValue: 5,
               onTap: () {
                 // Navigate to game detail page
                 Navigator.push(

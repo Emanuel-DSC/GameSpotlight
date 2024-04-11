@@ -32,7 +32,7 @@ class CategoriesGridView extends StatelessWidget {
         itemBuilder: (context, index) {
           String item = categoriesList[index][0];
           String cardCover = categoriesList[index][1];
-          return CategoriesCards(
+          return GridCategoriesCards(
               item: item,
               imageUrl: cardCover,
               onTap: () {

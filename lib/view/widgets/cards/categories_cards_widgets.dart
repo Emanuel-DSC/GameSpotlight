@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import '../my_progress_indicador_widget.dart';
 import '../text_blur_bg_widget.dart';
 
-class CategoriesCards extends StatelessWidget {
+class GridCategoriesCards extends StatelessWidget {
   final VoidCallback onTap;
   final String imageUrl;
   final String item;
 
-  const CategoriesCards({
+  const GridCategoriesCards({
     Key? key,
     required this.item,
     required this.onTap,
@@ -54,5 +54,3 @@ class CategoriesCards extends StatelessWidget {
     );
   }
 }
-
-

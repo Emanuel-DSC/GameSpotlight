@@ -36,6 +36,8 @@ class GamesList extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: GameCard(
               item: item,
+              containerFlexValue: 3,
+              imageFlexValue: 5,
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(

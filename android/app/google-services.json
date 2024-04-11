@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "398022737345",
+    "project_id": "gamespotlight-14604",
+    "storage_bucket": "gamespotlight-14604.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398022737345:android:da08294acbee75efa30340",
+        "android_client_info": {
+          "package_name": "com.example.f2p_games"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398022737345-esauv8b59j4s93jfq0ohso9lgc7ivq1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApGHxYROyaQN4eSRa1oc8tc-lmv8T6kpc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398022737345-esauv8b59j4s93jfq0ohso9lgc7ivq1d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "398022737345-i3rp4hp0t07fob4fiu1gnl0tbmkparel.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.f2pGames"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

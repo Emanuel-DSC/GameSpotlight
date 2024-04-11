@@ -5,7 +5,6 @@ import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:lottie/lottie.dart';
 
 class GameScreenshots extends StatelessWidget {
   const GameScreenshots({
