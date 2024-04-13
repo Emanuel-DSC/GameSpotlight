@@ -1,10 +1,13 @@
 // ignore_for_file: file_names
+import 'package:f2p_games/view/pages/login_page.dart';
 import 'package:f2p_games/view/widgets/email_textfield_widget.dart';
 import 'package:f2p_games/view/widgets/password_textfiled_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../constants/colors.dart';
 import '../../../data/auth/auth_service.dart';
 import '../buttons/login_button_widget.dart';
+import '../my_text.widget.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
@@ -90,6 +93,31 @@ class SignUpFormState extends State<SignUpForm> {
             title: 'sign up with google',
             bgColor: Colors.white,
             textColor: Colors.grey.shade800,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const MyText(
+                  googleFont: GoogleFonts.lato,
+                  color: Colors.grey,
+                  fontSize: 14,
+                  title: "Already have account?",
+                  weight: FontWeight.normal),
+              TextButton(
+                onPressed: () {
+                  // go to sign up page
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const LoginPage()));
+                },
+                child: MyText(
+                    googleFont: GoogleFonts.lato,
+                    color: kButtonColor2,
+                    fontSize: 14,
+                    title: 'Sign in',
+                    weight: FontWeight.bold),
+              ),
+              const SizedBox(width: 10),
+            ],
           ),
         ],
       ),

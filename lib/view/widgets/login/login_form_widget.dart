@@ -38,7 +38,9 @@ class LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 10),
-          EmailTextField(textFieldFocusPassword: textFieldFocusPassword, emailController: emailController),
+          EmailTextField(
+              textFieldFocusPassword: textFieldFocusPassword,
+              emailController: emailController),
           const SizedBox(height: 10),
           PasswordTextFormField(
             textFieldFocusPassword: textFieldFocusPassword,
@@ -49,7 +51,7 @@ class LoginFormState extends State<LoginForm> {
             onTap: () {
               _toggleObscureText();
             },
-          ),   
+          ),
           const SizedBox(height: 10),
           Align(
             alignment: Alignment.centerRight,
@@ -99,9 +101,8 @@ class LoginFormState extends State<LoginForm> {
               TextButton(
                 onPressed: () {
                   // go to sign up page
-                  Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const SignUpScreen()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const SignUpPage()));
                 },
                 child: MyText(
                     googleFont: GoogleFonts.lato,
@@ -118,4 +119,3 @@ class LoginFormState extends State<LoginForm> {
     );
   }
 }
-

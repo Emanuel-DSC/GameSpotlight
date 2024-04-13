@@ -5,8 +5,8 @@ import '../../../constants/colors.dart';
 import '../../widgets/my_text.widget.dart';
 import '../../widgets/signup/sign_up_form.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +19,17 @@ class SignUpScreen extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Container(
-                decoration:  BoxDecoration(
-                  color: kCardColor,
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  )
-                ),
-                child: Center(child: Image.asset('lib/src/assets/images/logo.png', 
-                fit: BoxFit.cover,)),
+                decoration: BoxDecoration(
+                    color: kCardColor,
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    )),
+                child: Center(
+                    child: Image.asset(
+                  'lib/src/assets/images/logo.png',
+                  fit: BoxFit.cover,
+                )),
               ),
             ),
             Expanded(
@@ -57,7 +59,8 @@ class SignUpScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                  )),
+                  )
+                  ),
             ),
           ],
         ),
