@@ -93,7 +93,7 @@ class AuthenticationRepository with ChangeNotifier {
   }
 
   // sign user in method
-  void signUserIn(context) async {
+  signUserIn(context) async {
     // show loading circle
     showDialog(
       context: context,

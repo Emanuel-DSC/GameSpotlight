@@ -1,4 +1,7 @@
+import 'package:f2p_games/constants/colors.dart';
+import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/login/login_form_widget.dart';
 
@@ -9,35 +12,54 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // o resize tira o scroll
-        resizeToAvoidBottomInset: false,
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(30.0),
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // theme on image
-                // FormHeaderWidget(
-                //     isDarkMode: isDarkMode,
-                //     size: size,
-                //     title: tLoginText,
-                //     subtitle: tLoginText2,
-                //     image: tWelcomeImage_dark,
-                //     imageDark: tWelcomeImage),
-                SizedBox(height: 20),
-                LoginForm(),
-                // FormFooter(
-                //   buttonTitle1: tLoginText6,
-                //   buttonTitle2: tLoginText7,
-                //   buttonTitle3: tLoginText9,
-                //   onTap: () {
-                //     Get.to(() => const SignUpScreen());
-                //   },
-                // )
-              ],
+        backgroundColor: kCardColor,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 2,
+              child: Container(
+                decoration:  BoxDecoration(
+                  color: kCardColor,
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  )
+                ),
+                child: Center(child: Image.asset('lib/src/assets/images/logo.png', 
+                fit: BoxFit.cover,)),
+              ),
             ),
-          ),
+            Expanded(
+              flex: 4,
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: kBgColor1,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.all(30.0),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          MyText(
+                              googleFont: GoogleFonts.lato,
+                              color: Colors.grey,
+                              fontSize: 24,
+                              title: 'Login',
+                              weight: FontWeight.normal),
+                          SizedBox(height: 20),
+                          LoginForm(),
+                        ],
+                      ),
+                    ),
+                  )),
+            ),
+          ],
         ),
       ),
     );

@@ -1,7 +1,10 @@
 // ignore_for_file: file_names
+import 'package:f2p_games/view/widgets/email_textfield_widget.dart';
+import 'package:f2p_games/view/widgets/password_textfiled_widget.dart';
 import 'package:flutter/material.dart';
+import '../../../constants/colors.dart';
 import '../../../data/auth/auth_service.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import '../buttons/login_button_widget.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
@@ -27,10 +30,11 @@ class SignUpFormState extends State<SignUpForm> {
       _obscurePasswordTextController = !_obscurePasswordTextController;
     });
   }
-  
+
   void _toggleObscureText2() {
     setState(() {
-      _obscureConfirmPasswordTextController = !_obscureConfirmPasswordTextController;
+      _obscureConfirmPasswordTextController =
+          !_obscureConfirmPasswordTextController;
     });
   }
 
@@ -41,58 +45,51 @@ class SignUpFormState extends State<SignUpForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 10),
-          TextFormField(
-            // onFieldSumbitted go to password text field
-            onFieldSubmitted: (value) =>
-                FocusScope.of(context).requestFocus(textFieldFocusPassword),
-            controller: emailController,
-            decoration: const InputDecoration(
-              label: Text('email'),
-              prefixIcon: Icon(Icons.mail_outline_rounded),
-              border: OutlineInputBorder(),
-            ),
+          EmailTextField(
+              textFieldFocusPassword: textFieldFocusPassword,
+              emailController: emailController),
+          const SizedBox(height: 10),
+          PasswordTextFormField(
+            textFieldFocusPassword: textFieldFocusPassword,
+            obscurePasswordTextController: _obscurePasswordTextController,
+            passwordController: passwordController,
+            color: kButtonColor2,
+            labelText: 'Password',
+            onTap: () {
+              _toggleObscureText();
+            },
           ),
           const SizedBox(height: 10),
-          TextFormField(
-            focusNode: textFieldFocusPassword,
-            // onFieldSumbitted go to confirm password text field
-            onFieldSubmitted: (value) =>
-                FocusScope.of(context).requestFocus(textFieldFocusConfirmPassword),
-            controller: passwordController,
-            obscureText: _obscurePasswordTextController,
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.fingerprint),
-              labelText: 'Password',
-              border: const OutlineInputBorder(),
-              suffixIcon: IconButton(
-                onPressed: _toggleObscureText,
-                icon: _obscurePasswordTextController ? const Icon(EvaIcons.eye)  
-                : const Icon(EvaIcons.eyeOff),
-              ),
-            ),
+          PasswordTextFormField(
+            textFieldFocusPassword: textFieldFocusConfirmPassword,
+            obscurePasswordTextController:
+                _obscureConfirmPasswordTextController,
+            passwordController: passwordConfirmController,
+            color: kButtonColor2,
+            labelText: 'Confirm password',
+            onTap: () {
+              _toggleObscureText2();
+            },
           ),
-          const SizedBox(height: 10),
-          TextFormField(
-            focusNode: textFieldFocusConfirmPassword,
-            controller: passwordConfirmController,
-            obscureText: _obscureConfirmPasswordTextController,
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.fingerprint),
-              labelText: 'Confirm password',
-              border: const OutlineInputBorder(),
-              suffixIcon: IconButton(
-                onPressed: _toggleObscureText2,
-                icon: _obscureConfirmPasswordTextController ? const Icon(EvaIcons.eye)  
-                : const Icon(EvaIcons.eyeOff),
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          ElevatedButton(
-            child: const Text('SIGN UP') ,
-            onPressed: () {
+          const SizedBox(height: 30),
+          LoginButton(
+            onTap: () {
               AuthenticationRepository().signUserUp(context);
             },
+            iconDisplay: false,
+            title: 'Sign up',
+            bgColor: kButtonColor2,
+            textColor: Colors.white,
+          ),
+          const SizedBox(height: 10),
+          LoginButton(
+            onTap: () {
+              AuthenticationRepository().signInWithGoogle(context);
+            },
+            iconDisplay: true,
+            title: 'sign up with google',
+            bgColor: Colors.white,
+            textColor: Colors.grey.shade800,
           ),
         ],
       ),
