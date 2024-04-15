@@ -1,4 +1,5 @@
 import 'package:f2p_games/constants/colors.dart';
+import 'package:f2p_games/view/pages/forgetPassword/forget_password_page.dart';
 import 'package:f2p_games/view/pages/signUp/sign_up_page.dart';
 import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:flutter/material.dart';
@@ -57,8 +58,8 @@ class LoginFormState extends State<LoginForm> {
             alignment: Alignment.centerRight,
             child: TextButton(
               onPressed: () {
-                //cria um container pop up inferior
-                // ForgetPasswordScreen.buildShowModalBottomSheet(context);
+                Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const ForgetPasswordPage()));
               },
               child: MyText(
                   googleFont: GoogleFonts.lato,
