@@ -129,38 +129,35 @@ class AuthenticationRepository with ChangeNotifier {
 
   // reset user's password
   // reset user's password
-Future passwordReset(BuildContext context, setState) async {
-  try {
-    // Set Lottie playAnimation to true before sending the password reset email
-    setState(() {
-      ForgetPasswordPageState().playAnimation = true;
-    });
-    await FirebaseAuth.instance.sendPasswordResetEmail(
-        email: ForgetPasswordPageState.emailController.text.trim());
-    // Delay for the duration of the animation
-    await Future.delayed(const Duration(seconds: 8)); // Adjust duration as needed
-    // After animation is played, pop the page
-    Navigator.of(context).pop();
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const LoginPage()));
-  } on FirebaseAuthException catch (e) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return MyAlertDialog(
-              message: 'error',
-              message2: e.message.toString(),
-              onTap: () {
-                // Set Lottie playAnimation to false if password reset fails
-                setState(() {
-                  ForgetPasswordPageState().playAnimation = false;
-                });
-                Navigator.of(context).pop();
-              });
-        });
-  }
-}
+  Future passwordReset(BuildContext context, Function callback) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+          email: ForgetPasswordPageState.emailController.text.trim());
+      // Set Lottie playAnimation to true before sending the password reset email
+      callback(ForgetPasswordPageState().playAnimation = true);
+      // Delay for the duration of the animation
+      await Future.delayed(
+          const Duration(seconds: 8)); // Adjust duration as needed
+      // After animation is played, pop the page
+      Navigator.of(context).pop();
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const LoginPage()));
+    } on FirebaseAuthException catch (e) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return MyAlertDialog(
+                message: 'error',
+                message2: e.message.toString(),
+                onTap: () {
+                  // Set Lottie playAnimation to false if password reset fails
+                        callback(ForgetPasswordPageState().playAnimation = false);
 
+                  Navigator.of(context).pop();
+                });
+          });
+    }
+  }
 
   // ****************** GOOGLE ******************* //
 

@@ -24,6 +24,12 @@ class ForgetPasswordPageState extends State<ForgetPasswordPage> {
     super.dispose();
   }
 
+  callback(var animation) {
+    setState(() {
+      playAnimation = animation;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -60,8 +66,9 @@ class ForgetPasswordPageState extends State<ForgetPasswordPage> {
                 const SizedBox(height: 10),
                 LoginButton(
                     onTap: () {
-                        // Set Lottie playAnimation after sending the password reset email
-                      AuthenticationRepository().passwordReset(context, setState);
+                      // Set Lottie playAnimation after sending the password reset email
+                      AuthenticationRepository()
+                          .passwordReset(context, callback);
                     },
                     title: 'teste',
                     iconDisplay: false,
