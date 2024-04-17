@@ -1,12 +1,13 @@
+import 'package:f2p_games/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../constants/colors.dart';
-import '../../widgets/my_text.widget.dart';
-import '../../widgets/signup/sign_up_form.dart';
+import '../../widgets/auth/login/login_form_widget.dart';
+import '../../widgets/text/my_text.widget.dart';
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,17 +20,15 @@ class SignUpPage extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Container(
-                decoration: BoxDecoration(
-                    color: kCardColor,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    )),
-                child: Center(
-                    child: Image.asset(
-                  'lib/src/assets/images/logo.png',
-                  fit: BoxFit.cover,
-                )),
+                decoration:  BoxDecoration(
+                  color: kCardColor,
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  )
+                ),
+                child: Center(child: Image.asset('lib/src/assets/images/logo.png', 
+                fit: BoxFit.cover,)),
               ),
             ),
             Expanded(
@@ -52,15 +51,14 @@ class SignUpPage extends StatelessWidget {
                               googleFont: GoogleFonts.lato,
                               color: Colors.grey,
                               fontSize: 24,
-                              title: 'Sign Up',
+                              title: 'Login',
                               weight: FontWeight.normal),
                           SizedBox(height: 20),
-                          SignUpForm(),
+                          LoginForm(),
                         ],
                       ),
                     ),
-                  )
-                  ),
+                  )),
             ),
           ],
         ),

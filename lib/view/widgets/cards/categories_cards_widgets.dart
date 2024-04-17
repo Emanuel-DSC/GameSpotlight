@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../my_progress_indicador_widget.dart';
-import '../text_blur_bg_widget.dart';
+import '../text/text_blur_bg_widget.dart';
 
 class GridCategoriesCards extends StatelessWidget {
   final VoidCallback onTap;

@@ -2,7 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../my_text.widget.dart';
+import '../text/my_text.widget.dart';
 
 class LoginButton extends StatelessWidget {
   final VoidCallback onTap;

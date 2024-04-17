@@ -1,11 +1,11 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:f2p_games/data/auth/auth_service.dart';
 import 'package:f2p_games/view/widgets/buttons/login_button_widget.dart';
-import 'package:f2p_games/view/widgets/email_textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../constants/colors.dart';
+import '../../widgets/auth/email_textfield_widget.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
   const ForgetPasswordPage({Key? key}) : super(key: key);
@@ -20,7 +20,6 @@ class ForgetPasswordPageState extends State<ForgetPasswordPage> {
 
   @override
   void dispose() {
-    emailController.dispose();
     super.dispose();
   }
 
@@ -66,9 +65,10 @@ class ForgetPasswordPageState extends State<ForgetPasswordPage> {
                 const SizedBox(height: 10),
                 LoginButton(
                     onTap: () {
-                      // Set Lottie playAnimation after sending the password reset email
-                      AuthenticationRepository()
-                          .passwordReset(context, callback);
+                      // Send password reset email and then play Lottie animation
+                      AuthenticationRepository().passwordReset(context, callback);
+                      // clear email controller
+                      emailController.clear();
                     },
                     title: 'teste',
                     iconDisplay: false,

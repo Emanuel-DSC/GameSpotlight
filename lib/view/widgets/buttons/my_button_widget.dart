@@ -1,9 +1,9 @@
-import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../constants/colors.dart';
+import '../../../constants/colors.dart';
+import '../text/my_text.widget.dart';
 
 class MyButton extends StatelessWidget {
   final VoidCallback launchUrl;

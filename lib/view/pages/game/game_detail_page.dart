@@ -5,15 +5,15 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../data/http/http_client.dart';
 import '../../../data/repositories/game_repository.dart';
-import '../../widgets/app_bar_widgets/my_appbar_widget.dart';
-import '../../widgets/game_details_widgets/background_collor_effect_widget.dart';
-import '../../widgets/game_details_widgets/game_cover_widget.dart';
-import '../../widgets/game_details_widgets/game_header_widget.dart';
-import '../../widgets/game_details_widgets/screenshots_widget.dart';
-import '../../widgets/my_button_widget.dart';
-import '../../widgets/my_text.widget.dart';
-import '../../widgets/tab_widgets/GameDetailsTab/game_details_tab_bar.dart';
-import '../../widgets/tab_widgets/GameDetailsTab/game_page_tab.dart';
+import '../../widgets/GameDetails/background_collor_effect_widget.dart';
+import '../../widgets/GameDetails/game_cover_widget.dart';
+import '../../widgets/GameDetails/game_header_widget.dart';
+import '../../widgets/GameDetails/screenshots_widget.dart';
+import '../../widgets/Tab/GameDetailsTab/game_details_tab_bar.dart';
+import '../../widgets/Tab/GameDetailsTab/game_page_tab.dart';
+import '../../widgets/appBar/my_appbar_widget.dart';
+import '../../widgets/buttons/my_button_widget.dart';
+import '../../widgets/text/my_text.widget.dart';
 
 class GameDetailPage extends StatefulWidget {
   final String? title;

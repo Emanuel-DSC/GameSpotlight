@@ -1,11 +1,11 @@
 import 'package:f2p_games/constants/colors.dart';
 import 'package:f2p_games/view/pages/home/home_page.dart';
-import 'package:f2p_games/view/widgets/tab_widgets/GamesListTab/categories_games_list_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../data/repositories/games_store.dart';
-import '../../widgets/categories_text_animation_widget.dart';
+import '../../widgets/Tab/GamesListTab/categories_games_list_widget.dart';
+import '../../widgets/Tab/GamesListTab/categories_grid_widget.dart';
 import '../../widgets/my_progress_indicador_widget.dart';
-import '../../widgets/tab_widgets/GamesListTab/categories_grid_widget.dart';
+import '../../widgets/text/categories_text_animation_widget.dart';
 
 class CategoryPage extends StatelessWidget {
   final String title;

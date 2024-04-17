@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../pages/game/game_detail_page.dart';
-import '../my_text.widget.dart';
+import '../text/my_text.widget.dart';
 
 class GameHeader extends StatelessWidget {
   const GameHeader({

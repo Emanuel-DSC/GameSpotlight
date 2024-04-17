@@ -1,19 +1,19 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:f2p_games/view/pages/forgetPassword/forget_password_page.dart';
 import 'package:f2p_games/view/pages/home/home_page.dart';
-import 'package:f2p_games/view/pages/login_page.dart';
 import 'package:f2p_games/view/pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../view/widgets/login/login_form_widget.dart';
+import '../../view/pages/auth/forget_password_page.dart';
+import '../../view/pages/auth/login_page.dart';
+import '../../view/widgets/auth/login/login_form_widget.dart';
+import '../../view/widgets/auth/signup/show_error_message_widget.dart';
+import '../../view/widgets/auth/signup/sign_up_form.dart';
 import '../../view/widgets/my_alert_dialog_widget.dart';
 import '../../view/widgets/my_progress_indicador_widget.dart';
-import '../../view/widgets/signup/show_error_message_widget.dart';
-import '../../view/widgets/signup/sign_up_form.dart';
 
 class AuthenticationRepository with ChangeNotifier {
   //variables
@@ -128,7 +128,6 @@ class AuthenticationRepository with ChangeNotifier {
   }
 
   // reset user's password
-  // reset user's password
   Future passwordReset(BuildContext context, Function callback) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(
@@ -151,8 +150,7 @@ class AuthenticationRepository with ChangeNotifier {
                 message2: e.message.toString(),
                 onTap: () {
                   // Set Lottie playAnimation to false if password reset fails
-                        callback(ForgetPasswordPageState().playAnimation = false);
-
+                  callback(ForgetPasswordPageState().playAnimation = false);
                   Navigator.of(context).pop();
                 });
           });

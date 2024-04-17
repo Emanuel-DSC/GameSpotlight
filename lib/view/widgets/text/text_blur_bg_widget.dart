@@ -1,9 +1,10 @@
 import 'dart:ui';
 
-import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+
+import 'my_text.widget.dart';
 
 class TextBlurredBg extends StatelessWidget {
   const TextBlurredBg({

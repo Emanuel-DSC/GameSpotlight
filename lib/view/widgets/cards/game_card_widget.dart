@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:f2p_games/constants/colors.dart';
-import 'package:f2p_games/view/widgets/my_text.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../data/models/games_models.dart';
 import '../my_progress_indicador_widget.dart';
+import '../text/my_text.widget.dart';
 
 class GameCard extends StatelessWidget {
   final GameModel item;
@@ -28,7 +28,7 @@ class GameCard extends StatelessWidget {
       height: 200,
       width: double.infinity,
       child: Card(
-        elevation: 4,
+        elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),

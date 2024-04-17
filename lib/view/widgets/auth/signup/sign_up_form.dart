@@ -1,34 +1,43 @@
-import 'package:f2p_games/constants/colors.dart';
-import 'package:f2p_games/view/pages/forgetPassword/forget_password_page.dart';
-import 'package:f2p_games/view/pages/signUp/sign_up_page.dart';
-import 'package:f2p_games/view/widgets/my_text.widget.dart';
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../data/auth/auth_service.dart';
-import '../buttons/login_button_widget.dart';
+import '../../../../constants/colors.dart';
+import '../../../../data/auth/auth_service.dart';
+import '../../../pages/auth/login_page.dart';
+import '../../buttons/login_button_widget.dart';
+import '../../text/my_text.widget.dart';
 import '../email_textfield_widget.dart';
 import '../password_textfiled_widget.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<LoginForm> createState() => LoginFormState();
+  State<SignUpForm> createState() => SignUpFormState();
 }
 
-class LoginFormState extends State<LoginForm> {
+class SignUpFormState extends State<SignUpForm> {
 // text editing controllers
   static var emailController = TextEditingController();
   static var passwordController = TextEditingController();
-  bool _obscureTextController = true;
+  static var passwordConfirmController = TextEditingController();
   FocusNode textFieldFocusPassword = FocusNode();
+  FocusNode textFieldFocusConfirmPassword = FocusNode();
+  bool _obscurePasswordTextController = true;
+  bool _obscureConfirmPasswordTextController = true;
 
   void _toggleObscureText() {
     setState(() {
-      _obscureTextController = !_obscureTextController;
+      _obscurePasswordTextController = !_obscurePasswordTextController;
+    });
+  }
+
+  void _toggleObscureText2() {
+    setState(() {
+      _obscureConfirmPasswordTextController =
+          !_obscureConfirmPasswordTextController;
     });
   }
 
@@ -45,7 +54,7 @@ class LoginFormState extends State<LoginForm> {
           const SizedBox(height: 10),
           PasswordTextFormField(
             textFieldFocusPassword: textFieldFocusPassword,
-            obscurePasswordTextController: _obscureTextController,
+            obscurePasswordTextController: _obscurePasswordTextController,
             passwordController: passwordController,
             color: kButtonColor2,
             labelText: 'Password',
@@ -54,28 +63,24 @@ class LoginFormState extends State<LoginForm> {
             },
           ),
           const SizedBox(height: 10),
-          Align(
-            alignment: Alignment.centerRight,
-            child: TextButton(
-              onPressed: () {
-                Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const ForgetPasswordPage()));
-              },
-              child: MyText(
-                  googleFont: GoogleFonts.lato,
-                  color: kButtonColor2,
-                  fontSize: 14,
-                  title: 'Forgot password?',
-                  weight: FontWeight.normal),
-            ),
+          PasswordTextFormField(
+            textFieldFocusPassword: textFieldFocusConfirmPassword,
+            obscurePasswordTextController:
+                _obscureConfirmPasswordTextController,
+            passwordController: passwordConfirmController,
+            color: kButtonColor2,
+            labelText: 'Confirm password',
+            onTap: () {
+              _toggleObscureText2();
+            },
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 30),
           LoginButton(
             onTap: () {
-              AuthenticationRepository().signUserIn(context);
+              AuthenticationRepository().signUserUp(context);
             },
             iconDisplay: false,
-            title: 'login',
+            title: 'Sign up',
             bgColor: kButtonColor2,
             textColor: Colors.white,
           ),
@@ -85,11 +90,10 @@ class LoginFormState extends State<LoginForm> {
               AuthenticationRepository().signInWithGoogle(context);
             },
             iconDisplay: true,
-            title: 'login with google',
+            title: 'sign up with google',
             bgColor: Colors.white,
             textColor: Colors.grey.shade800,
           ),
-          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -97,19 +101,19 @@ class LoginFormState extends State<LoginForm> {
                   googleFont: GoogleFonts.lato,
                   color: Colors.grey,
                   fontSize: 14,
-                  title: "Don't have account?",
+                  title: "Already have account?",
                   weight: FontWeight.normal),
               TextButton(
                 onPressed: () {
                   // go to sign up page
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const SignUpPage()));
+                      builder: (context) => const LoginPage()));
                 },
                 child: MyText(
                     googleFont: GoogleFonts.lato,
                     color: kButtonColor2,
                     fontSize: 14,
-                    title: 'Create one!',
+                    title: 'Sign in',
                     weight: FontWeight.bold),
               ),
               const SizedBox(width: 10),

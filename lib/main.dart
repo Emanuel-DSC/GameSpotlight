@@ -1,9 +1,9 @@
-import 'package:f2p_games/view/pages/intro_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'data/auth/auth_service.dart';
 import 'firebase_options.dart';
+import 'view/pages/auth/intro_page.dart';
 
 void main() async {
   // Ensure that WidgetsFlutterBinding is initialized

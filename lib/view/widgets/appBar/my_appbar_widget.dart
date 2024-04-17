@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'app_bar_buttons_widget.dart';
+import '../buttons/app_bar_buttons_widget.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({

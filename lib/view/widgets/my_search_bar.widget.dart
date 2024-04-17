@@ -1,10 +1,10 @@
+import 'package:f2p_games/view/widgets/text/my_text.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/colors.dart';
 import '../../data/repositories/games_store.dart';
 import '../../services/search_bar_services.dart';
-import 'my_text.widget.dart';
 
 class MySearchBar extends StatelessWidget {
   const MySearchBar({

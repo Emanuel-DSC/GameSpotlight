@@ -1,11 +1,11 @@
-import 'package:f2p_games/view/pages/login_page.dart';
-import 'package:f2p_games/view/pages/signUp/sign_up_page.dart';
+import 'package:f2p_games/view/pages/auth/sign_up_page.dart';
 import 'package:f2p_games/view/widgets/buttons/login_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../constants/colors.dart';
-import '../widgets/my_text.widget.dart';
+import '../../../constants/colors.dart';
+import '../../widgets/text/my_text.widget.dart';
+import 'login_page.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});

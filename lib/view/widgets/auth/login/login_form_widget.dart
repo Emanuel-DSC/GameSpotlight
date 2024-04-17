@@ -1,43 +1,34 @@
-// ignore_for_file: file_names
-import 'package:f2p_games/view/pages/login_page.dart';
-import 'package:f2p_games/view/widgets/email_textfield_widget.dart';
-import 'package:f2p_games/view/widgets/password_textfiled_widget.dart';
+import 'package:f2p_games/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../constants/colors.dart';
-import '../../../data/auth/auth_service.dart';
-import '../buttons/login_button_widget.dart';
-import '../my_text.widget.dart';
 
-class SignUpForm extends StatefulWidget {
-  const SignUpForm({
+import '../../../../data/auth/auth_service.dart';
+import '../../../pages/auth/forget_password_page.dart';
+import '../../../pages/auth/sign_up_page.dart';
+import '../../buttons/login_button_widget.dart';
+import '../../text/my_text.widget.dart';
+import '../email_textfield_widget.dart';
+import '../password_textfiled_widget.dart';
+
+class LoginForm extends StatefulWidget {
+  const LoginForm({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<SignUpForm> createState() => SignUpFormState();
+  State<LoginForm> createState() => LoginFormState();
 }
 
-class SignUpFormState extends State<SignUpForm> {
+class LoginFormState extends State<LoginForm> {
 // text editing controllers
   static var emailController = TextEditingController();
   static var passwordController = TextEditingController();
-  static var passwordConfirmController = TextEditingController();
+  bool _obscureTextController = true;
   FocusNode textFieldFocusPassword = FocusNode();
-  FocusNode textFieldFocusConfirmPassword = FocusNode();
-  bool _obscurePasswordTextController = true;
-  bool _obscureConfirmPasswordTextController = true;
 
   void _toggleObscureText() {
     setState(() {
-      _obscurePasswordTextController = !_obscurePasswordTextController;
-    });
-  }
-
-  void _toggleObscureText2() {
-    setState(() {
-      _obscureConfirmPasswordTextController =
-          !_obscureConfirmPasswordTextController;
+      _obscureTextController = !_obscureTextController;
     });
   }
 
@@ -54,7 +45,7 @@ class SignUpFormState extends State<SignUpForm> {
           const SizedBox(height: 10),
           PasswordTextFormField(
             textFieldFocusPassword: textFieldFocusPassword,
-            obscurePasswordTextController: _obscurePasswordTextController,
+            obscurePasswordTextController: _obscureTextController,
             passwordController: passwordController,
             color: kButtonColor2,
             labelText: 'Password',
@@ -63,24 +54,28 @@ class SignUpFormState extends State<SignUpForm> {
             },
           ),
           const SizedBox(height: 10),
-          PasswordTextFormField(
-            textFieldFocusPassword: textFieldFocusConfirmPassword,
-            obscurePasswordTextController:
-                _obscureConfirmPasswordTextController,
-            passwordController: passwordConfirmController,
-            color: kButtonColor2,
-            labelText: 'Confirm password',
-            onTap: () {
-              _toggleObscureText2();
-            },
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {
+                Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const ForgetPasswordPage()));
+              },
+              child: MyText(
+                  googleFont: GoogleFonts.lato,
+                  color: kButtonColor2,
+                  fontSize: 14,
+                  title: 'Forgot password?',
+                  weight: FontWeight.normal),
+            ),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 10),
           LoginButton(
             onTap: () {
-              AuthenticationRepository().signUserUp(context);
+              AuthenticationRepository().signUserIn(context);
             },
             iconDisplay: false,
-            title: 'Sign up',
+            title: 'login',
             bgColor: kButtonColor2,
             textColor: Colors.white,
           ),
@@ -90,10 +85,11 @@ class SignUpFormState extends State<SignUpForm> {
               AuthenticationRepository().signInWithGoogle(context);
             },
             iconDisplay: true,
-            title: 'sign up with google',
+            title: 'login with google',
             bgColor: Colors.white,
             textColor: Colors.grey.shade800,
           ),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -101,19 +97,19 @@ class SignUpFormState extends State<SignUpForm> {
                   googleFont: GoogleFonts.lato,
                   color: Colors.grey,
                   fontSize: 14,
-                  title: "Already have account?",
+                  title: "Don't have account?",
                   weight: FontWeight.normal),
               TextButton(
                 onPressed: () {
                   // go to sign up page
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const LoginPage()));
+                      builder: (context) => const SignUpPage()));
                 },
                 child: MyText(
                     googleFont: GoogleFonts.lato,
                     color: kButtonColor2,
                     fontSize: 14,
-                    title: 'Sign in',
+                    title: 'Create one!',
                     weight: FontWeight.bold),
               ),
               const SizedBox(width: 10),

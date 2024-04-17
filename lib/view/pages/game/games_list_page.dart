@@ -1,16 +1,16 @@
 import 'package:f2p_games/constants/colors.dart';
 import 'package:f2p_games/data/http/http_client.dart';
 import 'package:f2p_games/data/repositories/game_repository.dart';
-import 'package:f2p_games/view/widgets/my_text.widget.dart';
-import 'package:f2p_games/view/widgets/tab_widgets/GamesListTab/categories_grid_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../data/repositories/games_store.dart';
 import '../../../services/game__list_page_services.dart';
-import '../../widgets/categories_text_animation_widget.dart';
+import '../../widgets/Tab/GamesListTab/categories_grid_widget.dart';
+import '../../widgets/Tab/GamesListTab/game_list_tab_bar_widget.dart';
+import '../../widgets/Tab/GamesListTab/games_tab_view.dart';
 import '../../widgets/my_search_bar.widget.dart';
-import '../../widgets/tab_widgets/GamesListTab/game_list_tab_bar_widget.dart';
-import '../../widgets/tab_widgets/GamesListTab/games_tab_view.dart';
+import '../../widgets/text/categories_text_animation_widget.dart';
+import '../../widgets/text/my_text.widget.dart';
 
 class GamesListPage extends StatefulWidget {
   const GamesListPage({Key? key}) : super(key: key);
@@ -73,6 +73,7 @@ class _GamesListPageState extends State<GamesListPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                   const Padding(
                     padding: EdgeInsets.only(left: 20.0),
                     child: MyText(

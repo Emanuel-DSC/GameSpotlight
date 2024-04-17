@@ -2,7 +2,7 @@ import 'package:f2p_games/view/widgets/my_progress_indicador_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../my_text.widget.dart';
+import '../../text/my_text.widget.dart';
 
 class MinSysReqList extends StatelessWidget {
   const MinSysReqList({
