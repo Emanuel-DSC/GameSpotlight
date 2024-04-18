@@ -1,7 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:f2p_games/services/add_to_favourites_services.dart';
 import 'package:flutter/material.dart';
 
+import '../../../services/favourites_services.dart';
 import '../buttons/app_bar_buttons_widget.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
