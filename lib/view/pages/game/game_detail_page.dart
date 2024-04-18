@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -67,7 +66,16 @@ class _GameDetailPageState extends State<GameDetailPage> {
       length: 2,
       child: Scaffold(
         extendBodyBehindAppBar: true,
-        appBar: const MyAppBar(),
+        appBar: MyAppBar(
+          category: widget.genre,
+          cover: widget.thumbnail,
+          description: widget.description,
+          launch: widget.releaseDate,
+          name: widget.title,
+          publisher: widget.publisher,
+          sysReq: _minSysReqFuture.toString(),
+          id: widget.id, 
+        ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Stack(

@@ -29,7 +29,7 @@ class CategoriesGamesList extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Swiper(
           scrollDirection: Axis.vertical,
-          itemHeight: 320,
+          itemHeight: 300,
           itemWidth: MediaQuery.of(context).size.width,
           layout: SwiperLayout.STACK,
           itemCount: state.length,

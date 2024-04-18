@@ -1,14 +1,48 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:f2p_games/services/add_to_favourites_services.dart';
 import 'package:flutter/material.dart';
 
 import '../buttons/app_bar_buttons_widget.dart';
 
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
+  final String? name;
+  final String? description;
+  final String? cover;
+  final String? publisher;
+  final String? launch;
+  final String? category;
+  final String? id;
+  final String? sysReq;
+  final bool isLiked;
   const MyAppBar({
-    super.key,
-  });
+    Key? key,
+    required this.name,
+    required this.id,
+    required this.description,
+    required this.launch,
+    required this.cover,
+    required this.publisher,
+    required this.category,
+    required this.sysReq,
+    this.isLiked = false, // Set default value
+  }) : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _MyAppBarState createState() => _MyAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(100);
+}
+
+class _MyAppBarState extends State<MyAppBar> {
+  late bool _isLiked;
+
+  @override
+  void initState() {
+    super.initState();
+    _isLiked = widget.isLiked;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +55,24 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         AppBarButton(
-            onTap: () => Navigator.of(context).pop(), icon: Icons.bookmark_add_outlined),
+          onTap: () async {
+            bool updatedIsLiked = await SaveFavouriteServices(
+              name: widget.name,
+              description: widget.description,
+              cover: widget.cover,
+              category: widget.category,
+              sysReq: widget.sysReq,
+              publisher: widget.publisher,
+              launch: widget.launch,
+              id: widget.id,
+            ).onLikeButtonTapped(_isLiked);
+
+            setState(() {
+              _isLiked = updatedIsLiked;
+            });
+          },
+          icon: _isLiked ? EvaIcons.bookmark : EvaIcons.bookmarkOutline,
+        ),
       ],
     );
   }
