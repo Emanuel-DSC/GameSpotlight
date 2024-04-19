@@ -1,3 +1,4 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:f2p_games/constants/colors.dart';
 import 'package:f2p_games/view/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,7 @@ class CategoryPage extends StatelessWidget {
               actions: [
                 IconButton(
                   icon: const Icon(
-                    Icons.home,
+                    EvaIcons.homeOutline,
                     color: Colors.white,
                   ),
                   onPressed: () {
