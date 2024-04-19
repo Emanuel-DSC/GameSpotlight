@@ -13,6 +13,8 @@ class GameCard extends StatelessWidget {
   final BoxFit fit;
   final int imageFlexValue;
   final int containerFlexValue;
+  final double padding;
+  final double heightSize;
   const GameCard({
     Key? key,
     required this.item,
@@ -20,6 +22,8 @@ class GameCard extends StatelessWidget {
     required this.fit,
     required this.imageFlexValue,
     required this.containerFlexValue,
+    required this.padding,
+    required this.heightSize,
   }) : super(key: key);
 
   @override
@@ -69,36 +73,39 @@ class GameCard extends StatelessWidget {
                 child: SingleChildScrollView(
                   physics: const NeverScrollableScrollPhysics(),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        MyText(
-                            googleFont: GoogleFonts.zenDots,
-                            color: Colors.white,
-                            fontSize: 14.0,
-                            title: item.title ?? 'Title not available',
-                            weight: FontWeight.normal),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            MyText(
-                                googleFont: GoogleFonts.michroma,
-                                color: Colors.grey,
-                                fontSize: 10.0,
-                                title: item.genre ?? 'Genre not available',
-                                weight: FontWeight.bold),
-                            TextButton(
-                                onPressed: onTap,
-                                child: const MyText(
-                                    googleFont: GoogleFonts.roboto,
-                                    color: Colors.grey,
-                                    fontSize: 14.0,
-                                    title: 'Learn More',
-                                    weight: FontWeight.bold)),
-                          ],
-                        ),
-                      ],
+                    padding: EdgeInsets.all(padding),
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          MyText(
+                              googleFont: GoogleFonts.zenDots,
+                              color: Colors.white,
+                              fontSize: 14.0,
+                              title: item.title ?? 'Title not available',
+                              weight: FontWeight.normal),
+                           SizedBox(height: heightSize),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              MyText(
+                                  googleFont: GoogleFonts.michroma,
+                                  color: Colors.grey,
+                                  fontSize: 10.0,
+                                  title: item.genre ?? 'Genre not available',
+                                  weight: FontWeight.bold),
+                              TextButton(
+                                  onPressed: onTap,
+                                  child: const MyText(
+                                      googleFont: GoogleFonts.roboto,
+                                      color: Colors.grey,
+                                      fontSize: 14.0,
+                                      title: 'Learn More',
+                                      weight: FontWeight.bold)),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

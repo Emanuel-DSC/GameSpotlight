@@ -39,7 +39,9 @@ class CategoriesGamesList extends StatelessWidget {
               fit: BoxFit.cover,
               item: item,
               containerFlexValue: 2,
-              imageFlexValue: 5,
+              imageFlexValue: 4,
+              padding: 8.0,
+              heightSize: 0,
               onTap: () {
                 // Navigate to game detail page
                 Navigator.push(
@@ -57,7 +59,7 @@ class CategoriesGamesList extends StatelessWidget {
                     ),
                   ),
                 );
-              },
+              }, 
             );
           },
         ),

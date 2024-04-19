@@ -34,8 +34,11 @@ class GamesList extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: GameCard(
               item: item,
+              heightSize: 8.0,
               containerFlexValue: 3,
-              imageFlexValue: 6,
+              imageFlexValue: 4,
+              padding: 14.0,
+              fit: BoxFit.cover,
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -51,7 +54,6 @@ class GamesList extends StatelessWidget {
                   ),
                 ),
               ),
-              fit: BoxFit.cover,
             ),
           );
         },
