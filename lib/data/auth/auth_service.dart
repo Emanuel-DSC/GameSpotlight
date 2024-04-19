@@ -71,31 +71,56 @@ class AuthenticationRepository with ChangeNotifier {
       showErrorMessage("Passwords do not match", context);
       return;
     }
+
     // try sign Up
     try {
+      // Create user with email and password
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: SignUpFormState.emailController.text,
-          password: SignUpFormState.passwordController.text.trim());
+        email: SignUpFormState.emailController.text,
+        password: SignUpFormState.passwordController.text.trim(),
+      );
 
-      // create user in Users collection Firebase
-      var user = FirebaseAuth.instance.currentUser?.uid;
-      await FirebaseFirestore.instance
-          .collection('Users')
-          .doc(user)
-          .set({'Email': SignUpFormState.emailController.text.trim()});
-      // get to movies screen
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const HomePage()));
-    } on FirebaseAuthException catch (e) {
-      //check if email is filled
-      if (e.toString() == 'channel-error') {
-        showErrorMessage("Please enter an email", context);
-      }
+      // Send email verification
+      await FirebaseAuth.instance.currentUser?.sendEmailVerification();
 
       // pop the loading circle
       Navigator.pop(context);
-      // show error message
-      showErrorMessage(e.code, context);
+
+      // Show message to verify email
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Verify Email'),
+            content: const Text(
+                'A verification email has been sent to your email address. Please verify your email before continuing.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.pushReplacement<void, void>(
+                      context,
+                      MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              const LoginPage()));
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      // pop the loading circle
+      Navigator.pop(context);
+
+      // Check if email is filled
+      if (e.code == 'channel-error') {
+        showErrorMessage("Please enter an email", context);
+      } else {
+        // Show error message
+        showErrorMessage(e.code, context);
+      }
     }
   }
 

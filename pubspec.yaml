@@ -23,6 +23,7 @@ dependencies:
   cloud_firestore: ^4.14.0
   google_sign_in: ^6.1.6
   eva_icons_flutter: ^3.1.0
+  flutter_native_splash: ^2.3.7
   
 dev_dependencies:
   flutter_test:

@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       extendBody: true,
       body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
         controller: pc,
         onPageChanged: setPaginaAtual,
         children: const [

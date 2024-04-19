@@ -5,14 +5,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 Widget favouritesCard(QueryDocumentSnapshot doc, context) {
-  print('Document data: ${doc.data()}');
 
   // Access the entire document data as a Map
   Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
 
   // Check if data is null or the required fields are missing
   if (data == null || !data.containsKey('game_name')) {
-    return SizedBox(); // Return an empty widget if the required fields are missing
+    return const SizedBox(); // Return an empty widget if the required fields are missing
   }
 
   // Access document fields

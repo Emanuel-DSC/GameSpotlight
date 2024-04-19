@@ -46,34 +46,51 @@ class _MyAppBarState extends State<MyAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      leading: AppBarButton(
-        onTap: () => Navigator.of(context).pop(),
-        icon: Icons.arrow_back_ios_new_rounded,
-      ),
-      actions: [
-        AppBarButton(
-          onTap: () async {
-            bool updatedIsLiked = await SaveFavouriteServices(
-              name: widget.name,
-              description: widget.description,
-              cover: widget.cover,
-              category: widget.category,
-              sysReq: widget.sysReq,
-              publisher: widget.publisher,
-              launch: widget.launch,
-              id: widget.id,
-            ).onLikeButtonTapped(_isLiked);
-
-            setState(() {
-              _isLiked = updatedIsLiked;
-            });
-          },
-          icon: _isLiked ? EvaIcons.bookmark : EvaIcons.bookmarkOutline,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: AppBarButton(
+          onTap: () => Navigator.of(context).pop(),
+          icon: Icons.arrow_back_ios_new_rounded,
         ),
-      ],
+        actions: [
+          AnimatedSwitcher(
+            transitionBuilder: (child, animation) {
+              return ScaleTransition(scale: animation, child: child);
+            },
+            duration: const Duration(milliseconds: 300),
+            child: _isLiked
+                ? AppBarButton(
+                    key: const Key('bookmark_icon'),
+                    onTap: _onBookmarkPressed,
+                    icon: EvaIcons.bookmark)
+                : AppBarButton(
+                    key: const Key('bookmark_outline_icon'),
+                    onTap: _onBookmarkPressed,
+                    icon: EvaIcons.bookmarkOutline),
+          ),
+        ],
+      ),
     );
+  }
+
+  // save/remove game's info and change state of saved or not
+  void _onBookmarkPressed() async {
+    bool updatedIsLiked = await SaveFavouriteServices(
+      name: widget.name,
+      description: widget.description,
+      cover: widget.cover,
+      category: widget.category,
+      sysReq: widget.sysReq,
+      publisher: widget.publisher,
+      launch: widget.launch,
+      id: widget.id,
+    ).onLikeButtonTapped(_isLiked);
+
+    setState(() {
+      _isLiked = updatedIsLiked;
+    });
   }
 }

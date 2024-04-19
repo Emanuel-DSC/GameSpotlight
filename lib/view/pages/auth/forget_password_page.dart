@@ -37,9 +37,12 @@ class ForgetPasswordPageState extends State<ForgetPasswordPage> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
-          leading: IconButton(
-              icon: const Icon(EvaIcons.arrowIosBack, color: Colors.white),
-              onPressed: () => Navigator.of(context).pop()),
+          leading: Visibility(
+            visible: playAnimation ? false : true,
+            child: IconButton(
+                icon: const Icon(EvaIcons.arrowIosBack, color: Colors.white),
+                onPressed: () => Navigator.of(context).pop()),
+          ),
         ),
         body: SingleChildScrollView(
           child: Container(
