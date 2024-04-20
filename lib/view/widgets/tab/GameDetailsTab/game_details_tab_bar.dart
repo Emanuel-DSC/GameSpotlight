@@ -6,11 +6,13 @@ import '../../../../constants/colors.dart';
 class GameDetailsTabBar extends StatelessWidget {
   final String firstTitle;
   final String secondTitle;
+  final String thitrdTitle;
 
   const GameDetailsTabBar({
     super.key,
     required this.firstTitle,
-    required this.secondTitle,
+    required this.secondTitle, 
+    required this.thitrdTitle,
   });
 
   @override
@@ -30,6 +32,11 @@ class GameDetailsTabBar extends StatelessWidget {
           Tab(
               child: Text(
             secondTitle,
+            style: GoogleFonts.roboto(fontSize: 14),
+          )),
+          Tab(
+              child: Text(
+            thitrdTitle,
             style: GoogleFonts.roboto(fontSize: 14),
           )),
         ]);

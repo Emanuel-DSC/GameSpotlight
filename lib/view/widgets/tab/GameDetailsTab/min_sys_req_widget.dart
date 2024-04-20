@@ -34,6 +34,7 @@ class MinSysReqList extends StatelessWidget {
           return const Center(
             child: Text(
               'System requirements not available',
+              textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white),
             ),
           );

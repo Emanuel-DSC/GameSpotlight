@@ -19,7 +19,7 @@ class GameScreenshots extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.transparent,
-      height: 170,
+      height: 200,
       width: double.infinity,
       child: screenshots.isEmpty
           ? const Center(
@@ -86,7 +86,8 @@ class GameScreenshots extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.error_outline_rounded, color: Colors.grey, size: 30),
+                                        Icon(Icons.error_outline_rounded,
+                                            color: Colors.grey, size: 30),
                                         SizedBox(height: 10),
                                         MyText(
                                             googleFont: GoogleFonts.roboto,

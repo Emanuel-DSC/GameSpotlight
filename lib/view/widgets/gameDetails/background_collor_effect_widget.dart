@@ -1,6 +1,5 @@
+import 'package:f2p_games/constants/colors.dart';
 import 'package:flutter/material.dart';
-
-import '../../../constants/colors.dart';
 
 class BgCollorEffect extends StatelessWidget {
   const BgCollorEffect({
@@ -13,7 +12,7 @@ class BgCollorEffect extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.transparent, Colors.black, kBgColor1],
+            colors: [Colors.transparent, kBgColor2, kBgColor2],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             stops: const [0.25, 0.35, 3],

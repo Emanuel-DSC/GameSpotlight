@@ -1,13 +1,12 @@
+import 'package:f2p_games/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../data/http/http_client.dart';
 import '../../../data/repositories/game_repository.dart';
-import '../../widgets/GameDetails/background_collor_effect_widget.dart';
 import '../../widgets/GameDetails/game_cover_widget.dart';
 import '../../widgets/GameDetails/game_header_widget.dart';
-import '../../widgets/GameDetails/screenshots_widget.dart';
 import '../../widgets/Tab/GameDetailsTab/game_details_tab_bar.dart';
 import '../../widgets/Tab/GameDetailsTab/game_page_tab.dart';
 import '../../widgets/appBar/my_appbar_widget.dart';
@@ -63,9 +62,10 @@ class _GameDetailPageState extends State<GameDetailPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         extendBodyBehindAppBar: true,
+        backgroundColor: kBgColor2,
         appBar: MyAppBar(
           category: widget.genre,
           cover: widget.thumbnail,
@@ -74,61 +74,48 @@ class _GameDetailPageState extends State<GameDetailPage> {
           name: widget.title,
           publisher: widget.publisher,
           sysReq: _minSysReqFuture.toString(),
-          id: widget.id, 
+          id: widget.id,
         ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Stack(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height,
-                color: Colors.black,
-              ),
-              GameCover(widget: widget),
-              const BgCollorEffect(),
-              Positioned(
-                top: MediaQuery.of(context).size.height * 0.29,
-                width: MediaQuery.of(context).size.width,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 24,
+        body: Column(
+          children: [
+            GameCover(widget: widget),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Center(
+                      child: MyText(
+                        title: widget.title ?? 'Not found',
+                        fontSize: 24.0,
+                        googleFont: GoogleFonts.zenDots,
+                        color: Colors.white,
+                        weight: FontWeight.normal,
                       ),
-                      Center(
-                        child: MyText(
-                          title: widget.title ?? 'Not found',
-                          fontSize: 24.0,
-                          googleFont: GoogleFonts.zenDots,
-                          color: Colors.white,
-                          weight: FontWeight.normal,
-                        ),
+                    ),
+                    const SizedBox(height: 10),
+                    GameHeader(widget: widget),
+                    const SizedBox(height: 20),
+                    MyButton(launchUrl: _launchUrl),
+                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
+                    const GameDetailsTabBar(
+                      firstTitle: 'About',
+                      secondTitle: 'Min Sys Requirements',
+                      thitrdTitle: 'Screenshots',
+                    ),
+                    Expanded(
+                      child: DetailGamePageTabView(
+                        minSysReq: _minSysReqFuture,
+                        description: _description,
+                        screenshots: _screenshotsFuture,
                       ),
-                      const SizedBox(height: 10),
-                      GameHeader(widget: widget),
-                      const SizedBox(height: 20),
-                      MyButton(launchUrl: _launchUrl),
-                      const SizedBox(height: 20),
-                      // Show screenshots using ListView
-                      ScreenshotsList(screenshotsFuture: _screenshotsFuture),
-                      const SizedBox(height: 10),
-                      const GameDetailsTabBar(
-                          firstTitle: 'About',
-                          secondTitle: 'Minimum System Requirements'),
-                      // show tab bar content
-                      SizedBox(
-                        height: 160,
-                        child: DetailGamePageTabView(
-                            minSysReq: _minSysReqFuture,
-                            description: _description),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
