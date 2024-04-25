@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../constants/colors.dart';
 import '../data/repositories/games_store.dart';
 import '../view/pages/game/game_detail_page.dart';
-import '../view/widgets/cards/game_card_search_widget.dart';
+import '../view/widgets/cards/search_cards_widget.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   final GameStore store;
