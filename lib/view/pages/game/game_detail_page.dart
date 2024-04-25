@@ -88,7 +88,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       child: MyText(
                         title: widget.title ?? 'Not found',
                         fontSize: 24.0,
-                        googleFont: GoogleFonts.zenDots,
+                        googleFont: GoogleFonts.poppins,
                         color: Colors.white,
                         weight: FontWeight.normal,
                       ),
