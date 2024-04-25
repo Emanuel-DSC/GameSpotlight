@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:f2p_games/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class MyBottomNavBar extends StatelessWidget {
@@ -31,7 +32,7 @@ class MyBottomNavBar extends StatelessWidget {
             ),
             child: BottomNavigationBar(
               currentIndex: paginaAtual,
-              selectedItemColor: Colors.greenAccent,
+              selectedItemColor: kButtonColor1,
               unselectedItemColor: Colors.grey,
               items: const [
                 BottomNavigationBarItem(
