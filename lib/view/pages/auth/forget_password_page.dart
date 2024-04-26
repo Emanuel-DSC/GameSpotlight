@@ -73,7 +73,7 @@ class ForgetPasswordPageState extends State<ForgetPasswordPage> {
                       // clear email controller
                       emailController.clear();
                     },
-                    title: 'teste',
+                    title: 'Send',
                     iconDisplay: false,
                     textColor: Colors.white,
                     bgColor: kCardColor),

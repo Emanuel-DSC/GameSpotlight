@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:f2p_games/view/pages/auth/intro_page.dart';
 import 'package:f2p_games/view/pages/home/home_page.dart';
 import 'package:f2p_games/view/pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -46,10 +47,14 @@ class AuthenticationRepository with ChangeNotifier {
   }
 
   // logout user
-  Future<void> logout() async {
+  Future<void> logout(context) async {
     await _auth.signOut();
     _firebaseUser = null;
     notifyListeners();
+    Navigator.of(context).popUntil((predicate) => predicate.isFirst);
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const IntroPage()),
+    );
   }
 
   // sign user up method

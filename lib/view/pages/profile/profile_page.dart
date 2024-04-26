@@ -108,25 +108,26 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: 'Change password',
                     weight: FontWeight.normal),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      AuthenticationRepository().logout();
-                    },
-                    child: const MyText(
+              GestureDetector(
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MyText(
                         googleFont: GoogleFonts.lato,
                         color: Colors.red,
                         fontSize: 18,
                         title: 'Logout',
                         weight: FontWeight.normal),
-                  ),
-                  const Icon(
-                    EvaIcons.logOutOutline,
-                    color: Colors.red,
-                  ),
-                ],
+                    SizedBox(width: 5),
+                    Icon(
+                      EvaIcons.logOutOutline,
+                      color: Colors.red,
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  AuthenticationRepository().logout(context);
+                },
               ),
             ],
           ),
