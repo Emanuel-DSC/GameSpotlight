@@ -58,8 +58,8 @@ class LoginFormState extends State<LoginForm> {
             alignment: Alignment.centerRight,
             child: TextButton(
               onPressed: () {
-                Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const ForgetPasswordPage()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ForgetPasswordPage()));
               },
               child: MyText(
                   googleFont: GoogleFonts.lato,
@@ -83,6 +83,8 @@ class LoginFormState extends State<LoginForm> {
           LoginButton(
             onTap: () {
               AuthenticationRepository().signInWithGoogle(context);
+              emailController.clear();
+              passwordController.clear();
             },
             iconDisplay: true,
             title: 'login with google',

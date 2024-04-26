@@ -150,7 +150,6 @@ class GameRepository implements IGameRepository {
     }
   } 
   
-    // fetch description
    // fetch description
 Future<String> fetchDescription(String gameId) async {
   try {

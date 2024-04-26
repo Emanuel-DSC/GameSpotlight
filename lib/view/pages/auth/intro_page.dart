@@ -35,7 +35,7 @@ class IntroPage extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 50,
+              height: 45,
             ),
             Expanded(
               flex: 3,
@@ -54,11 +54,14 @@ class IntroPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           const MyText(
-                              googleFont: GoogleFonts.lato,
-                              color: Colors.grey,
-                              fontSize: 24,
-                              title: 'lore ipsum lore ipsum lore ipsum',
-                              weight: FontWeight.normal),
+                            googleFont: GoogleFonts.lato,
+                            color: Colors.grey,
+                            fontSize: 18,
+                            title:
+                                'Discover endless adventures! Dive into diverse titles, from action to puzzles. Let the gaming journey begin!',
+                            weight: FontWeight.normal,
+                            align: TextAlign.center,
+                          ),
                           const SizedBox(height: 50),
                           LoginButton(
                             title: 'Login',

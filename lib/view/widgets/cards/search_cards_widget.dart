@@ -30,28 +30,31 @@ class GameCardList extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            flex: 4,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
-              ),
-              child: CachedNetworkImage(
-                imageUrl: item.thumbnail ?? 'Not found',
-                fit: fit,
-                placeholder: (context, url) => Container(
-                  color: Colors.transparent,
-                  alignment: Alignment.center,
-                  child: const MyCircularProgressIndicator(),
+            flex: 2,
+            child: SizedBox(
+              height: 105,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  bottomLeft: Radius.circular(16),
                 ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                child: CachedNetworkImage(
+                  imageUrl: item.thumbnail ?? 'Not found',
+                  fit: fit,
+                  placeholder: (context, url) => Container(
+                    color: Colors.transparent,
+                    alignment: Alignment.center,
+                    child: const MyCircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
               ),
             ),
           ),
 
           // Container with description
           Expanded(
-            flex: 5,
+            flex: 3,
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(16),
@@ -63,7 +66,7 @@ class GameCardList extends StatelessWidget {
                   sigmaY: 150.0,
                 ),
                 child: Container(
-                  height: 92,
+                  height: 105,
                   padding: const EdgeInsets.all(8),
                   child: SingleChildScrollView(
                     physics: const NeverScrollableScrollPhysics(),
@@ -78,6 +81,7 @@ class GameCardList extends StatelessWidget {
                               fontSize: 12.0,
                               title: item.title ?? 'Title not available',
                               weight: FontWeight.normal),
+                          const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

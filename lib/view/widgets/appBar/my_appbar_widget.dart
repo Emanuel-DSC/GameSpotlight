@@ -46,17 +46,20 @@ class _MyAppBarState extends State<MyAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: AppBarButton(
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      leading: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: AppBarButton(
           onTap: () => Navigator.of(context).pop(),
           icon: Icons.arrow_back_ios_new_rounded,
         ),
-        actions: [
-          AnimatedSwitcher(
+      ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: AnimatedSwitcher(
             transitionBuilder: (child, animation) {
               return ScaleTransition(scale: animation, child: child);
             },
@@ -71,8 +74,8 @@ class _MyAppBarState extends State<MyAppBar> {
                     onTap: _onBookmarkPressed,
                     icon: EvaIcons.bookmarkOutline),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

@@ -41,6 +41,7 @@ class CategoryPage extends StatelessWidget {
           return Scaffold(
             backgroundColor: kBgColor1,
             appBar: AppBar(
+              elevation: 0,
               backgroundColor: kBgColor1,
               leading: GestureDetector(
                 child: const Icon(

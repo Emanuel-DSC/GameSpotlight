@@ -28,7 +28,7 @@ Widget favouritesCard(QueryDocumentSnapshot doc, context) {
   String gamePublisher = data['game_publisher'];
 
   // variables
-  double height = 180;
+  double height = 160;
 
   // Build the card widget using the accessed fields
   return Padding(

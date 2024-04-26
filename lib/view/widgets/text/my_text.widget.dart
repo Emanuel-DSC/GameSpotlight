@@ -6,6 +6,7 @@ class MyText extends StatelessWidget {
   final double fontSize;
   final String title;
   final FontWeight weight;
+  final TextAlign? align;
 
   const MyText({
     super.key,
@@ -13,13 +14,15 @@ class MyText extends StatelessWidget {
     required this.color,
     required this.fontSize,
     required this.title, 
-    required this.weight,
+    required this.weight, 
+    this.align,
   });
 
   @override
   Widget build(BuildContext context) {
     return Text(
       title,
+      textAlign: align, 
       style: googleFont(
         fontWeight: weight,
         color: color,

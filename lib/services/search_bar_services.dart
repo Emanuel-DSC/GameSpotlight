@@ -1,3 +1,4 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,63 +15,38 @@ class CustomSearchDelegate extends SearchDelegate {
 
   // create a list view of game cards to search bar suggestions and results
   Widget _buildGameCardList(List<String> matchQuery) {
-  return ListView.builder(
-    physics: const BouncingScrollPhysics(),
-    itemCount: matchQuery.length,
-    itemBuilder: (context, index) {
-      final String result = matchQuery[index];
-      final item = store.state5.value.firstWhere((item) =>
-          item.title.toString().toLowerCase() == result.toLowerCase());
-      return GameCardList(
-        item: item,
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => GameDetailPage(
-              title: item.title,
-              thumbnail: item.thumbnail,
-              releaseDate: item.releaseDate,
-              id: item.id,
-              gameUrl: item.url,
-              genre: item.genre,
-              publisher: item.publisher,
-              description: '',
+    return ScrollConfiguration(
+      // remove glow after scrolled til the end
+      behavior: const ScrollBehavior().copyWith(overscroll: false),
+      child: ListView.builder(
+        cacheExtent: 1800,
+        physics: const PageScrollPhysics(),
+        itemCount: matchQuery.length,
+        itemBuilder: (context, index) {
+          final String result = matchQuery[index];
+          final item = store.state5.value.firstWhere((item) =>
+              item.title.toString().toLowerCase() == result.toLowerCase());
+          return GameCardList(
+            item: item,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => GameDetailPage(
+                  title: item.title,
+                  thumbnail: item.thumbnail,
+                  releaseDate: item.releaseDate,
+                  id: item.id,
+                  gameUrl: item.url,
+                  genre: item.genre,
+                  publisher: item.publisher,
+                  description: '',
+                ),
+              ),
             ),
-          ),
-        ),
-        fit: BoxFit.cover,
-      );
-    },
-  );
-}
-
-  // get every title from api and add to search bar
-  void updateSearchTerms(List items) {
-    searchTerms.clear();
-    for (var item in items) {
-      searchTerms.add(item.title.toString());
-    }
-  }
-
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    return [
-      IconButton(
-        icon: const Icon(Icons.clear),
-        onPressed: () {
-          query = '';
+            fit: BoxFit.cover,
+          );
         },
       ),
-    ];
-  }
-
-  @override
-  Widget? buildLeading(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        close(context, null);
-      },
-      icon: const Icon(Icons.arrow_back),
     );
   }
 
@@ -96,6 +72,36 @@ class CustomSearchDelegate extends SearchDelegate {
       padding: const EdgeInsets.all(8.0),
       child: _buildGameCardList(matchQuery),
     );
+  }
+
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      icon: const Icon(EvaIcons.arrowIosBackOutline),
+    );
+  }
+
+  // get every title from api and add to search bar
+  void updateSearchTerms(List items) {
+    searchTerms.clear();
+    for (var item in items) {
+      searchTerms.add(item.title.toString());
+    }
   }
 
   //style

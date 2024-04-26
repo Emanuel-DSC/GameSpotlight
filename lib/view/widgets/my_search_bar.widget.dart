@@ -45,7 +45,7 @@ class MySearchBar extends StatelessWidget {
                 googleFont: GoogleFonts.roboto,
                 color: Colors.grey,
                 fontSize: 14,
-                title: 'Search free game',
+                title: 'Search game',
                 weight: FontWeight.normal,
               ),
             ],
