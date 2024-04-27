@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../widgets/cards/favourites_cards_widgets.dart';
+import '../../widgets/my_progress_indicador_widget.dart';
 
 class FavouritesPage extends StatefulWidget {
   const FavouritesPage({super.key});
@@ -32,7 +33,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
               //checking connection state
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: MyCircularProgressIndicator());
               }
               if (snapshot.data!.docs.isEmpty) {
                 return ListView(

@@ -41,6 +41,7 @@ class GameDetailPage extends StatefulWidget {
 
 class _GameDetailPageState extends State<GameDetailPage> {
   final repository = GameRepository(client: HttpClient());
+  final ScrollController controller = ScrollController();
   late Future<Map<String, String>> _minSysReqFuture;
   late Future<List<String>> _screenshotsFuture;
   late Future<String> _description;
@@ -100,15 +101,16 @@ class _GameDetailPageState extends State<GameDetailPage> {
                     const SizedBox(height: 20),
                     const SizedBox(height: 10),
                     const GameDetailsTabBar(
-                      firstTitle: 'About',
-                      secondTitle: 'Min Sys Requirements',
-                      thitrdTitle: 'Screenshots',
+                      firstTitle: 'Screenshots',
+                      secondTitle: 'About',
+                      thitrdTitle: 'Min Sys Requirements',
                     ),
                     Expanded(
                       child: DetailGamePageTabView(
                         minSysReq: _minSysReqFuture,
                         description: _description,
                         screenshots: _screenshotsFuture,
+                        controller: controller,
                       ),
                     ),
                   ],
