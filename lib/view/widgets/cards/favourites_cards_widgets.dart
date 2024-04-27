@@ -58,7 +58,7 @@ Widget favouritesCard(QueryDocumentSnapshot doc, context) {
         child: Row(
           children: [
             Flexible(
-              flex: 9,
+              flex: 4,
               child: Container(
                 height: height,
                 decoration: const BoxDecoration(
@@ -89,7 +89,7 @@ Widget favouritesCard(QueryDocumentSnapshot doc, context) {
               ),
             ),
             Flexible(
-              flex: 10,
+              flex: 5,
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(16),
@@ -141,7 +141,7 @@ Widget favouritesCard(QueryDocumentSnapshot doc, context) {
                                   weight: FontWeight.bold),
                             ],
                           ),
-                          const SizedBox(height: 40),
+                          const SizedBox(height: 25),
                           Align(
                             alignment: Alignment.bottomRight,
                             child: GestureDetector(
@@ -184,8 +184,7 @@ Widget favouritesCard(QueryDocumentSnapshot doc, context) {
                                           },
                                           child: const Text(
                                             "Delete",
-                                            style:
-                                                TextStyle(color: Colors.red),
+                                            style: TextStyle(color: Colors.red),
                                           ),
                                         ),
                                       ],
