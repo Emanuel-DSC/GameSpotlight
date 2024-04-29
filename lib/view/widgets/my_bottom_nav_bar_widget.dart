@@ -1,14 +1,15 @@
 import 'dart:ui';
 
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:f2p_games/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class MyBottomNavBar extends StatelessWidget {
   const MyBottomNavBar({
-    super.key,
+    Key? key,
     required this.paginaAtual,
     required this.pc,
-  });
+  }) : super(key: key);
 
   final int paginaAtual;
   final PageController pc;
@@ -36,17 +37,26 @@ class MyBottomNavBar extends StatelessWidget {
               unselectedItemColor: Colors.grey,
               items: const [
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.home_outlined), label: 'Home'),
+                  icon: Icon(EvaIcons.homeOutline),
+                  activeIcon: Icon(EvaIcons.home),
+                  label: 'Home',
+                ),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.bookmark_outline), label: 'Wishlist'),
+                  icon: Icon(EvaIcons.bookmarkOutline),
+                  activeIcon: Icon(EvaIcons.bookmark),
+                  label: 'Wishlist',
+                ),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.person_2_outlined), label: 'Profile'),
+                  icon: Icon(EvaIcons.personOutline),
+                  activeIcon: Icon(EvaIcons.person),
+                  label: 'Profile',
+                ),
               ],
               onTap: (pagina) {
                 pc.animateToPage(
                   pagina,
-                  duration: const Duration(milliseconds: 400),
-                  curve: Curves.ease,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.linear,
                 );
               },
               backgroundColor: Colors.transparent,
