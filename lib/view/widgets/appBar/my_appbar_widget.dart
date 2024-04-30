@@ -1,5 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../services/favourites_services.dart';
 import '../buttons/app_bar_buttons_widget.dart';
@@ -42,6 +43,14 @@ class _MyAppBarState extends State<MyAppBar> {
   void initState() {
     super.initState();
     _isLiked = widget.isLiked;
+    _loadPreferences();
+  }
+
+  void _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _isLiked = prefs.getBool('isLiked') ?? false;
+    });
   }
 
   @override
@@ -92,6 +101,8 @@ class _MyAppBarState extends State<MyAppBar> {
       id: widget.id,
     ).onLikeButtonTapped(_isLiked);
 
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLiked', updatedIsLiked); 
     setState(() {
       _isLiked = updatedIsLiked;
     });
