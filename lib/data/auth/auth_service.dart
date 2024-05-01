@@ -88,6 +88,12 @@ class AuthenticationRepository with ChangeNotifier {
       // Send email verification
       await FirebaseAuth.instance.currentUser?.sendEmailVerification();
 
+      // create user in Users collection Firebase
+      var user = FirebaseAuth.instance.currentUser?.uid;
+      await FirebaseFirestore.instance.collection('Users').doc(user).set({
+        'Email': SignUpFormState.emailController.text.trim(),
+      });
+
       // pop the loading circle
       Navigator.pop(context);
 
