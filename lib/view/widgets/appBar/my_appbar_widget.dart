@@ -1,4 +1,5 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -48,9 +49,13 @@ class _MyAppBarState extends State<MyAppBar> {
 
   void _loadPreferences() async {
     final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _isLiked = prefs.getBool('isLiked') ?? false;
-    });
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId != null) {
+      final preferenceKey = '${widget.id}_$userId';
+      setState(() {
+        _isLiked = prefs.getBool(preferenceKey) ?? widget.isLiked;
+      });
+    }
   }
 
   @override
@@ -90,21 +95,25 @@ class _MyAppBarState extends State<MyAppBar> {
 
   // save/remove game's info and change state of saved or not
   void _onBookmarkPressed() async {
-    bool updatedIsLiked = await SaveFavouriteServices(
-      name: widget.name,
-      description: widget.description,
-      cover: widget.cover,
-      category: widget.category,
-      sysReq: widget.sysReq,
-      publisher: widget.publisher,
-      launch: widget.launch,
-      id: widget.id,
-    ).onLikeButtonTapped(_isLiked);
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId != null) {
+      final prefs = await SharedPreferences.getInstance();
+      final preferenceKey = '${widget.id}_$userId';
+      bool updatedIsLiked = await SaveFavouriteServices(
+        name: widget.name,
+        description: widget.description,
+        cover: widget.cover,
+        category: widget.category,
+        sysReq: widget.sysReq,
+        publisher: widget.publisher,
+        launch: widget.launch,
+        id: widget.id,
+      ).onLikeButtonTapped(_isLiked);
 
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isLiked', updatedIsLiked); 
-    setState(() {
-      _isLiked = updatedIsLiked;
-    });
+      prefs.setBool(preferenceKey, updatedIsLiked);
+      setState(() {
+        _isLiked = updatedIsLiked;
+      });
+    }
   }
 }
