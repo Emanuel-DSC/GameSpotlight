@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,11 +19,17 @@ class CustomSearchDelegate extends SearchDelegate {
     return ScrollConfiguration(
       // remove glow after scrolled til the end
       behavior: const ScrollBehavior().copyWith(overscroll: false),
-      child: ListView.builder(
-        cacheExtent: 1800,
-        physics: const PageScrollPhysics(),
+      child: CarouselSlider.builder(
+        options: CarouselOptions(
+          scrollPhysics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          padEnds: false,
+          enableInfiniteScroll: false,
+          height: double.infinity,
+          viewportFraction: 0.2,
+        ),
         itemCount: matchQuery.length,
-        itemBuilder: (context, index) {
+        itemBuilder: (context, index, realIndex) {
           final String result = matchQuery[index];
           final item = store.state5.value.firstWhere((item) =>
               item.title.toString().toLowerCase() == result.toLowerCase());
