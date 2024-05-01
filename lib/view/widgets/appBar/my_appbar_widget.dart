@@ -60,36 +60,39 @@ class _MyAppBarState extends State<MyAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      leading: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: AppBarButton(
-          onTap: () => Navigator.of(context).pop(),
-          icon: Icons.arrow_back_ios_new_rounded,
-        ),
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: AnimatedSwitcher(
-            transitionBuilder: (child, animation) {
-              return ScaleTransition(scale: animation, child: child);
-            },
-            duration: const Duration(milliseconds: 300),
-            child: _isLiked
-                ? AppBarButton(
-                    key: const Key('bookmark_icon'),
-                    onTap: _onBookmarkPressed,
-                    icon: EvaIcons.bookmark)
-                : AppBarButton(
-                    key: const Key('bookmark_outline_icon'),
-                    onTap: _onBookmarkPressed,
-                    icon: EvaIcons.bookmarkOutline),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: AppBarButton(
+            onTap: () => Navigator.of(context).pop(),
+            icon: Icons.arrow_back_ios_new_rounded,
           ),
         ),
-      ],
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: AnimatedSwitcher(
+              transitionBuilder: (child, animation) {
+                return ScaleTransition(scale: animation, child: child);
+              },
+              duration: const Duration(milliseconds: 300),
+              child: _isLiked
+                  ? AppBarButton(
+                      key: const Key('bookmark_icon'),
+                      onTap: _onBookmarkPressed,
+                      icon: EvaIcons.bookmark)
+                  : AppBarButton(
+                      key: const Key('bookmark_outline_icon'),
+                      onTap: _onBookmarkPressed,
+                      icon: EvaIcons.bookmarkOutline),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
