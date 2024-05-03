@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,25 +10,18 @@ import '../view/widgets/cards/search_cards_widget.dart';
 class CustomSearchDelegate extends SearchDelegate {
   final GameStore store;
   static List<String> searchTerms = [];
+  bool showCards = false;
 
   CustomSearchDelegate(this.store);
 
   // create a list view of game cards to search bar suggestions and results
   Widget _buildGameCardList(List<String> matchQuery) {
-    return ScrollConfiguration(
-      // remove glow after scrolled til the end
-      behavior: const ScrollBehavior().copyWith(overscroll: false),
-      child: CarouselSlider.builder(
-        options: CarouselOptions(
-          scrollPhysics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          padEnds: false,
-          enableInfiniteScroll: false,
-          height: double.infinity,
-          viewportFraction: 0.2,
-        ),
+    return Visibility(
+      visible: showCards,
+      child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         itemCount: matchQuery.length,
-        itemBuilder: (context, index, realIndex) {
+        itemBuilder: (context, index) {
           final String result = matchQuery[index];
           final item = store.state5.value.firstWhere((item) =>
               item.title.toString().toLowerCase() == result.toLowerCase());
@@ -75,6 +67,13 @@ class CustomSearchDelegate extends SearchDelegate {
         .where((term) => term.toLowerCase().contains(query.toLowerCase()))
         .toList();
 
+    // Set showCards to true when the user starts typing
+    if (query.isNotEmpty) {
+      showCards = true;
+    } else {
+      showCards = false; // Hide cards when the search query is empty
+    }
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: _buildGameCardList(matchQuery),
@@ -88,6 +87,8 @@ class CustomSearchDelegate extends SearchDelegate {
         icon: const Icon(Icons.clear),
         onPressed: () {
           query = '';
+          // Hide cards when the search query is cleared
+          showCards = false;
         },
       ),
     ];
