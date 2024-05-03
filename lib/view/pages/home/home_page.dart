@@ -1,9 +1,9 @@
 import 'package:f2p_games/view/pages/game/games_list_page.dart';
-import 'package:f2p_games/view/pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/my_bottom_nav_bar_widget.dart';
 import '../favourite/saved_games_page.dart';
+import '../setting/setting_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
         children: const [
           GamesListPage(),
           FavouritesPage(),
-          ProfilePage(),
+          SettingsPage(),
         ],
       ),
       bottomNavigationBar: MyBottomNavBar(paginaAtual: paginaAtual, pc: pc),

@@ -3,7 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:f2p_games/view/pages/auth/intro_page.dart';
 import 'package:f2p_games/view/pages/home/home_page.dart';
-import 'package:f2p_games/view/pages/profile/profile_page.dart';
+// import 'package:f2p_games/view/pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -43,7 +43,7 @@ class AuthenticationRepository with ChangeNotifier {
 
   // setting initial screen on load
   Widget getInitialScreen() {
-    return _firebaseUser == null ? const HomePage() : const ProfilePage();
+    return _firebaseUser == null ? const HomePage() : const IntroPage();
   }
 
   // logout user
