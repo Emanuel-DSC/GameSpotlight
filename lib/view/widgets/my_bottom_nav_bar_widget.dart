@@ -47,9 +47,9 @@ class MyBottomNavBar extends StatelessWidget {
                   label: 'Wishlist',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(EvaIcons.personOutline),
-                  activeIcon: Icon(EvaIcons.person),
-                  label: 'Profile',
+                  icon: Icon(EvaIcons.settings2Outline),
+                  activeIcon: Icon(EvaIcons.settings2),
+                  label: 'Settings',
                 ),
               ],
               onTap: (pagina) {
