@@ -12,13 +12,14 @@ class SettingsButton extends StatelessWidget {
     super.key,
     required this.onTap,
     required this.color,
-    required this.text, 
+    required this.text,
     required this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -35,9 +36,6 @@ class SettingsButton extends StatelessWidget {
           ),
         ],
       ),
-      onTap: () {
-        onTap;
-      },
     );
   }
 }

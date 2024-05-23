@@ -1,17 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:f2p_games/constants/colors.dart';
-import 'package:f2p_games/data/auth/auth_service.dart';
-import 'package:f2p_games/view/widgets/my_progress_indicador_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../widgets/buttons/settings_button.dart';
-import '../../widgets/settings/user_email_widget.dart';
+import '../../widgets/settings/info_container_widget.dart';
 import '../../widgets/text/my_text.widget.dart';
-import '../auth/forget_password_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({
@@ -41,7 +35,7 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.15),
               const MyText(
                   googleFont: GoogleFonts.lato,
                   color: Colors.grey,
@@ -49,33 +43,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   title: 'Account Info',
                   weight: FontWeight.bold),
               const SizedBox(
-                height: 30,
+                height: 60,
               ),
-              ReturnEmail(user: user),
-              const SizedBox(
-                height: 20,
-              ),
-              SettingsButton(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const ForgetPasswordPage()));
-                },
-                color: Colors.grey,
-                text: 'Change password',
-                icon: EvaIcons.editOutline,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SettingsButton(
-                onTap: () {
-                  AuthenticationRepository().logout(context);
-                },
-                color: Colors.red,
-                text: 'Logout',
-                icon: EvaIcons.logOutOutline,
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.25),
+              InfoContainer(user: user),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.16),
               const MyText(
                   googleFont: GoogleFonts.lato,
                   color: Colors.grey,
@@ -85,23 +56,6 @@ class _SettingsPageState extends State<SettingsPage> {
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.30,
-                height: MediaQuery.of(context).size.height * 0.05,
-                child: CachedNetworkImage(
-                  imageUrl:
-                      'https://www.freetogame.com/assets/images/freetogame-logo.png',
-                  fit: BoxFit.fill,
-                  placeholder: (context, url) => Container(
-                    color: Colors.black,
-                    child: const Center(child: MyCircularProgressIndicator()),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
               GestureDetector(
                 onTap: () {
                   _launchUrl();
@@ -110,7 +64,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     googleFont: GoogleFonts.lato,
                     color: kButtonColor2,
                     fontSize: 16,
-                    title: 'Click here to acess it',
+                    title: 'Freetogame.com',
                     weight: FontWeight.w400),
               ),
             ],
