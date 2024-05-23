@@ -139,6 +139,7 @@ class AuthenticationRepository with ChangeNotifier {
   signUserIn(context) async {
     // show loading circle
     showDialog(
+      barrierDismissible: false, // Prevent dismissing by tapping outside
       context: context,
       builder: (context) {
         return const Center(
@@ -152,9 +153,11 @@ class AuthenticationRepository with ChangeNotifier {
         email: LoginFormState.emailController.text,
         password: LoginFormState.passwordController.text,
       );
-      // pop the loading circle
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const HomePage()));
+      // login and block back
+      Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (BuildContext context) => const HomePage()),
+      (Route<dynamic> route) => false,
+    );
     } on FirebaseAuthException catch (e) {
       // pop the loading circle
       Navigator.pop(context);
@@ -218,8 +221,10 @@ class AuthenticationRepository with ChangeNotifier {
 
     //sign in
     return await FirebaseAuth.instance.signInWithCredential(credential).then(
-        (value) => Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const HomePage())));
+        (value) => Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (BuildContext context) => const HomePage()),
+      (Route<dynamic> route) => false,
+    ));
   }
 
   // google sign out
