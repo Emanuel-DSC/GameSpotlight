@@ -51,12 +51,48 @@ class InfoContainer extends StatelessWidget {
                 thickness: 1.2,
               ),
               SettingsButton(
-                onTap: () {
-                  AuthenticationRepository().logout(context);
-                },
                 color: Colors.red,
                 text: 'Logout',
                 icon: EvaIcons.logOutOutline,
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: kSearchBarColor,
+                        title: const Text(
+                          "Log out?",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        content: const Text(
+                          "Are you sure you want to log out?",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              "Cancel",
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              AuthenticationRepository().logout(context);
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              "Log out",
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
               ),
             ],
           ),
