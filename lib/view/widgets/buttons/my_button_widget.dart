@@ -37,9 +37,9 @@ class MyButton extends StatelessWidget {
           launchUrl();
         },
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-          shape: MaterialStateProperty.all(
+          backgroundColor: WidgetStateProperty.all<Color>(Colors.transparent),
+          foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+          shape: WidgetStateProperty.all(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
         ),
         child: Row(

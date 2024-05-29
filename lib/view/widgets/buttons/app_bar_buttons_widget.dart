@@ -29,7 +29,7 @@ class AppBarButton extends StatelessWidget {
           child: IconButton(
             padding: EdgeInsets.zero,
             alignment: Alignment.center,
-            icon: Icon(icon),
+            icon: Icon(icon, color: Colors.white),
             onPressed: () {
               onTap();
             },

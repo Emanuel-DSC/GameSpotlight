@@ -29,8 +29,8 @@ class LoginButton extends StatelessWidget {
           onTap();
         },
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(bgColor),
-          shape: MaterialStateProperty.resolveWith<OutlinedBorder?>((states) {
+          backgroundColor: WidgetStateProperty.all<Color>(bgColor),
+          shape: WidgetStateProperty.resolveWith<OutlinedBorder?>((states) {
             return RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
             );

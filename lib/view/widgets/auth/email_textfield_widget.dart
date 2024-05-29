@@ -23,8 +23,8 @@ class EmailTextField extends StatelessWidget {
       controller: emailController,
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.person_outline_outlined),
-        prefixIconColor: MaterialStateColor.resolveWith((states) =>
-            states.contains(MaterialState.focused)
+        prefixIconColor: WidgetStateColor.resolveWith((states) =>
+            states.contains(WidgetState.focused)
                 ? kButtonColor2
                 : Colors.grey),
         labelText: 'Email',

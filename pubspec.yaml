@@ -19,8 +19,8 @@ dependencies:
   gradient_borders: ^1.0.0
   firebase_core: ^2.24.2
   provider: ^6.1.2
-  firebase_auth: ^4.16.0
-  cloud_firestore: ^4.14.0
+  firebase_auth: ^4.19.6
+  cloud_firestore: ^4.17.4
   google_sign_in: ^6.1.6
   eva_icons_flutter: ^3.1.0
   flutter_native_splash: ^2.3.7

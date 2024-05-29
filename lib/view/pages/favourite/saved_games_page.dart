@@ -6,17 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../widgets/cards/favourites_cards_widgets.dart';
+import '../../widgets/cards/favourite/favourites_cards_widgets.dart';
 import '../../widgets/my_progress_indicador_widget.dart';
 
 class FavouritesPage extends StatefulWidget {
-  const FavouritesPage({Key? key});
+  const FavouritesPage({super.key});
 
   @override
-  _FavouritesPageState createState() => _FavouritesPageState();
+  FavouritesPageState createState() => FavouritesPageState();
 }
 
-class _FavouritesPageState extends State<FavouritesPage> {
+class FavouritesPageState extends State<FavouritesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

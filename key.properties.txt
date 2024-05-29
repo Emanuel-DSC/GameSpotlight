@@ -1,0 +1,4 @@
+storeFile=../f2p_games
+storePassword=myKeystorePassword
+keyAlias=myKeyAlias
+keyPassword=myKeyPassword

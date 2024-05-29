@@ -28,8 +28,8 @@ class PasswordTextFormField extends StatelessWidget {
       controller: passwordController,
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.fingerprint),
-        prefixIconColor: MaterialStateColor.resolveWith((states) =>
-            states.contains(MaterialState.focused) ? color : Colors.grey),
+        prefixIconColor: WidgetStateColor.resolveWith((states) =>
+            states.contains(WidgetState.focused) ? color : Colors.grey),
         labelText: labelText,
         labelStyle: const TextStyle(color: Colors.grey),
         floatingLabelStyle: TextStyle(color: color),
@@ -41,8 +41,8 @@ class PasswordTextFormField extends StatelessWidget {
           borderSide: BorderSide(width: 2, color: color),
           borderRadius: const BorderRadius.all(Radius.circular(15.0)),
         ),
-        suffixIconColor: MaterialStateColor.resolveWith((states) =>
-            states.contains(MaterialState.focused) ? color : Colors.grey),
+        suffixIconColor: WidgetStateColor.resolveWith((states) =>
+            states.contains(WidgetState.focused) ? color : Colors.grey),
         suffixIcon: IconButton(
           onPressed: onTap,
           icon: _obscurePasswordTextController

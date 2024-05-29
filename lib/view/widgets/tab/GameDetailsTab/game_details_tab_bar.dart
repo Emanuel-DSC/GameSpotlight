@@ -11,18 +11,20 @@ class GameDetailsTabBar extends StatelessWidget {
   const GameDetailsTabBar({
     super.key,
     required this.firstTitle,
-    required this.secondTitle, 
+    required this.secondTitle,
     required this.thitrdTitle,
   });
 
   @override
   Widget build(BuildContext context) {
     return TabBar(
+        tabAlignment: TabAlignment.start,
         isScrollable: true,
         labelColor: Colors.white,
         indicatorPadding: EdgeInsets.zero,
         unselectedLabelColor: Colors.grey.shade600,
         indicatorColor: kButtonColor1,
+        dividerHeight: 0,
         tabs: [
           Tab(
               child: Text(
