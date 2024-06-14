@@ -91,6 +91,9 @@ lib/
 * Dart
 * Firebase 
 
+## APi 
+* [freetogame](https://www.freetogame.com)
+
 ## Contribuições
 Contribuições são bem-vindas! Sinta-se à vontade para fazer um fork do projeto e abrir um pull request.
 
