@@ -19,6 +19,7 @@ class GameDetailPage extends StatefulWidget {
   final String? thumbnail;
   final String? releaseDate;
   final String? description;
+  final String? shortDescription;
   final String? id;
   final String? gameUrl;
   final String? genre;
@@ -30,6 +31,7 @@ class GameDetailPage extends StatefulWidget {
     required this.thumbnail,
     required this.releaseDate,
     required this.description,
+    this.shortDescription,
     required this.id,
     required this.gameUrl,
     required this.genre,
@@ -72,6 +74,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
           category: widget.genre,
           cover: widget.thumbnail,
           description: widget.description,
+          shortDescription: widget.shortDescription,
           launch: widget.releaseDate,
           name: widget.title,
           publisher: widget.publisher,

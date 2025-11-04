@@ -8,6 +8,7 @@ class MyText extends StatelessWidget {
   final FontWeight weight;
   final TextAlign? align;
   final TextOverflow? overflow;
+  final int? maxLines;
 
   const MyText({
     super.key,
@@ -17,7 +18,8 @@ class MyText extends StatelessWidget {
     required this.title,
     required this.weight,
     this.align,
-    this.overflow, 
+    this.overflow,
+    this.maxLines,
   });
 
   @override
@@ -25,7 +27,8 @@ class MyText extends StatelessWidget {
     return Text(
       title,
       textAlign: align,
-      overflow: overflow, 
+      overflow: overflow,
+      maxLines: maxLines,
       style: googleFont(
         fontWeight: weight,
         color: color,

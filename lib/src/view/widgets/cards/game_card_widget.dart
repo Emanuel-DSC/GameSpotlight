@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../utils/colors.dart';
+import '../../../../utils/dominant_color_service.dart';
 import '../../../models/game_model.dart';
 import '../my_progress_indicador_widget.dart';
 import '../text/my_text.widget.dart';
@@ -15,8 +18,9 @@ class GameCard extends StatelessWidget {
   final int containerFlexValue;
   final double padding;
   final double heightSize;
+
   const GameCard({
-    Key? key,
+    super.key,
     required this.item,
     required this.onTap,
     required this.fit,
@@ -24,96 +28,109 @@ class GameCard extends StatelessWidget {
     required this.containerFlexValue,
     required this.padding,
     required this.heightSize,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      width: double.infinity,
-      child: Card(
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              flex: imageFlexValue,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
-                ),
-                child: CachedNetworkImage(
-                  imageUrl: item.thumbnail ?? 'Not found',
-                  fit: fit,
-                  placeholder: (context, url) => Container(
-                    color: Colors.white.withOpacity(0.2),
-                    alignment: Alignment.center,
-                    child: const MyCircularProgressIndicator(),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
+    final imageUrl = item.thumbnail ?? '';
+
+    return FutureBuilder<Color>(
+      future: DominantColorService.getColor(imageUrl),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const SizedBox(
+            height: 200,
+            child: Center(child: MyCircularProgressIndicator()),
+          );
+        }
+
+        final bgColor = snapshot.data!;
+        final textColor = ColorUtils.getTextColor(bgColor);
+
+        return InkWell(
+          onTap: onTap,
+          child: SizedBox(
+            height: 200,
+            width: double.infinity,
+            child: Card(
+              elevation: 0,
+              color: bgColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
               ),
-            ),
-            // Container with description
-            Expanded(
-              flex: containerFlexValue,
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: kCardColor,
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
-                  ),
-                ),
-                child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  child: Padding(
-                    padding: EdgeInsets.all(padding),
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          MyText(
-                              googleFont: GoogleFonts.zenDots,
-                              color: Colors.white,
-                              fontSize: 14.0,
-                              title: item.title ?? 'Title not available',
-                              weight: FontWeight.normal),
-                           SizedBox(height: heightSize),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              MyText(
-                                  googleFont: GoogleFonts.michroma,
-                                  color: Colors.grey,
-                                  fontSize: 10.0,
-                                  title: item.genre ?? 'Genre not available',
-                                  weight: FontWeight.bold),
-                              TextButton(
-                                  onPressed: onTap,
-                                  child: const MyText(
-                                      googleFont: GoogleFonts.roboto,
-                                      color: Colors.grey,
-                                      fontSize: 14.0,
-                                      title: 'Learn More',
-                                      weight: FontWeight.bold)),
-                            ],
-                          ),
-                        ],
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      flex: imageFlexValue,
+                      child: CachedNetworkImage(
+                        imageUrl: imageUrl,
+                        fit: fit,
+                        placeholder: (_, __) => Container(
+                          color: kCardColor.withOpacity(.8),
+                          alignment: Alignment.center,
+                          child: const MyCircularProgressIndicator(),
+                        ),
+                        errorWidget: (_, __, ___) => const Icon(Icons.error),
                       ),
                     ),
-                  ),
+                    Expanded(
+                      flex: containerFlexValue,
+                      child: ClipRect(
+                        child: Stack(
+                          children: [
+                            Container(color: bgColor),
+                            BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
+                              child: Container(
+                                color: Colors.black.withOpacity(0.12),
+                                foregroundDecoration: BoxDecoration(
+                                  color: bgColor.withOpacity(0.12),
+                                  backgroundBlendMode: BlendMode.softLight,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(padding),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  MyText(
+                                    googleFont: GoogleFonts.zenDots,
+                                    color: textColor,
+                                    fontSize: 14.0,
+                                    title: item.title ?? 'Title unavailable',
+                                    weight: FontWeight.normal,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  SizedBox(height: heightSize),
+                                  MyText(
+                                    googleFont: GoogleFonts.basic,
+                                    color: textColor,
+                                    fontSize: 12.0,
+                                    title: item.shortDescription ?? '',
+                                    weight: FontWeight.w200,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

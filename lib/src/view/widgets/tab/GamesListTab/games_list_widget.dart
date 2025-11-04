@@ -51,6 +51,7 @@ class GamesList extends StatelessWidget {
                     genre: item.genre,
                     publisher: item.publisher,
                     description: '',
+                    shortDescription: '',
                   ),
                 ),
               ),

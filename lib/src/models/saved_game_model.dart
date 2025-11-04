@@ -7,6 +7,7 @@ class SaveGameModel {
   final String? id;
   final String? name;
   final String? description;
+  final String? shortDescription;
   final String? cover;
   final String? publisher;
   final String? launch;
@@ -17,6 +18,7 @@ class SaveGameModel {
     required this.name,
     required this.id,
     required this.description,
+    this.shortDescription,
     required this.launch,
     required this.cover,
     required this.publisher,
@@ -46,6 +48,7 @@ class SaveGameModel {
         "game_name": name,
         "game_cover": cover,
         "game_description": description,
+        "short_description": shortDescription,
         "game_launch": launch,
         "game_publisher": publisher,
         "game_category": category,

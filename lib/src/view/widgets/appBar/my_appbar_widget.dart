@@ -9,6 +9,7 @@ import '../buttons/app_bar_buttons_widget.dart';
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String? name;
   final String? description;
+  final String? shortDescription;
   final String? cover;
   final String? publisher;
   final String? launch;
@@ -21,6 +22,7 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
     required this.name,
     required this.id,
     required this.description,
+    required this.shortDescription,
     required this.launch,
     required this.cover,
     required this.publisher,
@@ -105,6 +107,7 @@ class _MyAppBarState extends State<MyAppBar> {
       bool updatedIsLiked = await SaveGameModel(
         name: widget.name,
         description: widget.description,
+        shortDescription: widget.shortDescription,
         cover: widget.cover,
         category: widget.category,
         sysReq: widget.sysReq,

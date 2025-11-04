@@ -19,7 +19,7 @@ class GameModel {
     required this.publisher,
     required this.developer,
     required this.releaseDate,
-    required this.shortDescription,
+    this.shortDescription,
     required this.description,
   });
 
