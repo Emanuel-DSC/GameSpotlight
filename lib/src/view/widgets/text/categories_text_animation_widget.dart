@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../controllers/repositories/games_store_controller.dart';
+import '../../pages/game/categories/all_categories_page.dart';
 import 'my_text.widget.dart';
 
 class CategoriesTextAndAnimation extends StatelessWidget {
+  final GameStore store;
+
   const CategoriesTextAndAnimation({
     super.key,
+    required this.store,
   });
 
   @override
@@ -24,8 +29,28 @@ class CategoriesTextAndAnimation extends StatelessWidget {
             title: 'Categories',
             weight: FontWeight.bold,
           ),
-          LottieBuilder.asset(animationPathSwipe, 
-          height: 30, width: 30,),
+
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => AllCategoriesPage(store: store),
+                ),
+              );
+            },
+            child: Row(
+              children: [
+                MyText(googleFont: GoogleFonts.poppins, color: Colors.white,
+                fontSize: 14, title: 'see all'.toUpperCase(), weight: FontWeight.bold),
+                LottieBuilder.asset(
+                  animationPathSwipe,
+                  height: 30,
+                  width: 30,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

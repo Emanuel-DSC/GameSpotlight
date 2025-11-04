@@ -100,7 +100,7 @@ class _GamesListPageState extends State<GamesListPage> {
                     child: GamesTabView(store: store),
                   ),
                   const SizedBox(height: 10),
-                  const CategoriesTextAndAnimation(),
+                  CategoriesTextAndAnimation(store: store),
                   CategoriesGridView(store: store),
                   const SizedBox(height: 70),
                 ],

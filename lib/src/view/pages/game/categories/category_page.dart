@@ -1,12 +1,15 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:f2p_games/src/view/widgets/text/my_text.widget.dart';
 import 'package:flutter/material.dart';
-import '../../../../utils/colors.dart';
-import '../../../controllers/repositories/games_store_controller.dart';
-import '../../widgets/Tab/GamesListTab/categories_games_list_widget.dart';
-import '../../widgets/Tab/GamesListTab/categories_grid_widget.dart';
-import '../../widgets/my_progress_indicador_widget.dart';
-import '../../widgets/text/categories_text_animation_widget.dart';
-import '../home/home_page.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../../utils/colors.dart';
+import '../../../../controllers/repositories/games_store_controller.dart';
+import '../../../widgets/Tab/GamesListTab/categories_grid_widget.dart';
+import '../../../widgets/my_progress_indicador_widget.dart';
+import '../../../widgets/tab/GamesListTab/categories_games_list_widget.dart';
+import '../../../widgets/text/categories_text_animation_widget.dart';
+import '../../home/home_page.dart';
 
 class CategoryPage extends StatelessWidget {
   final String title;
@@ -52,7 +55,8 @@ class CategoryPage extends StatelessWidget {
                   Navigator.pop(context);
                 },
               ),
-              title: Text(title.toUpperCase()),
+              title: MyText(googleFont: GoogleFonts.poppins, color: Colors.white,
+              fontSize: 18, title: title.toUpperCase(), weight: FontWeight.bold),
               actions: [
                 IconButton(
                   icon: const Icon(
@@ -73,7 +77,7 @@ class CategoryPage extends StatelessWidget {
               children: [
                 const SizedBox(height: 10),
                 CategoriesGamesList(store: store, state: store.state4.value),
-                const CategoriesTextAndAnimation(),
+                CategoriesTextAndAnimation(store: store),
                 CategoriesGridView(store: store),
               ],
             ),

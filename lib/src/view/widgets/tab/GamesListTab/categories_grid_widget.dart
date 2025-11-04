@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../utils/lists.dart';
 import '../../../../controllers/repositories/games_store_controller.dart';
-import '../../../pages/game/category_page.dart';
+import '../../../pages/game/categories/category_page.dart';
 import '../../cards/categories_cards_widgets.dart';
 
 class CategoriesGridView extends StatelessWidget {
@@ -28,7 +28,7 @@ class CategoriesGridView extends StatelessWidget {
           crossAxisSpacing: 8.0,
         ),
         padding: const EdgeInsets.all(20.0),
-        itemCount: categoriesList.length,
+        itemCount: 10,
         itemBuilder: (context, index) {
           String item = categoriesList[index][0];
           String cardCover = categoriesList[index][1];
