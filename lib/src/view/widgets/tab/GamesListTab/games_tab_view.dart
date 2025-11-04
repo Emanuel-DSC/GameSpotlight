@@ -21,11 +21,11 @@ class GamesTabView extends StatelessWidget {
         children: [
           GamesList(
             store: store,
-            state: store.state.value,
+            state: store.state2.value,
           ),
           GamesList(
             store: store,
-            state: store.state2.value,
+            state: store.state.value,
           ),
           GamesList(
             store: store,

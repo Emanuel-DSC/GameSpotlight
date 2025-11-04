@@ -24,7 +24,7 @@ class GamesListTabBar extends StatelessWidget {
         tabs: [
           Tab(
             child: Text(
-              'Popular',
+              'Newest',
               style: GoogleFonts.michroma(
                 textStyle: const TextStyle(fontSize: 12),
               ),
@@ -32,7 +32,7 @@ class GamesListTabBar extends StatelessWidget {
           ),
           Tab(
             child: Text(
-              'Newest',
+              'Popular',
               style: GoogleFonts.michroma(
                 textStyle: const TextStyle(fontSize: 12),
               ),
