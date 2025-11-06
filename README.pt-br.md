@@ -1,4 +1,3 @@
-
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/gh/dheereshagrwal/colored-icons@1.7.5/src/app/ci.min.css"
@@ -6,15 +5,15 @@
 
 # GameSpotlight
 
-## Brief Description
-GameSpotlight is a Flutter app created to make it easy to find free games in one place. Users can create an account and explore free computer/mobile games to download.
+## Descrição Breve
+O GameSpotlight é um aplicativo Flutter criado para facilitar a busca por jogos grátis em um só lugar, os usuários podem criar uma conta e explorar jogos de computador/celular gratuitos para baixar.
 
-## Demo 
+## Demonstração 
 
-### App Presentation
+### Apresentação do App
 https://github.com/Emanuel-DSC/GameSpotlight/assets/61395660/02b0cee5-1c9c-4cfb-90c0-7115fec35110
 
-### App Running
+### App Executando
 [![General badge](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/oKuldUYEEo0)
 <br>
 
@@ -45,35 +44,35 @@ https://github.com/Emanuel-DSC/GameSpotlight/assets/61395660/02b0cee5-1c9c-4cfb-
 </div>
 <br>
 
-## Features
-- User account creation and login
-- Exploration of free computer games
-- Game search by categories, alphabetical order, and recently released
-- Viewing game details including summary, system requirements, and screenshots
-- Adding games to a favorites list
+## Funcionalidades
+- Criação e login de contas de usuário
+- Exploração de jogos de computador gratuitos
+- Pesquisa de jogos por categorias, ordem alfabética e recém-lançados
+- Visualização de detalhes dos jogos, incluindo resumo, requerimentos de sistema e screenshots
+- Adição de jogos a uma lista de favoritos
 
-## How to Run the Project
-Follow these steps to run the project on your local machine:
+## Como Executar o Projeto
+Siga estas etapas para executar o projeto em sua máquina local:
 
-1. Clone the repository:
+1. Clone o repositório:
     ```sh
     git clone https://github.com/username/repo-name.git
     ```
-2. Navigate to the project directory:
+2. Navegue até o diretório do projeto:
     ```sh
     cd repo-name
     ```
-3. Install dependencies:
+3. Instale as dependências:
     ```sh
     flutter pub get
     ```
-4. Run the app:
+4. Execute o aplicativo:
     ```sh
     flutter run
     ```
 <br>
 
-## Folder Structure (MVC)
+## Estrutura de Pastas (MVC)
 
 <pre>
 lib/
@@ -87,28 +86,27 @@ lib/
     └── main.dart
 </pre>
 
-## Technologies Used
+## Tecnologias Utilizadas
 * Flutter
 * Dart
 * Firebase 
 
-## API 
+## APi 
 * [freetogame](https://www.freetogame.com)
 
-## Contributions
-Contributions are welcome! Feel free to fork the project and open a pull request.
+## Contribuições
+Contribuições são bem-vindas! Sinta-se à vontade para fazer um fork do projeto e abrir um pull request.
 
-Fork the project
-Create a branch for your feature (git checkout -b feature/fooBar)
-Commit your changes (git commit -m 'Add some fooBar')
-Push to the branch (git push origin feature/fooBar)
-Open a Pull Request
+Faça um Fork do projeto
+Crie uma branch para sua feature (git checkout -b feature/fooBar)
+Faça commit das suas alterações (git commit -m 'Add some fooBar')
+Faça um push para a branch (git push origin feature/fooBar)
+Abra um Pull Request
 <br>
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for more details.
+## Licença
+Este projeto está licenciado sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
 
-## Contact 
+## Contato 
 [![General badge](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:emanuelldsc@gmail.com)
 [![General badge](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/emanuel-da-silva-costa/)
-```
