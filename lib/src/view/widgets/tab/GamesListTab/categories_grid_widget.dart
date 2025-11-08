@@ -33,20 +33,23 @@ class CategoriesGridView extends StatelessWidget {
           String item = categoriesList[index][0];
           String cardCover = categoriesList[index][1];
           return GridCategoriesCards(
-              title: item,
-              imageUrl: cardCover,
-              onTap: () {
-                store.getGenres(item);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CategoryPage(
-                      title: item,
-                      store: store,
-                    ),
+            title: item,
+            imageUrl: cardCover,
+            onTap: () {
+              store.getGenres(item);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CategoryPage(
+                    title: item,
+                    store: store,
                   ),
-                );
-              });
+                ),
+              );
+            },
+            padding: 8,
+            heightSize: 0,
+          );
         },
       ),
     );

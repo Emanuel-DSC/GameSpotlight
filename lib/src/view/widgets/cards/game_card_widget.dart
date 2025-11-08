@@ -33,7 +33,6 @@ class GameCard extends StatelessWidget {
   //Helper function to combine the asynchronous tasks.
   Future<Color> _loadCardData(String imageUrl, BuildContext context) async {
     if (imageUrl.isEmpty) {
-      // Return a default color immediately if no image exists
       return Colors.red;
     }
 

@@ -69,7 +69,7 @@ class AllCategoriesPage extends StatelessWidget {
                             CategoryPage(title: name, store: store),
                       ),
                     );
-                  },
+                  }, padding: 8, heightSize: 8,
                 ),
               ),
             );

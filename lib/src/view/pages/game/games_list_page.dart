@@ -1,9 +1,7 @@
 import 'package:f2p_games/src/view/widgets/my_progress_indicador_widget.dart';
-import 'package:f2p_games/src/view/widgets/my_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../utils/colors.dart';
-import '../../../../utils/shimmer.dart';
 import '../../../controllers/repositories/game_repository_controller.dart';
 import '../../../controllers/repositories/games_store_controller.dart';
 import '../../../models/http/http_client.dart';
