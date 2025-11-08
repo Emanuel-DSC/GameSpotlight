@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,6 +7,7 @@ import '../../../../utils/colors.dart';
 import '../../../../utils/dominant_color_service.dart';
 import '../../../models/game_model.dart';
 import '../my_progress_indicador_widget.dart';
+import '../my_shimmer.dart';
 import '../text/my_text.widget.dart';
 
 class GameCard extends StatelessWidget {
@@ -30,20 +30,36 @@ class GameCard extends StatelessWidget {
     required this.heightSize,
   });
 
+  //Helper function to combine the asynchronous tasks.
+  Future<Color> _loadCardData(String imageUrl, BuildContext context) async {
+    if (imageUrl.isEmpty) {
+      // Return a default color immediately if no image exists
+      return Colors.red;
+    }
+
+    //Get the dominant color
+    final colorFuture = DominantColorService.getColor(imageUrl);
+    final precacheFuture = precacheImage(
+      CachedNetworkImageProvider(imageUrl),
+      context,
+    );
+    final results = await Future.wait([colorFuture, precacheFuture]);
+    return results[0] as Color;
+  }
+
   @override
   Widget build(BuildContext context) {
     final imageUrl = item.thumbnail ?? '';
 
     return FutureBuilder<Color>(
-      future: DominantColorService.getColor(imageUrl),
+      future: _loadCardData(imageUrl, context),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return const SizedBox(
-            height: 200,
-            child: Center(child: MyCircularProgressIndicator()),
-          );
+          // Shimmer runs until BOTH the color and image are ready
+          return MyShimmer(imageFlexValue: imageFlexValue, containerFlexValue: containerFlexValue, padding: padding, heightSize: heightSize);
         }
 
+        // Card when data is ready (color and precached image)
         final bgColor = snapshot.data!;
         final textColor = ColorUtils.getTextColor(bgColor);
 
@@ -69,7 +85,7 @@ class GameCard extends StatelessWidget {
                         imageUrl: imageUrl,
                         fit: fit,
                         placeholder: (_, __) => Container(
-                          color: kCardColor.withOpacity(.8),
+                          color: kCardColor.withValues(alpha: .8),
                           alignment: Alignment.center,
                           child: const MyCircularProgressIndicator(),
                         ),
@@ -85,9 +101,9 @@ class GameCard extends StatelessWidget {
                             BackdropFilter(
                               filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
                               child: Container(
-                                color: Colors.black.withOpacity(0.12),
+                                color: Colors.black.withValues(alpha: .12),
                                 foregroundDecoration: BoxDecoration(
-                                  color: bgColor.withOpacity(0.12),
+                                  color: bgColor.withValues(alpha: .12),
                                   backgroundBlendMode: BlendMode.softLight,
                                 ),
                               ),
@@ -109,7 +125,7 @@ class GameCard extends StatelessWidget {
                                   SizedBox(height: heightSize),
                                   MyText(
                                     googleFont: GoogleFonts.basic,
-                                    color: textColor.withOpacity(0.85),
+                                    color: textColor.withValues(alpha: .85),
                                     fontSize: 12.0,
                                     title: item.shortDescription ?? '',
                                     weight: FontWeight.w200,

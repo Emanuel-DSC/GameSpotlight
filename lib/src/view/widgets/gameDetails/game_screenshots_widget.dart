@@ -9,9 +9,9 @@ import '../text/my_text.widget.dart';
 
 class GameScreenshots extends StatelessWidget {
   const GameScreenshots({
-    Key? key,
+    super.key,
     required this.screenshots,
-  }) : super(key: key);
+  });
 
   final List<String> screenshots;
 
@@ -75,8 +75,8 @@ class GameScreenshots extends StatelessWidget {
                                       border: GradientBoxBorder(
                                         gradient: LinearGradient(colors: [
                                           Colors.grey.shade100
-                                              .withOpacity(0.10),
-                                          Colors.white.withOpacity(0.25)
+                                              .withValues(alpha: .10),
+                                          Colors.white.withValues(alpha: .25)
                                         ]),
                                         width: 1,
                                       ),

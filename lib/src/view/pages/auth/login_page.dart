@@ -8,7 +8,7 @@ import '../../widgets/text/my_text.widget.dart';
 
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class LoginPage extends StatelessWidget {
                     bottomRight: Radius.circular(20),
                   )
                 ),
-                child: Center(child: Image.asset(imagePath, 
+                child: Center(child: Image.asset(imagePath,
                 fit: BoxFit.cover,)),
               ),
             ),

@@ -26,7 +26,7 @@ class GameDetailPage extends StatefulWidget {
   final String? publisher;
 
   const GameDetailPage({
-    Key? key,
+    super.key,
     required this.title,
     required this.thumbnail,
     required this.releaseDate,
@@ -36,7 +36,7 @@ class GameDetailPage extends StatefulWidget {
     required this.gameUrl,
     required this.genre,
     required this.publisher,
-  }) : super(key: key);
+  });
 
   @override
   State<GameDetailPage> createState() => _GameDetailPageState();

@@ -11,8 +11,8 @@ import '../password_textfiled_widget.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<SignUpForm> createState() => SignUpFormState();

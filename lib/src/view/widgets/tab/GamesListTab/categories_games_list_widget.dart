@@ -9,10 +9,10 @@ import '../../cards/game_card_widget.dart';
 
 class CategoriesGamesList extends StatelessWidget {
   const CategoriesGamesList({
-    Key? key,
+    super.key,
     required this.store,
     required this.state,
-  }) : super(key: key);
+  });
 
   final GameStore store;
   final List<GameModel> state;

@@ -1,55 +1,88 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:ui';
+import 'package:f2p_games/src/view/widgets/my_progress_indicador_widget.dart';
 import 'package:flutter/material.dart';
-
-import '../my_progress_indicador_widget.dart';
-import '../text/text_blur_bg_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import '../text/my_text.widget.dart';
 
 class GridCategoriesCards extends StatelessWidget {
-  final VoidCallback onTap;
+  final String title;
   final String imageUrl;
-  final String item;
+  final VoidCallback onTap;
 
   const GridCategoriesCards({
-    Key? key,
-    required this.item,
-    required this.onTap,
+    super.key,
+    required this.title,
     required this.imageUrl,
-  }) : super(key: key);
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Stack(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
-              fit: BoxFit.cover,
-              placeholder: (context, url) => Container(
-                color: Colors.white.withOpacity(0.2),
-                alignment: Alignment.center,
-                child: const MyCircularProgressIndicator(),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(18),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.cover,
+                fadeInDuration: const Duration(milliseconds: 250),
+                memCacheWidth: 300,
+                placeholder: (_, __) => Container(
+                  color: Colors.black26,
+                  alignment: Alignment.center,
+                  child: const SizedBox(
+                    width: 35,
+                    height: 35,
+                    child: MyCircularProgressIndicator()
+                  ),
+                ),
+                errorWidget: (_, __, ___) => Container(
+                  color: Colors.black26,
+                  alignment: Alignment.center,
+                  child: const Icon(Icons.broken_image, color: Colors.white54),
+                ),
               ),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-              imageBuilder: (context, imageProvider) {
-                return Stack(
-                  children: [
-                    Positioned.fill(
-                      child: Image(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
+            ),
+
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(18),
+                  bottomRight: Radius.circular(18),
+                ),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                  child: Container(
+                    height: 55,
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: .1),
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(18),
+                        bottomRight: Radius.circular(18),
                       ),
                     ),
-                    // Blurred bg on text
-                    TextBlurredBg(item: item),
-                  ],
-                );
-              },
+                    child: Center(
+                      child: MyText(
+                        googleFont: GoogleFonts.poppins,
+                        color: Colors.white,
+                        fontSize: 14,
+                        title: title.toUpperCase(),
+                        weight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

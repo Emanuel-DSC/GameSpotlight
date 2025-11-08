@@ -13,11 +13,11 @@ class GameCardList extends StatelessWidget {
   final VoidCallback onTap;
   final BoxFit fit;
   const GameCardList({
-    Key? key,
+    super.key,
     required this.item,
     required this.onTap,
     required this.fit,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

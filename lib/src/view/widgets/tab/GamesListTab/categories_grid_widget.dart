@@ -33,10 +33,9 @@ class CategoriesGridView extends StatelessWidget {
           String item = categoriesList[index][0];
           String cardCover = categoriesList[index][1];
           return GridCategoriesCards(
-              item: item,
+              title: item,
               imageUrl: cardCover,
               onTap: () {
-                // pass genre name to getGenres
                 store.getGenres(item);
                 Navigator.push(
                   context,

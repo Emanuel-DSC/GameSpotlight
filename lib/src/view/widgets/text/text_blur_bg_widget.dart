@@ -32,7 +32,7 @@ class TextBlurredBg extends StatelessWidget {
                 color: Colors.transparent,
                 borderRadius: BorderRadius.circular(16),
                 border: GradientBoxBorder(
-                  gradient: LinearGradient(colors: [Colors.grey.shade100.withOpacity(0.10), Colors.white.withOpacity(0.25)]),
+                  gradient: LinearGradient(colors: [Colors.grey.shade100.withValues(alpha: .10), Colors.white.withValues(alpha: .25)]),
                   width: 1,
                 ),
               ),

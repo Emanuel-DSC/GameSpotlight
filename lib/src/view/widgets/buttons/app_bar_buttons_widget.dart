@@ -23,7 +23,7 @@ class AppBarButton extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: Colors.transparent,
-            border: Border.all(color: Colors.grey.withOpacity(0.1)),
+            border: Border.all(color: Colors.grey.withValues(alpha: .1)),
             borderRadius: BorderRadius.circular(12),
           ),
           child: IconButton(

@@ -12,8 +12,8 @@ import '../password_textfiled_widget.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<LoginForm> createState() => LoginFormState();

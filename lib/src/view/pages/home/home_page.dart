@@ -6,7 +6,7 @@ import '../game/games_list_page.dart';
 import '../setting/setting_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
     pc = PageController(initialPage: paginaAtual);
   }
 
-  setPaginaAtual(pagina) {
+  void setPaginaAtual(int pagina) {
     setState(() {
       paginaAtual = pagina;
     });

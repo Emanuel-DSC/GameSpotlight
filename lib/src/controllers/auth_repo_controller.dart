@@ -46,7 +46,7 @@ class AuthenticationRepositoryController with ChangeNotifier {
   }
 
   // logout user
-  Future<void> logout(context) async {
+  Future<void> logout(BuildContext context) async {
     await _auth.signOut();
     _firebaseUser = null;
     notifyListeners();
@@ -57,7 +57,7 @@ class AuthenticationRepositoryController with ChangeNotifier {
   }
 
   // sign user up method
-  void signUserUp(context) async {
+  void signUserUp(BuildContext context) async {
     // show loading circle
     showDialog(
       context: context,
@@ -135,7 +135,7 @@ class AuthenticationRepositoryController with ChangeNotifier {
   }
 
   // sign user in method
-  signUserIn(context) async {
+  Future<void> signUserIn(BuildContext context) async {
     // show loading circle
     showDialog(
       barrierDismissible: false, // Prevent dismissing by tapping outside
@@ -197,39 +197,115 @@ class AuthenticationRepositoryController with ChangeNotifier {
 
   // ****************** GOOGLE ******************* //
 
-  // Google sign in
-  signInWithGoogle(context) async {
-    // begin interactive sign in process
-    final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+Future<void> signInWithGoogle(BuildContext context) async {
+  try {
+    // 1) Ensure GoogleSignIn is initialized
+    final googleSignIn = GoogleSignIn.instance;
+    await googleSignIn.initialize();
 
-    // obtain auth details from request
-    final GoogleSignInAuthentication gAuth = await gUser!.authentication;
-
-    //create a new credential for user
-    final credential = GoogleAuthProvider.credential(
-      accessToken: gAuth.accessToken,
-      idToken: gAuth.idToken,
+    // 2) Authenticate the user (interactive)
+    // authenticate() throws on failure; it returns a GoogleSignInAccount
+    final GoogleSignInAccount googleAccount = await googleSignIn.authenticate(
+      scopeHint: ['email'],
     );
 
-    // create user in Users collection Firebase
-    var user = FirebaseAuth.instance.currentUser?.uid;
-    await FirebaseFirestore.instance
-        .collection('Users')
-        .doc(user)
-        .set({'Email': gUser.email.toString()});
+    // 3) Get the idToken from the account authentication (synchronous)
+    final GoogleSignInAuthentication gAuth = googleAccount.authentication;
+    final String? idToken = gAuth.idToken;
 
-    //sign in
-    return await FirebaseAuth.instance.signInWithCredential(credential).then(
-        (value) => Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (BuildContext context) => const HomePage()),
-      (Route<dynamic> route) => false,
-    ));
-  }
+    // 4) Get an access token for the required scopes using the authorizationClient
+    //    This may return null if the user hasn't granted it yet — then we request authorization.
+    final authClient = googleSignIn.authorizationClient;
+    GoogleSignInClientAuthorization? authorization =
+        await authClient.authorizationForScopes(['email']);
 
-  // google sign out
-  signOutWithGoogle() async {
-    if (await GoogleSignIn().isSignedIn()) {
-      GoogleSignIn().signOut();
+    authorization ??= await authClient.authorizeScopes(['email']);
+
+    final String accessToken = authorization.accessToken;
+
+
+    // 5) Create Firebase credential
+    final credential = GoogleAuthProvider.credential(
+      idToken: idToken,
+      accessToken: accessToken,
+    );
+
+    // 6) Sign in to Firebase
+    final userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    // 7) Optionally write user data to Firestore (merge so we don't overwrite)
+    final user = userCredential.user;
+    if (user != null) {
+      await FirebaseFirestore.instance.collection('Users').doc(user.uid).set({
+        'Email': googleAccount.email,
+        'Name': googleAccount.displayName,
+        'PhotoURL': googleAccount.photoUrl,
+      }, SetOptions(merge: true));
+    }
+
+    // 8) Navigate to home (replace the whole stack)
+    if (context.mounted) {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const HomePage()),
+        (route) => false,
+      );
+    }
+  } on GoogleSignInException catch (e) {
+    // handle known plugin errors (useful for debugging)
+    debugPrint('GoogleSignInException: code=${e.code} desc=${e.description} details=${e.details}');
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Google sign-in failed: ${e.description ?? e.code}')),
+      );
+    }
+  } catch (e) {
+    debugPrint('Google sign-in failed: $e');
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to sign in with Google: $e')),
+      );
     }
   }
+}
+
+  Future<void> signOutWithGoogle(BuildContext context) async {
+  try {
+    // 1) Get the GoogleSignIn singleton instance and ensure it's initialized
+    final googleSignIn = GoogleSignIn.instance;
+    await googleSignIn.initialize();
+
+    // 2) Sign out from Google
+    await googleSignIn.signOut();
+
+    // 3) Sign out from Firebase
+    await FirebaseAuth.instance.signOut();
+
+    // 4) Optionally clear any local caches or shared preferences if needed
+    // Example:
+    // final prefs = await SharedPreferences.getInstance();
+    // await prefs.clear();
+
+    // 5) Navigate back to your login screen (replace current navigation stack)
+    if (context.mounted) {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+        (route) => false,
+      );
+    }
+
+    // 6) (Optional) Show confirmation message
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Signed out successfully')),
+    );
+  } catch (e) {
+    debugPrint('Google sign-out failed: $e');
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to sign out: $e')),
+      );
+    }
+  }
+}
+
 }

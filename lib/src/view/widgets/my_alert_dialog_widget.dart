@@ -5,14 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 class MyAlertDialog extends StatelessWidget {
   String message;
   String message2;
-  VoidCallback onTap; 
+  VoidCallback onTap;
 
   MyAlertDialog({
-    Key? key,
+    super.key,
     required this.message,
     required this.onTap,
     required this.message2,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

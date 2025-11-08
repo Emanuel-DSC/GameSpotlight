@@ -7,10 +7,10 @@ import '../../../utils/colors.dart';
 
 class MyBottomNavBar extends StatelessWidget {
   const MyBottomNavBar({
-    Key? key,
+    super.key,
     required this.paginaAtual,
     required this.pc,
-  }) : super(key: key);
+  });
 
   final int paginaAtual;
   final PageController pc;

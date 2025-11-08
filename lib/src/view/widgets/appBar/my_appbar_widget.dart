@@ -18,7 +18,7 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String? sysReq;
   final bool isLiked;
   const MyAppBar({
-    Key? key,
+    super.key,
     required this.name,
     required this.id,
     required this.description,
@@ -29,7 +29,7 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
     required this.category,
     required this.sysReq,
     this.isLiked = false, // Set default value
-  }) : super(key: key);
+  });
 
   @override
   // ignore: library_private_types_in_public_api

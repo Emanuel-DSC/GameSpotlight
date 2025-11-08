@@ -16,10 +16,10 @@ class CategoryPage extends StatelessWidget {
   final GameStore store;
 
   const CategoryPage({
-    Key? key,
+    super.key,
     required this.title,
     required this.store,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

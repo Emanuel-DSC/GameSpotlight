@@ -7,7 +7,7 @@ import '../../widgets/auth/signup/sign_up_form.dart';
 import '../../widgets/text/my_text.widget.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,7 @@ import '../../widgets/auth/email_textfield_widget.dart';
 import '../../widgets/buttons/login_button_widget.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
-  const ForgetPasswordPage({Key? key}) : super(key: key);
+  const ForgetPasswordPage({super.key});
 
   @override
   State<ForgetPasswordPage> createState() => ForgetPasswordPageState();
@@ -23,7 +23,7 @@ class ForgetPasswordPageState extends State<ForgetPasswordPage> {
     super.dispose();
   }
 
-  callback(var animation) {
+  void callback(bool animation) {
     setState(() {
       playAnimation = animation;
     });

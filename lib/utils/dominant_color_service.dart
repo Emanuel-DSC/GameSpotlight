@@ -18,7 +18,7 @@ class DominantColorService {
 
       final color = palette.dominantColor?.color ?? Colors.grey[900]!;
 
-      final adjusted = color.withOpacity(.9);
+      final adjusted = color.withValues(alpha: .9);
       dominantColorCache[url] = adjusted;
       return adjusted;
     } catch (e) {
